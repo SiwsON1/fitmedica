@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitmedica - Propozycja: weryfikacja medyczna pod artykułem</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand-blue: #396eeb;
+  --brand-blue-dark: #2856c4;
+  --brand-orange: #f17800;
+  --text-primary: #1a1f36;
+  --text-secondary: #4a5568;
+  --text-muted: #8896a8;
+  --bg-subtle: #f7f9fc;
+  --border: #e8ecf2;
+  --radius: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: #eef1f6;
+  padding: 32px 16px;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  padding: 40px 48px;
+}
+
+@media (max-width: 600px) {
+  .container { padding: 24px 18px; }
+}
+
+/* Context note */
+.context-note {
+  background: var(--bg-subtle);
+  border-left: 3px solid var(--brand-blue);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 12px 16px;
+  margin-bottom: 28px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.context-note strong {
+  color: var(--text-primary);
+}
+
+/* FAQ Accordion */
+h2 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.faq-item:hover {
+  border-color: #d0d8e4;
+}
+
+.faq-question {
+  padding: 14px 44px 14px 18px;
+  font-weight: 500;
+  font-size: 14.5px;
+  color: var(--text-primary);
+  cursor: pointer;
+  position: relative;
+  background: #fff;
+  transition: background 0.15s;
+}
+
+.faq-question:hover { background: var(--bg-subtle); }
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--brand-blue);
+  font-weight: 300;
+  transition: transform 0.2s;
+}
+
+.faq-item.open .faq-question::after {
+  content: '-';
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 18px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 160px;
+  padding: 0 18px 14px;
+}
+
+/* ========================================
+   WERYFIKACJA MEDYCZNA
+   ======================================== */
+
+.medical-verification {
+  margin-top: 24px;
+  padding: 18px 22px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.medical-verification .doctor-photo {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid #fff;
+  box-shadow: 0 2px 8px rgba(57, 110, 235, 0.14);
+}
+
+.medical-verification .verification-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.medical-verification .verification-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--brand-blue);
+  font-weight: 500;
+}
+
+.medical-verification .verification-badge svg {
+  width: 11px;
+  height: 11px;
+  fill: var(--brand-blue);
+}
+
+.medical-verification .doctor-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.medical-verification .doctor-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.medical-verification .doctor-meta a {
+  color: var(--brand-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.medical-verification .doctor-meta a:hover {
+  color: var(--brand-orange);
+}
+
+/* ========================================
+   DOWIEDZ SIE WIECEJ
+   ======================================== */
+
+.related-articles {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.related-articles h3 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 560px) {
+  .related-grid { grid-template-columns: 1fr; gap: 10px; }
+}
+
+.related-card {
+  text-decoration: none;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.related-card:hover {
+  border-color: #c8d4e8;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+.related-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  display: block;
+}
+
+.related-card .card-title {
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.related-card:hover .card-title {
+  color: var(--brand-blue);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="context-note">
+    <strong>Propozycja:</strong> Nowy element "Zweryfikowano medycznie" pod artykułami na blogu Fitmedica. Pojawia się po FAQ, przed powiązanymi wpisami.
+  </div>
+
+  <!-- FAQ -->
+  <h2>Najczęściej zadawane pytania</h2>
+
+  <div class="faq-item open">
+    <div class="faq-question">Kolano biegacza - ile przerwy w treningach?</div>
+    <div class="faq-answer">Zwykle 2-6 tygodni, w zależności od stopnia zaawansowania. W tym czasie zalecana jest fizjoterapia i ćwiczenia wzmacniające mięśnie stabilizujące kolano.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Kolano biegacza - ile trwa leczenie?</div>
+    <div class="faq-answer">Pełny powrót do aktywności sportowej trwa od 4 do 12 tygodni przy prawidłowo prowadzonej rehabilitacji.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Maść na kolano biegacza - czy pomaga?</div>
+    <div class="faq-answer">Maści przeciwzapalne mogą łagodzić objawy, ale nie usuwają przyczyny. Najważniejsza jest fizjoterapia i odpowiednio dobrane ćwiczenia.</div>
+  </div>
+
+  <!-- WERYFIKACJA MEDYCZNA -->
+  <div class="medical-verification">
+    <img
+      src="https://www.fitmedica.pl/wp-content/uploads/2025/12/freepik-2026030612050414B8.jpeg"
+      alt="lek. Michał Saganek"
+      class="doctor-photo"
+    >
+    <div class="verification-content">
+      <div class="verification-badge">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+        Zweryfikowano medycznie
+      </div>
+      <div class="doctor-name">lek. Michał Saganek</div>
+      <div class="doctor-meta">Ortopedia sportowa &middot; Weryfikacja: I 2026 &middot; <a href="https://www.fitmedica.pl/zespol/">Nasz zespół</a></div>
+    </div>
+  </div>
+
+  <!-- DOWIEDZ SIE WIECEJ -->
+  <div class="related-articles">
+    <h3>Dowiedz się więcej</h3>
+    <div class="related-grid">
+      <a class="related-card" href="https://www.fitmedica.pl/blog/sezon-bez-kontuzji/">
+        <img src="https://www.fitmedica.pl/wp-content/uploads/2020/03/Sezon-bez-Kontuzji-przygotowanie-do-nart-630x408.jpg" alt="Sezon bez kontuzji">
+        <div class="card-title">Sezon bez kontuzji 2025/2026</div>
+      </a>
+      <a class="related-card" href="https://www.fitmedica.pl/blog/rehabilitacja-po-artroskopii-stawu-kolanowego/">
+        <img src="https://www.fitmedica.pl/wp-content/uploads/2022/07/Rehabilitacja-po-artroskopii-stawu-kolanowego-1000x438.jpg" alt="Rehabilitacja po artroskopii">
+        <div class="card-title">Rehabilitacja po artroskopii stawu kolanowego</div>
+      </a>
+      <a class="related-card" href="https://www.fitmedica.pl/blog/choroba-zwyrodnieniowa-stawow/">
+        <img src="https://www.fitmedica.pl/wp-content/uploads/2016/02/choroba-zwyrodnieniowa-stawów-1200x438.jpg" alt="Choroba zwyrodnieniowa stawów">
+        <div class="card-title">Choroba zwyrodnieniowa stawów</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+});
+</script>
+
+</body>
+</html>
