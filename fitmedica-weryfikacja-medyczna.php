@@ -535,41 +535,45 @@ add_filter('the_content', function ($content) {
 
     $post_id = get_the_ID();
 
+    // --- Zrodla (PRZED FAQ - zachowanie kolejnosci z istniejacych artykulow) ---
+    $sources = get_post_meta($post_id, '_fitmedica_sources', true);
+    if (is_array($sources) && !empty($sources)) {
+        $count = count($sources);
+        $src_html = '<div class="sources-container netim">';
+        $src_html .= '<div class="sources-header">';
+        $src_html .= '<span class="sources-label">Zrodla</span>';
+        $src_html .= '<span class="sources-count">' . $count . ' ' . ($count === 1 ? 'pozycja' : ($count < 5 ? 'pozycje' : 'pozycji')) . '</span>';
+        $src_html .= '</div>';
+        $src_html .= '<ol class="sources-list">';
+        foreach ($sources as $src) {
+            $src_html .= '<li class="source-item"><span class="source-content">';
+            $parts = [];
+            if (!empty($src['authors'])) $parts[] = '<span class="source-authors">' . esc_html($src['authors']) . '</span>';
+            if (!empty($src['title']))   $parts[] = '<span class="source-title">' . esc_html($src['title']) . '</span>';
+            if (!empty($src['publisher'])) $parts[] = '<span class="source-publisher">' . esc_html($src['publisher']) . '</span>';
+            if (!empty($src['note']))    $parts[] = '<span class="source-note">' . esc_html($src['note']) . '</span>';
+            $src_html .= implode(', ', $parts);
+            $src_html .= '</span></li>';
+        }
+        $src_html .= '</ol></div>';
+        $content .= $src_html;
+    }
+
     // --- FAQ ---
     $faq = get_post_meta($post_id, '_fitmedica_faq', true);
     if (is_array($faq) && !empty($faq)) {
         $faq_html = '<div class="faq-container netim">';
-        $faq_html .= '<h2 class="faq-heading">Najczesciej zadawane pytania</h2>';
-        $faq_html .= '<p class="faq-subheading">Odpowiedzi na pytania naszych pacjentow</p>';
         $faq_html .= '<div class="faq-accordion">';
         foreach ($faq as $item) {
             $q = esc_html($item['question']);
             $a = wp_kses_post($item['answer']);
             $faq_html .= '<div class="faq-item">';
-            $faq_html .= '<button class="faq-question" aria-expanded="false">' . $q . '</button>';
-            $faq_html .= '<div class="faq-answer" hidden><div>' . $a . '</div></div>';
+            $faq_html .= '<button class="faq-question">' . $q . '</button>';
+            $faq_html .= '<div class="faq-answer"><div><p>' . $a . '</p></div></div>';
             $faq_html .= '</div>';
         }
         $faq_html .= '</div></div>';
         $content .= $faq_html;
-    }
-
-    // --- Zrodla ---
-    $sources = get_post_meta($post_id, '_fitmedica_sources', true);
-    if (is_array($sources) && !empty($sources)) {
-        $src_html = '<div class="sources-container netim">';
-        $src_html .= '<h3 class="sources-heading">Zrodla</h3>';
-        $src_html .= '<ol class="sources-list">';
-        foreach ($sources as $src) {
-            $parts = [];
-            if (!empty($src['authors'])) $parts[] = esc_html($src['authors']);
-            if (!empty($src['title']))   $parts[] = '<em>' . esc_html($src['title']) . '</em>';
-            if (!empty($src['publisher'])) $parts[] = esc_html($src['publisher']);
-            if (!empty($src['note']))    $parts[] = esc_html($src['note']);
-            $src_html .= '<li>' . implode('. ', $parts) . '.</li>';
-        }
-        $src_html .= '</ol></div>';
-        $content .= $src_html;
     }
 
     // --- Badge lekarza ---
@@ -624,24 +628,34 @@ add_action('wp_footer', function () {
     if (!is_singular('post')) return;
     ?>
 <style>
-/* --- FAQ --- */
-.faq-container.netim{margin:40px 0 24px;padding:0}
-.faq-container.netim .faq-heading{font-size:22px;font-weight:700;color:#1a1f36;margin:0 0 4px}
-.faq-container.netim .faq-subheading{font-size:14px;color:#64748b;margin:0 0 16px}
-.faq-container.netim .faq-accordion{display:flex;flex-direction:column;gap:6px}
-.faq-container.netim .faq-item{border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;background:#fff}
-.faq-container.netim .faq-question{display:block;width:100%;text-align:left;padding:14px 48px 14px 20px;font-size:14.5px;font-weight:600;color:#1a1f36;background:none;border:none;cursor:pointer;position:relative;line-height:1.4;font-family:inherit}
-.faq-container.netim .faq-question::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:400;color:#64748b;background:#f1f5f9;border-radius:50%;transition:transform .2s}
-.faq-container.netim .faq-question[aria-expanded="true"]::after{content:'-';transform:translateY(-50%) rotate(0deg)}
-.faq-container.netim .faq-question:hover{background:#f8fafc}
-.faq-container.netim .faq-answer{overflow:hidden;transition:max-height .3s ease}
-.faq-container.netim .faq-answer>div{padding:0 20px 16px;font-size:14px;line-height:1.65;color:#4a5568}
 /* --- Zrodla --- */
-.sources-container.netim{margin:24px 0;padding:20px 24px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
-.sources-container.netim .sources-heading{font-size:16px;font-weight:700;color:#1a1f36;margin:0 0 12px}
-.sources-container.netim .sources-list{margin:0;padding:0 0 0 20px;font-size:13px;line-height:1.7;color:#4a5568}
-.sources-container.netim .sources-list li{margin-bottom:6px}
-.sources-container.netim .sources-list em{font-style:italic}
+.sources-container.netim{margin:32px 0;padding:20px 24px;background:#f8fafc;border-radius:10px;border-left:3px solid #2563eb}
+.sources-container.netim .sources-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #e2e8f0}
+.sources-container.netim .sources-label{font-size:15px;font-weight:700;color:#1e3a8a;letter-spacing:.04em;text-transform:uppercase}
+.sources-container.netim .sources-count{font-size:12px;color:#64748b;font-weight:500}
+.sources-container.netim .sources-list{list-style:none;counter-reset:source-counter;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.sources-container.netim .source-item{counter-increment:source-counter;position:relative;padding:10px 14px 10px 42px;background:#fff;border-radius:6px;border:1px solid #e2e8f0;font-size:13.5px;line-height:1.5;transition:border-color .2s ease}
+.sources-container.netim .source-item:hover{border-color:#93c5fd}
+.sources-container.netim .source-item::before{content:counter(source-counter);position:absolute;left:10px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#2563eb;color:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+.sources-container.netim .source-content{color:#334155}
+.sources-container.netim .source-authors{font-weight:700;color:#0f172a}
+.sources-container.netim .source-title{font-style:italic;color:#1e40af}
+.sources-container.netim .source-publisher{color:#64748b}
+.sources-container.netim .source-note{color:#64748b;font-size:12.5px}
+/* --- FAQ --- */
+.faq-container.netim{margin:40px 0}
+.faq-container.netim .faq-accordion{display:flex;flex-direction:column;gap:12px}
+.faq-container.netim .faq-item{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;transition:all .25s ease}
+.faq-container.netim .faq-item:hover{border-color:#93c5fd;box-shadow:0 4px 16px rgba(37,99,235,.06)}
+.faq-container.netim .faq-question{width:100%;text-align:left;padding:20px 56px 20px 24px;background:transparent;border:none;font-size:16px;font-weight:600;color:#0f172a;cursor:pointer;position:relative;line-height:1.5;transition:background .2s ease;font-family:inherit}
+.faq-container.netim .faq-question:hover{background:#f8fafc}
+.faq-container.netim .faq-question::after{content:'+';position:absolute;right:20px;top:50%;transform:translateY(-50%);width:28px;height:28px;background:#2563eb;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:400;line-height:1;transition:transform .3s ease,background .2s ease}
+.faq-container.netim .faq-question.active::after{content:'\2212';transform:translateY(-50%) rotate(180deg);background:#1e3a8a}
+.faq-container.netim .faq-question.active{background-color:#ff6b35;color:#fff}
+.faq-container.netim .faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-container.netim .faq-answer.active{max-height:1000px}
+.faq-container.netim .faq-answer>div{padding:0 24px 22px;border-top:1px solid #f1f5f9;padding-top:18px}
+.faq-container.netim .faq-answer p{margin:0;font-size:15px;line-height:1.7;color:#475569}
 /* --- Weryfikacja medyczna --- */
 .medical-verification{margin:32px 0 0;padding:26px 30px;background:linear-gradient(135deg,#f7f9fc 0%,#eef3fb 100%);border-radius:12px;border:1px solid #dce4f0;display:flex;align-items:center;gap:22px;box-shadow:0 2px 12px rgba(57,110,235,.06)}
 .medical-verification .mv-photo{width:96px;height:96px;min-width:96px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 3px 12px rgba(57,110,235,.15)}
@@ -653,13 +667,16 @@ a.mv-name{font-family:'Raleway',sans-serif;font-size:18px;font-weight:700;color:
 a.mv-name:hover{color:#396eeb}
 .medical-verification .mv-spec{font-size:13.5px;color:#64748b;font-weight:500}
 .medical-verification .mv-bio{font-size:13.5px;color:#4a5568;line-height:1.55;margin-top:4px}
+@media(max-width:640px){
+    .sources-container.netim{padding:16px 18px}
+    .sources-container.netim .source-item{padding:10px 12px 10px 38px;font-size:13px}
+    .faq-container.netim .faq-question{padding:16px 48px 16px 18px;font-size:15px}
+    .faq-container.netim .faq-answer>div{padding:16px 18px 18px}
+}
 @media(max-width:480px){
     .medical-verification{flex-direction:column;text-align:center;gap:14px;padding:22px}
     .medical-verification .mv-photo{width:80px;height:80px;min-width:80px}
     .medical-verification .mv-badge{margin:0 auto 4px}
-    .faq-container.netim .faq-question{padding:12px 40px 12px 14px;font-size:13.5px}
-    .faq-container.netim .faq-question::after{right:12px;width:20px;height:20px;font-size:14px}
-    .sources-container.netim{padding:16px 18px}
 }
 </style>
     <?php
@@ -678,14 +695,9 @@ add_action('wp_footer', function () {
 (function(){
     document.querySelectorAll('.faq-container.netim .faq-question').forEach(function(btn){
         btn.addEventListener('click', function(){
-            var expanded = this.getAttribute('aria-expanded') === 'true';
-            this.setAttribute('aria-expanded', !expanded);
-            var answer = this.nextElementSibling;
-            if(expanded){
-                answer.hidden = true;
-            } else {
-                answer.hidden = false;
-            }
+            var isActive = this.classList.contains('active');
+            this.classList.toggle('active');
+            this.nextElementSibling.classList.toggle('active');
         });
     });
 })();
