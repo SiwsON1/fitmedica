@@ -694,6 +694,71 @@ add_action('wp_footer', function () {
 });
 
 /* -----------------------------------------------
+   REST API - zapis FAQ i zrodel programowo
+   ----------------------------------------------- */
+
+add_action('rest_api_init', function () {
+    register_rest_route('fitmedica/v1', '/update-meta/(?P<id>\d+)', [
+        'methods'  => 'POST',
+        'callback' => 'fitmedica_rest_update_meta',
+        'permission_callback' => function () {
+            return current_user_can('edit_posts');
+        },
+    ]);
+});
+
+function fitmedica_rest_update_meta($request) {
+    $post_id = (int) $request['id'];
+    if (!get_post($post_id)) {
+        return new WP_Error('not_found', 'Post not found', ['status' => 404]);
+    }
+
+    $result = [];
+
+    if (isset($request['faq'])) {
+        $faq = [];
+        foreach ($request['faq'] as $item) {
+            $q = sanitize_text_field($item['question'] ?? '');
+            $a = wp_kses_post($item['answer'] ?? '');
+            if ($q && $a) {
+                $faq[] = ['question' => $q, 'answer' => $a];
+            }
+        }
+        update_post_meta($post_id, '_fitmedica_faq', $faq);
+        $result['faq_count'] = count($faq);
+    }
+
+    if (isset($request['sources'])) {
+        $sources = [];
+        foreach ($request['sources'] as $item) {
+            $title = sanitize_text_field($item['title'] ?? '');
+            if ($title) {
+                $sources[] = [
+                    'authors'   => sanitize_text_field($item['authors'] ?? ''),
+                    'title'     => $title,
+                    'publisher' => sanitize_text_field($item['publisher'] ?? ''),
+                    'note'      => sanitize_text_field($item['note'] ?? ''),
+                ];
+            }
+        }
+        update_post_meta($post_id, '_fitmedica_sources', $sources);
+        $result['sources_count'] = count($sources);
+    }
+
+    if (isset($request['reviewer'])) {
+        update_post_meta($post_id, '_medical_reviewer', sanitize_text_field($request['reviewer']));
+        $result['reviewer'] = $request['reviewer'];
+    }
+
+    if (isset($request['review_date'])) {
+        update_post_meta($post_id, '_medical_review_date', sanitize_text_field($request['review_date']));
+        $result['review_date'] = $request['review_date'];
+    }
+
+    return ['success' => true, 'post_id' => $post_id] + $result;
+}
+
+/* -----------------------------------------------
    Schema.org - MedicalWebPage + FAQPage
    ----------------------------------------------- */
 
