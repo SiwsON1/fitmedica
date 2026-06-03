@@ -73,6 +73,8 @@ add_filter(
 );
 
 // Ostatni okruszek breadcrumb (Breadcrumb NavXT) - zeby szedl za nowym H1.
+// WAZNE: ruszamy WYLACZNIE okruszek biezacego wpisu. Okruszek 'home' i 'Oferta'
+// maja inne (lub puste) $id - bez fallbacku do queried_object, zeby ich NIE nadpisac.
 add_filter(
 	'bcn_breadcrumb_title',
 	function ($title, $type, $id) {
@@ -80,13 +82,11 @@ add_filter(
 			return $title;
 		}
 
-		$post_id = $id ? (int) $id : get_queried_object_id();
-
-		if ($post_id !== get_queried_object_id()) {
+		if (empty($id) || (int) $id !== get_queried_object_id()) {
 			return $title;
 		}
 
-		$override = fitmedica_get_oferta_h1_override($post_id);
+		$override = fitmedica_get_oferta_h1_override((int) $id);
 
 		return null !== $override ? $override : $title;
 	},
