@@ -37,6 +37,11 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 | niedoczynnosc-tarczycy | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 | co-trzeba-wiedziec-o-cukrzycy-przyczyny-objawy-i-leczenie | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 | czym-jest-depresja-jak-ja-leczyc | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| choroba-niedokrwienna-serca | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| niewydolnosc-serca-przyczyny-objawy-leczenie | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| zaburzenia-rytmu-serca-arytmia | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| miazdzyca-naczyn-krwionosnych | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| nadczynnosc-tarczycy | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 
 ### Maja FAQ wklejony w tresc (Elementor HTML widget) - NIE nasz plugin
 Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna schema FAQPage. NIE dodawac pluginem (byl duplikat 2026-06-05, usuniety przez delete_post_meta). Do ewentualnej migracji do pluginu trzeba najpierw usunac widget z tresci.
