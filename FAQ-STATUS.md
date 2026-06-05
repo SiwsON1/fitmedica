@@ -18,6 +18,11 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 | zapalenie-rozciegna-podeszwowego-stopy-przyczyny-objawy-i-leczenie | nie | nie | Maciej Langner (dodal Marcin) | PROD |
 | stenoza-kanalu-kregowego-przyczyny-objawy-i-leczenie | nie | nie | Maciej Langner (dodal Marcin) | PROD |
 | skrecenie-stawu-skokowego-definicja-objawy-leczenie | tak (6) | tak (3) | brak | PROD (2026-06-05) |
+| chondromalacja-rzepki-kolana-leczenie-przyczyny-objawy | tak (6) | tak (3) | brak | PROD (2026-06-05) |
+| lakotka-lekotka-czyli-najczestsze-uszkodzenia-powodujace-bol-kolana | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| korzonki-co-to-jest-i-jak-skutecznie-leczyc-bol-korzeni-nerwowych | tak (6) | tak (3) | brak | PROD (2026-06-05) |
+| dyskopatia-diagnoza-i-leczenie | tak (6) | tak (3) | brak | PROD (2026-06-05) |
+| palec-zatrzaskujacy-czym-jest-i-dlaczego-dochodzi-do-blokowania-palca | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 
 ### Maja FAQ wklejony w tresc (Elementor HTML widget) - NIE nasz plugin
 Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna schema FAQPage. NIE dodawac pluginem (byl duplikat 2026-06-05, usuniety przez delete_post_meta). Do ewentualnej migracji do pluginu trzeba najpierw usunac widget z tresci.
@@ -28,6 +33,8 @@ Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna
 - lokiec-tenisisty-przyczyny-objawy-profilaktyka-i-mozliwosci-leczenia (FAQ 6 + schema + zrodla w body)
 - czym-jest-lokiec-golfisty-i-jak-go-leczyc (schema FAQPage obecna)
 - zespol-zamrozonego-barku (schema FAQPage obecna)
+- dna-moczanowa (faq-container + schema w body)
+- reumatoidalne-zapalenie-stawow (faq-container + schema w body)
 
 ## Zrodla - zasada
 Kazde zrodlo naukowe zweryfikowane (PubMed/PMID/DOI) przed wpisaniem. Zero zmyslonych cytowan.
