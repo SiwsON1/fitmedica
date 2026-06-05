@@ -33,6 +33,10 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 | choroba-scheuermanna-objawy-i-leczenie-kregoslupa | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 | osteotomia-na-czym-polega-i-co-warto-wiedziec-przed-zabiegiem | tak (6) | tak (1) | brak | PROD (2026-06-05) |
 | bol-glowy-a-schorzenia-stawu-skroniowo-zuchwowego | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| nadcisnienie-tetnicze-2 | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| niedoczynnosc-tarczycy | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| co-trzeba-wiedziec-o-cukrzycy-przyczyny-objawy-i-leczenie | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| czym-jest-depresja-jak-ja-leczyc | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 
 ### Maja FAQ wklejony w tresc (Elementor HTML widget) - NIE nasz plugin
 Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna schema FAQPage. NIE dodawac pluginem (byl duplikat 2026-06-05, usuniety przez delete_post_meta). Do ewentualnej migracji do pluginu trzeba najpierw usunac widget z tresci.
@@ -52,6 +56,7 @@ Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna
 - zlamanie-kosci-srodstopia-definicja-objawy-leczenie (faq + schema w body)
 - torbiel-nad-kolanem-jak-powstaje-i-kiedy-udac-sie-do-lekarza (faq + schema w body)
 - rekonstrukcja-wiezadla-krzyzowego-co-trzeba-wiedziec (faq + schema w body)
+- jak-wyglada-czerniak-... (ma FAQ jako prozę w body, bez naszego markup/schemy - do konwersji recznie)
 
 ## Zrodla - zasada
 Kazde zrodlo naukowe zweryfikowane (PubMed/PMID/DOI) przed wpisaniem. Zero zmyslonych cytowan.
