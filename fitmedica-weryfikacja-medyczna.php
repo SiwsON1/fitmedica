@@ -1003,6 +1003,205 @@ add_action('init', function () {
     update_option('fitmedica_faq_setup_v6', true);
 });
 
+/* -----------------------------------------------
+   AUTO-SETUP FAQ + ZRODLA - partia v7
+   (nadcisnienie, niedoczynnosc tarczycy, cukrzyca,
+   depresja). Bez weryfikatora. Uruchamia sie raz.
+   ----------------------------------------------- */
+
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v7')) return;
+
+    $articles = [
+        'nadcisnienie-tetnicze-2' => [
+            'faq' => [
+                [
+                    'question' => 'Kiedy mówimy o nadciśnieniu tętniczym?',
+                    'answer'   => 'O nadciśnieniu mówimy, gdy ciśnienie krwi utrzymuje się na poziomie co najmniej 140 mmHg dla wartości skurczowej lub 90 mmHg dla rozkurczowej, potwierdzonym w kilku pomiarach. Jednorazowo podwyższony wynik, na przykład po stresie czy wysiłku, nie wystarcza do rozpoznania. Dlatego diagnozę stawia się na podstawie powtarzanych pomiarów.',
+                ],
+                [
+                    'question' => 'Jakie są objawy nadciśnienia?',
+                    'answer'   => 'Nadciśnienie przez długi czas bywa bezobjawowe, dlatego nazywa się je cichym zabójcą. Gdy objawy się pojawiają, są to najczęściej bóle i zawroty głowy, kołatanie serca, duszność, a czasem krwawienia z nosa. Brak dolegliwości nie oznacza, że choroby nie ma, stąd znaczenie regularnych pomiarów.',
+                ],
+                [
+                    'question' => 'Jak prawidłowo zmierzyć ciśnienie?',
+                    'answer'   => 'Ciśnienie mierzy się w spoczynku, po kilku minutach odpoczynku, na podpartym ramieniu na wysokości serca, bez rozmowy w trakcie pomiaru. Warto wykonać kilka pomiarów w różne dni i pory, a w razie wątpliwości lekarz zleca całodobowe monitorowanie (Holter ciśnieniowy). Pojedynczy pomiar w gabinecie bywa zawyżony.',
+                ],
+                [
+                    'question' => 'Czym grozi nieleczone nadciśnienie?',
+                    'answer'   => 'Długotrwale podwyższone ciśnienie uszkadza naczynia i narządy, zwiększając ryzyko zawału serca, udaru mózgu, niewydolności serca i nerek oraz pogorszenia wzroku. Powikłania rozwijają się latami, często bez wyraźnych objawów. Dlatego leczenie ma sens nawet wtedy, gdy pacjent czuje się dobrze.',
+                ],
+                [
+                    'question' => 'Jak leczy się nadciśnienie?',
+                    'answer'   => 'Podstawą jest zmiana stylu życia: ograniczenie soli, redukcja masy ciała, aktywność fizyczna, rzucenie palenia i ograniczenie alkoholu oraz dieta bogata w warzywa i owoce. Gdy to nie wystarcza, lekarz dobiera leki (między innymi inhibitory ACE, blokery kanału wapniowego, leki moczopędne czy beta-blokery). Leczenie zwykle jest długotrwałe.',
+                ],
+                [
+                    'question' => 'Czy leki na nadciśnienie bierze się do końca życia?',
+                    'answer'   => 'U większości pacjentów leczenie jest przewlekłe, bo leki kontrolują ciśnienie, ale nie usuwają przyczyny. Nie należy odstawiać ich samodzielnie po uzyskaniu prawidłowych wartości, bo ciśnienie zwykle wraca. U części osób zdrowy styl życia pozwala zmniejszyć dawki, ale o każdej zmianie decyduje lekarz.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Mancia G., Kreutz R., Brunström M. i wsp.',
+                    'title'     => '2023 ESH Guidelines for the management of arterial hypertension',
+                    'publisher' => 'Journal of Hypertension',
+                    'note'      => '2023; 41(12): 1874-2071',
+                ],
+                [
+                    'authors'   => 'World Health Organization',
+                    'title'     => 'Hypertension',
+                    'publisher' => 'WHO',
+                    'note'      => 'Materiał informacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'niedoczynnosc-tarczycy' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest niedoczynność tarczycy?',
+                    'answer'   => 'To stan, w którym tarczyca produkuje zbyt mało hormonów (T3 i T4) potrzebnych do prawidłowej pracy organizmu. Spowalnia to wiele procesów w ciele, od metabolizmu po pracę serca. Najczęstszą przyczyną jest autoimmunologiczne zapalenie tarczycy, czyli choroba Hashimoto.',
+                ],
+                [
+                    'question' => 'Jakie są objawy niedoczynności tarczycy?',
+                    'answer'   => 'Typowe są przewlekłe zmęczenie i senność, przyrost masy ciała mimo niezmienionej diety, marznięcie, sucha skóra, wypadanie włosów, zaparcia oraz obniżony nastrój i problemy z pamięcią. U kobiet bywają zaburzenia miesiączkowania. Objawy często narastają powoli i bywają mylone ze zmęczeniem czy stresem.',
+                ],
+                [
+                    'question' => 'Jakie badania wykrywają niedoczynność tarczycy?',
+                    'answer'   => 'Podstawą jest oznaczenie stężenia TSH, zwykle uzupełnione o wolną tyroksynę (FT4). Przy podejrzeniu Hashimoto bada się też przeciwciała przeciwtarczycowe (anty-TPO). Wyniki interpretuje lekarz w odniesieniu do objawów, bo same liczby nie zawsze przekładają się na dolegliwości.',
+                ],
+                [
+                    'question' => 'Jak leczy się niedoczynność tarczycy?',
+                    'answer'   => 'Leczenie polega na uzupełnianiu brakującego hormonu, czyli regularnym przyjmowaniu lewotyroksyny w dawce dobranej przez lekarza. Lek przyjmuje się zwykle rano, na czczo. Dawkę ustala się i koryguje na podstawie kontrolnych badań TSH, dlatego ważne są okresowe wizyty.',
+                ],
+                [
+                    'question' => 'Czy niedoczynność tarczycy leczy się do końca życia?',
+                    'answer'   => 'W większości przypadków, zwłaszcza przy chorobie Hashimoto, leczenie jest stałe, bo tarczyca trwale produkuje za mało hormonów. Dobrze prowadzona terapia pozwala jednak normalnie funkcjonować i cofa objawy. Nie wolno odstawiać leku na własną rękę po poprawie samopoczucia.',
+                ],
+                [
+                    'question' => 'Czym grozi nieleczona niedoczynność tarczycy?',
+                    'answer'   => 'Nieleczona lub źle wyrównana niedoczynność może prowadzić do powiększenia tarczycy (wola), zaburzeń pracy serca, podwyższonego cholesterolu, problemów z płodnością, a w ciąży do powikłań u dziecka. Dlatego objawów nie warto bagatelizować i lepiej je zdiagnozować.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Chaker L., Bianco A.C., Jonklaas J., Peeters R.P.',
+                    'title'     => 'Hypothyroidism',
+                    'publisher' => 'The Lancet',
+                    'note'      => '2017; 390(10101): 1550-1562',
+                ],
+                [
+                    'authors'   => 'American Thyroid Association',
+                    'title'     => 'Hypothyroidism (Underactive Thyroid)',
+                    'publisher' => 'ATA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'co-trzeba-wiedziec-o-cukrzycy-przyczyny-objawy-i-leczenie' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest cukrzyca?',
+                    'answer'   => 'To grupa chorób metabolicznych, w których we krwi utrzymuje się zbyt wysoki poziom glukozy z powodu zaburzeń wydzielania lub działania insuliny. Insulina pozwala komórkom wykorzystywać glukozę jako paliwo, a jej niedobór lub nieskuteczność prowadzi do hiperglikemii. Nieleczona, z czasem uszkadza naczynia i narządy.',
+                ],
+                [
+                    'question' => 'Czym różni się cukrzyca typu 1 od typu 2?',
+                    'answer'   => 'Cukrzyca typu 1 to choroba autoimmunologiczna, w której organizm niszczy komórki trzustki produkujące insulinę, dlatego od początku konieczne jest jej podawanie. Typ 2, stanowiący większość przypadków, rozwija się stopniowo, najczęściej na tle nadwagi i stylu życia, gdy komórki przestają prawidłowo reagować na insulinę (insulinooporność).',
+                ],
+                [
+                    'question' => 'Jakie są objawy cukrzycy?',
+                    'answer'   => 'Typowe są wzmożone pragnienie i częste oddawanie moczu, zmęczenie, senność po posiłkach, a w bardziej zaawansowanej chorobie gorsze gojenie się ran, nawracające infekcje, mrowienie kończyn i zaburzenia wzroku. W typie 2 objawy bywają długo niezauważalne. U dzieci z typem 1 narastają szybko, w ciągu tygodni.',
+                ],
+                [
+                    'question' => 'Jak rozpoznaje się cukrzycę?',
+                    'answer'   => 'Podstawą są badania poziomu glukozy we krwi, w tym pomiar na czczo oraz doustny test obciążenia glukozą (krzywa cukrowa). Pomocne jest też oznaczenie hemoglobiny glikowanej (HbA1c), która odzwierciedla średni poziom cukru z ostatnich tygodni. Rozpoznanie potwierdza lekarz, zwykle po powtórzeniu nieprawidłowego wyniku.',
+                ],
+                [
+                    'question' => 'Jak leczy się cukrzycę typu 2?',
+                    'answer'   => 'Podstawą jest zmiana stylu życia: zdrowa dieta, redukcja masy ciała i regularna aktywność fizyczna, które poprawiają wrażliwość na insulinę. Gdy to nie wystarcza, lekarz włącza leki przeciwcukrzycowe, a w części przypadków insulinę. Leczenie dobiera się indywidualnie i monitoruje badaniami.',
+                ],
+                [
+                    'question' => 'Czy cukrzycy typu 2 można zapobiec?',
+                    'answer'   => 'Ryzyko można znacznie zmniejszyć, bo typ 2 silnie wiąże się ze stylem życia. Najwięcej daje utrzymanie prawidłowej masy ciała, regularny ruch, ograniczenie cukrów prostych i przetworzonej żywności oraz kontrola czynników ryzyka. Osoby z nadwagą i obciążeniem rodzinnym powinny okresowo sprawdzać poziom glukozy.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'American Diabetes Association',
+                    'title'     => 'Standards of Care in Diabetes - 2024',
+                    'publisher' => 'Diabetes Care',
+                    'note'      => '2024; 47(Suppl 1)',
+                ],
+                [
+                    'authors'   => 'World Health Organization',
+                    'title'     => 'Diabetes',
+                    'publisher' => 'WHO',
+                    'note'      => 'Materiał informacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'czym-jest-depresja-jak-ja-leczyc' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest depresja?',
+                    'answer'   => 'To choroba, a nie chwilowe gorsze samopoczucie ani oznaka słabości. Charakteryzuje się utrzymującym się obniżeniem nastroju, utratą zainteresowań i radości oraz spadkiem energii, które trwają zwykle co najmniej dwa tygodnie i utrudniają codzienne funkcjonowanie. Wymaga leczenia, podobnie jak inne choroby.',
+                ],
+                [
+                    'question' => 'Jakie są objawy depresji?',
+                    'answer'   => 'Poza obniżonym nastrojem typowe są utrata zainteresowań i przyjemności, zaburzenia snu (bezsenność lub nadmierna senność), zmęczenie, problemy z koncentracją, obniżone poczucie własnej wartości oraz poczucie bezsensu. Mogą pojawić się też dolegliwości fizyczne, na przykład bóle, oraz myśli o śmierci lub samobójstwie.',
+                ],
+                [
+                    'question' => 'Co wywołuje depresję?',
+                    'answer'   => 'Depresja zwykle nie ma jednej przyczyny. Składają się na nią czynniki biologiczne i genetyczne, przewlekły stres, trudne wydarzenia życiowe i trauma, a także choroby współistniejące czy zaburzenia hormonalne. U różnych osób przeważają różne czynniki, dlatego leczenie dobiera się indywidualnie.',
+                ],
+                [
+                    'question' => 'Jak rozpoznaje się depresję?',
+                    'answer'   => 'Diagnozę stawia lekarz, najczęściej psychiatra, na podstawie rozmowy i oceny objawów oraz ich czasu trwania. Pomocne bywają kwestionariusze, na przykład PHQ-9 czy skala Becka, ale służą one wsparciu oceny, a nie samodzielnemu rozpoznawaniu. Warto też wykluczyć przyczyny somatyczne, na przykład chorobę tarczycy.',
+                ],
+                [
+                    'question' => 'Jak leczy się depresję?',
+                    'answer'   => 'Skuteczne jest połączenie psychoterapii i, w razie potrzeby, farmakoterapii. Najczęściej stosuje się leki z grupy SSRI i SNRI, dobierane przez lekarza, których efekt pojawia się zwykle po kilku tygodniach. Psychoterapia pomaga zrozumieć i zmienić wzorce myślenia oraz radzić sobie z trudnościami. Leczenie dobiera się do nasilenia objawów.',
+                ],
+                [
+                    'question' => 'Kiedy pilnie szukać pomocy w depresji?',
+                    'answer'   => 'Natychmiastowej pomocy wymagają myśli samobójcze lub poczucie, że życie traci sens. W takiej sytuacji nie należy zostawać samemu i warto skontaktować się z lekarzem, zgłosić na ostry dyżur psychiatryczny lub zadzwonić na całodobowy telefon zaufania. W Polsce działa bezpłatne Centrum Wsparcia pod numerem 116 123. Po pomoc warto sięgnąć też, gdy objawy utrzymują się ponad dwa tygodnie.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Malhi G.S., Mann J.J.',
+                    'title'     => 'Depression',
+                    'publisher' => 'The Lancet',
+                    'note'      => '2018; 392(10161): 2299-2312',
+                ],
+                [
+                    'authors'   => 'World Health Organization',
+                    'title'     => 'Depressive disorder (depression)',
+                    'publisher' => 'WHO',
+                    'note'      => 'Materiał informacyjny dla pacjentów',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v7', true);
+});
+
 /**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
