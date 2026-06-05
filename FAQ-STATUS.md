@@ -23,6 +23,11 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 | korzonki-co-to-jest-i-jak-skutecznie-leczyc-bol-korzeni-nerwowych | tak (6) | tak (3) | brak | PROD (2026-06-05) |
 | dyskopatia-diagnoza-i-leczenie | tak (6) | tak (3) | brak | PROD (2026-06-05) |
 | palec-zatrzaskujacy-czym-jest-i-dlaczego-dochodzi-do-blokowania-palca | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| czym-jest-osteoporoza | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| choroba-zwyrodnieniowa-stawow | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| skolioza-objawy-diagnostyka-i-leczenie-od-a-do-z | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| uszkodzenie-wiezadla-krzyzowego-przedniego-wkp-acl-czyli-ze-sportem | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| choroba-duputryena-przykurcz-rozciegna-dloniowego | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 
 ### Maja FAQ wklejony w tresc (Elementor HTML widget) - NIE nasz plugin
 Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna schema FAQPage. NIE dodawac pluginem (byl duplikat 2026-06-05, usuniety przez delete_post_meta). Do ewentualnej migracji do pluginu trzeba najpierw usunac widget z tresci.
@@ -35,6 +40,10 @@ Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna
 - zespol-zamrozonego-barku (schema FAQPage obecna)
 - dna-moczanowa (faq-container + schema w body)
 - reumatoidalne-zapalenie-stawow (faq-container + schema w body)
+- lordoza-szyjna-fizjologia-zaburzenia-sposoby-postepowania (faq + schema w body)
+- krecz-szyi-przyczyny-objawy-i-leczenie (faq + schema w body)
+- szpotawosc-kolan-przyczyny-objawy-i-skuteczne-metody-leczenia (faq + schema w body)
+- bole-bioder-przyczyny-objawy-i-profilaktyka (faq + schema w body)
 
 ## Zrodla - zasada
 Kazde zrodlo naukowe zweryfikowane (PubMed/PMID/DOI) przed wpisaniem. Zero zmyslonych cytowan.
