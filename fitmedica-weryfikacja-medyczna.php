@@ -184,6 +184,195 @@ add_action('init', function () {
     update_option('fitmedica_faq_setup_v2', true);
 });
 
+/* -----------------------------------------------
+   AUTO-SETUP FAQ + ZRODLA - partia ortopedyczna
+   (kolano biegacza, zespol ciesni nadgarstka,
+   skrecenie stawu skokowego). Bez weryfikatora -
+   nikt nie robil realnego review medycznego.
+   Uruchamia sie raz.
+   ----------------------------------------------- */
+
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v3')) return;
+
+    $articles = [
+        'kolano-biegacza' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest kolano biegacza?',
+                    'answer'   => 'To zespol pasma biodrowo-piszczelowego, czyli przeciazeniowy bol po zewnetrznej stronie kolana. Powstaje, gdy pasmo biegnace wzdluz uda drazni tkanki w okolicy bocznego klykcia kosci udowej przy powtarzalnym zginaniu i prostowaniu kolana. Najczesciej dotyka biegaczy i kolarzy, ale pojawia sie u kazdego, kto zbyt szybko zwieksza obciazenia treningowe.',
+                ],
+                [
+                    'question' => 'Po czym poznac kolano biegacza, a nie inny bol kolana?',
+                    'answer'   => 'Charakterystyczny jest ostry lub piekacy bol po zewnetrznej stronie kolana, ktory narasta w trakcie biegu i czesto zmusza do przerwania treningu. Dolegliwosci nasilaja sie zwlaszcza przy zbieganiu z gorki i schodzeniu po schodach. Bol zwykle ustepuje w spoczynku, by wrocic przy kolejnej aktywnosci. To odroznia go od bolu z przodu kolana, ktory daje inny wzorzec.',
+                ],
+                [
+                    'question' => 'Czy moge dalej biegac z kolanem biegacza?',
+                    'answer'   => 'Zwykle trzeba czasowo zmniejszyc obciazenie, a nie kategorycznie odstawic ruch. W ostrej fazie ogranicza sie bieganie i zbieganie z gorki, bo to najmocniej drazni pasmo. Kondycje mozna utrzymac formami mniej obciazajacymi bok kolana, na przyklad plywaniem. Powrot do biegania wprowadza sie stopniowo, gdy bol ustepuje, najlepiej z korekta techniki i objetosci treningu.',
+                ],
+                [
+                    'question' => 'Ile trwa leczenie kolana biegacza?',
+                    'answer'   => 'Najczesciej od kilku tygodni do kilku miesiecy, zaleznie od czasu trwania objawow i konsekwencji w rehabilitacji. Krotko trwajace dolegliwosci zwykle ustepuja szybciej, a przewlekle wymagaja cierpliwosci. Kluczowe jest nie tylko wyciszenie bolu, ale wzmocnienie miesni biodra i posladka oraz poprawa techniki, bo to zmniejsza ryzyko nawrotu.',
+                ],
+                [
+                    'question' => 'Jak leczy sie kolano biegacza i czy potrzebna jest operacja?',
+                    'answer'   => 'Podstawa jest leczenie zachowawcze: czasowe odciazenie, fizjoterapia (terapia manualna, zabiegi fizykalne) oraz cwiczenia wzmacniajace miesnie posladkow i stabilizujace biodro. Pomocne bywaja korekta techniki biegu oraz dobor obuwia lub wkladek. Operacje rozwaza sie rzadko, dopiero gdy dlugie i konsekwentne leczenie zachowawcze nie przynosi poprawy.',
+                ],
+                [
+                    'question' => 'Jak zapobiegac nawrotom kolana biegacza?',
+                    'answer'   => 'Najwiecej daje stopniowe zwiekszanie kilometrazu i intensywnosci, bez gwaltownych skokow objetosci. Warto wzmacniac miesnie posladkow i biodra, dbac o rozgrzewke oraz technike biegu, a takze unikac dlugiego biegania po pochylym, jednostronnym podlozu. Utrzymanie cwiczen wzmacniajacych po ustapieniu bolu to najlepsza profilaktyka.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Strauss E.J., Kim S., Calcei J.G., Park D.',
+                    'title'     => 'Iliotibial Band Syndrome: Evaluation and Management',
+                    'publisher' => 'Journal of the American Academy of Orthopaedic Surgeons',
+                    'note'      => '2011; 19(12): 728-736',
+                ],
+                [
+                    'authors'   => 'Fairclough J., Hayashi K., Toumi H. i wsp.',
+                    'title'     => 'The functional anatomy of the iliotibial band during flexion and extension of the knee: implications for understanding iliotibial band syndrome',
+                    'publisher' => 'Journal of Anatomy',
+                    'note'      => '2006; 208(3): 309-316',
+                ],
+                [
+                    'authors'   => 'Aderem J., Louw Q.A.',
+                    'title'     => 'Biomechanical risk factors associated with iliotibial band syndrome in runners: a systematic review',
+                    'publisher' => 'BMC Musculoskeletal Disorders',
+                    'note'      => '2015; 16: 356',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Iliotibial Band (IT Band) Syndrome',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Material edukacyjny dla pacjentow',
+                ],
+            ],
+        ],
+        'zespol-ciesni-nadgarstka' => [
+            'faq' => [
+                [
+                    'question' => 'Jak rozpoznac zespol ciesni nadgarstka?',
+                    'answer'   => 'Typowe jest mrowienie i dretwienie kciuka, palca wskazujacego, srodkowego oraz polowy serdecznego, czyli obszaru unerwianego przez nerw posrodkowy. Z czasem dochodzi oslabienie sily chwytu i wypadanie przedmiotow z reki. Na poczatku objawy bywaja przemijajace i pojawiaja sie przy trzymaniu telefonu, kierownicy czy ksiazki.',
+                ],
+                [
+                    'question' => 'Dlaczego objawy ciesni nadgarstka nasilaja sie w nocy?',
+                    'answer'   => 'W czasie snu nadgarstek czesto uklada sie w zgieciu, co dodatkowo zmniejsza przestrzen w kanale nadgarstka i nasila ucisk na nerw. Dlatego charakterystyczne jest wybudzanie sie z mrowieniem i bolem reki oraz potrzeba jej rozruszania albo potrzasania, zeby objawy ustapily. Z tego powodu jednym z pierwszych zalecen jest noszenie szyny na noc.',
+                ],
+                [
+                    'question' => 'Jakie badanie potwierdza zespol ciesni nadgarstka?',
+                    'answer'   => 'Rozpoznanie opiera sie na wywiadzie i badaniu, w tym testach prowokacyjnych (test Tinela i test Phalena). Badaniem potwierdzajacym stopien uszkodzenia nerwu jest badanie przewodnictwa nerwowego (EMG/NCV), uznawane za standard. Pomocne bywa USG nadgarstka, ktore ocenia nerw posrodkowy i okoliczne tkanki.',
+                ],
+                [
+                    'question' => 'Czy zespol ciesni nadgarstka mozna wyleczyc bez operacji?',
+                    'answer'   => 'We wczesnym i umiarkowanym nasileniu czesto tak. Stosuje sie usztywnienie nadgarstka (zwlaszcza na noc), iniekcje kortykosteroidow zmniejszajace obrzek i stan zapalny oraz fizjoterapie. Leczenie zachowawcze dziala najlepiej, gdy objawy trwaja krotko i da sie ograniczyc przeciazenia. Przy nasilonym lub dlugotrwalym ucisku z oslabieniem reki skuteczniejsze bywa leczenie operacyjne.',
+                ],
+                [
+                    'question' => 'Ile trwa powrot do sprawnosci po operacji ciesni nadgarstka?',
+                    'answer'   => 'Zabieg polega na przecieciu wiezadla uciskajacego nerw i wykonuje sie go metoda klasyczna lub endoskopowa. Do lekkiej pracy wraca sie zwykle po okolo 2-4 tygodniach po metodzie endoskopowej i po okolo 4-6 tygodniach po klasycznej, a pelna sprawnosc wraca po okolo 2-3 miesiacach. Czesc dolegliwosci moze utrzymywac sie jeszcze przez kilka tygodni po operacji.',
+                ],
+                [
+                    'question' => 'Czy objawy ciesni nadgarstka moga wrocic po leczeniu?',
+                    'answer'   => 'Nawrot jest mozliwy, zwlaszcza gdy nie usunieto czynnikow przeciazajacych nadgarstek. Dlatego wazna jest ergonomia pracy i przerwy przy czynnosciach obciazajacych reke. Nieleczony, dlugotrwaly ucisk nerwu prowadzi do postepujacego i czasem trwalego uszkodzenia czucia oraz oslabienia dloni, dlatego objawow nie warto bagatelizowac.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Padua L., Coraci D., Erra C. i wsp.',
+                    'title'     => 'Carpal tunnel syndrome: clinical features, diagnosis, and management',
+                    'publisher' => 'The Lancet Neurology',
+                    'note'      => '2016; 15(12): 1273-1284',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Management of Carpal Tunnel Syndrome: Evidence-Based Clinical Practice Guideline',
+                    'publisher' => 'AAOS',
+                    'note'      => '2016',
+                ],
+                [
+                    'authors'   => 'Wu Y.T., Ke M.J., Chou Y.C. i wsp.',
+                    'title'     => 'Effect of radial shock wave therapy for carpal tunnel syndrome: a prospective randomized, double-blind, placebo-controlled trial',
+                    'publisher' => 'Journal of Orthopaedic Research',
+                    'note'      => '2016; 34(6): 977-984',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Carpal Tunnel Syndrome',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Material edukacyjny dla pacjentow',
+                ],
+            ],
+        ],
+        'skrecenie-stawu-skokowego-definicja-objawy-leczenie' => [
+            'faq' => [
+                [
+                    'question' => 'Jak odroznic skrecenie kostki od zlamania?',
+                    'answer'   => 'Po samych objawach nie zawsze sie da, bo silny bol, obrzek i zasinienie wystepuja w obu przypadkach. Dlatego przy powazniejszym urazie wykonuje sie RTG, ktore wyklucza zlamanie lub przemieszczenie kosci. Gdy podejrzewa sie zerwanie wiezadel, pomocne jest USG stawu skokowego. Jesli po urazie nie mozna obciazyc nogi ani na niej stanac, warto pilnie zglosic sie do lekarza.',
+                ],
+                [
+                    'question' => 'Co oznaczaja stopnie skrecenia kostki?',
+                    'answer'   => 'W I stopniu dochodzi do naciagniecia lub naderwania czesci wiezadel, z niewielkim obrzekiem i bez utraty stabilnosci. II stopien to istotne uszkodzenie wiezadel i torebki stawowej, z wiekszym bolem i ograniczeniem ruchu. III stopien oznacza calkowite zerwanie wiezadel, rozlegly obrzek, silny bol i niestabilnosc stawu. Stopien urazu decyduje o sposobie leczenia.',
+                ],
+                [
+                    'question' => 'Co robic zaraz po skreceniu stawu skokowego?',
+                    'answer'   => 'W pierwszych godzinach pomaga schemat PRICE: ochrona stawu (na przyklad orteza), odciazenie i odpoczynek, chlodzenie zimnymi okladami, ucisk opaska elastyczna oraz uniesienie nogi powyzej poziomu serca. Takie postepowanie ogranicza obrzek i bol. Zimno i ucisk warto zastosowac jak najszybciej, zanim obrzek zdazy sie rozwinac.',
+                ],
+                [
+                    'question' => 'Czy skrecona kostke trzeba unieruchamiac na sztywno?',
+                    'answer'   => 'Zwykle nie na dlugo. W wiekszosci skrecen lepsze efekty daje leczenie czynnosciowe, czyli stabilizacja orteza i stopniowy powrot do ruchu oraz obciazania, niz dlugie unieruchomienie w sztywnym gipsie. Wczesne, kontrolowane usprawnianie pod okiem fizjoterapeuty sprzyja szybszemu powrotowi do sprawnosci. Sposob leczenia zawsze dobiera sie do stopnia urazu.',
+                ],
+                [
+                    'question' => 'Czy skrecenie stawu skokowego wymaga operacji?',
+                    'answer'   => 'Najczesciej nie. Skrecenia I i II stopnia leczy sie zachowawczo, laczac odciazenie, leki przeciwbolowe i rehabilitacje. Operacje rozwaza sie glownie przy calkowitym zerwaniu wiezadel (III stopien) lub przy utrzymujacej sie niestabilnosci mimo leczenia. Zabieg czesto wykonuje sie artroskopowo, przez niewielkie naciecia.',
+                ],
+                [
+                    'question' => 'Czy po skreceniu kostka moze pozostac niestabilna?',
+                    'answer'   => 'Tak, zle leczone lub nawracajace skrecenia moga prowadzic do przewleklej niestabilnosci stawu, a z czasem do uszkodzenia chrzastki i zmian zwyrodnieniowych. Dlatego po urazie wazna jest pelna rehabilitacja, w tym cwiczenia rownowagi i czucia glebokiego, ktore wzmacniaja stabilizacje i zmniejszaja ryzyko kolejnych skrecen.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Martin R.L., Davenport T.E., Fraser J.J. i wsp.',
+                    'title'     => 'Ankle Stability and Movement Coordination Impairments: Lateral Ankle Ligament Sprains Revision 2021',
+                    'publisher' => 'Journal of Orthopaedic & Sports Physical Therapy',
+                    'note'      => '2021; 51(4): CPG1-CPG80',
+                ],
+                [
+                    'authors'   => 'Vuurberg G., Hoorntje A., Wink L.M. i wsp.',
+                    'title'     => 'Diagnosis, treatment and prevention of ankle sprains: update of an evidence-based clinical guideline',
+                    'publisher' => 'British Journal of Sports Medicine',
+                    'note'      => '2018; 52(15): 956',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Sprained Ankle',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Material edukacyjny dla pacjentow',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v3', true);
+});
+
 /**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
