@@ -525,6 +525,248 @@ add_action('init', function () {
     update_option('fitmedica_faq_setup_v4', true);
 });
 
+/* -----------------------------------------------
+   AUTO-SETUP FAQ + ZRODLA - partia v5
+   (osteoporoza, choroba zwyrodnieniowa stawow,
+   skolioza, ACL, choroba Dupuytrena). Bez weryfikatora.
+   Uruchamia sie raz.
+   ----------------------------------------------- */
+
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v5')) return;
+
+    $articles = [
+        'czym-jest-osteoporoza' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest osteoporoza?',
+                    'answer'   => 'To przewlekła choroba kości, w której postępuje ubytek masy kostnej, a kości stają się słabsze i bardziej podatne na złamania. Przez długi czas przebiega bezobjawowo, dlatego bywa nazywana cichą chorobą. Często pierwszym sygnałem jest dopiero złamanie po niewielkim urazie.',
+                ],
+                [
+                    'question' => 'Jakie są czynniki ryzyka osteoporozy?',
+                    'answer'   => 'Najwięcej zachorowań dotyczy kobiet po menopauzie, kiedy spada poziom estrogenów, oraz osób po 65-70 roku życia. Ryzyko zwiększają też obciążenia rodzinne, mała aktywność fizyczna, palenie i nadużywanie alkoholu, a także niedobory wapnia i witaminy D. Część leków, na przykład sterydów, również osłabia kości.',
+                ],
+                [
+                    'question' => 'Jak rozpoznaje się osteoporozę?',
+                    'answer'   => 'Podstawowym badaniem jest densytometria (DXA), która ocenia gęstość mineralną kości i trwa kilka minut. Wynik zestawia się z czynnikami ryzyka i ewentualnymi przebytymi złamaniami. Lekarz może zlecić też badania krwi, by wykluczyć inne przyczyny osłabienia kości.',
+                ],
+                [
+                    'question' => 'Jak leczy się osteoporozę?',
+                    'answer'   => 'Leczenie łączy farmakoterapię z modyfikacją stylu życia. Stosuje się między innymi bisfosfoniany i denosumab, które hamują utratę kości, a w cięższych przypadkach leki anaboliczne pobudzające jej tworzenie. Podstawą pozostają odpowiednia podaż wapnia i witaminy D oraz regularna aktywność fizyczna. Dobór leku należy do lekarza.',
+                ],
+                [
+                    'question' => 'Jak zapobiegać osteoporozie i złamaniom?',
+                    'answer'   => 'Najwięcej daje ruch obciążający kości (spacery, trening siłowy), dieta bogata w wapń, odpowiedni poziom witaminy D oraz rezygnacja z palenia i nadmiaru alkoholu. U osób starszych ważne jest też zapobieganie upadkom, na przykład usuwanie progów i śliskich dywaników oraz dbanie o wzrok i równowagę.',
+                ],
+                [
+                    'question' => 'Czym grozi nieleczona osteoporoza?',
+                    'answer'   => 'Głównym zagrożeniem są złamania, najczęściej szyjki kości udowej, nadgarstka i kręgów, do których dochodzi nawet przy niewielkim urazie. Złamania kręgów prowadzą do bólu pleców, obniżenia wzrostu i pochylenia sylwetki. Takie urazy obniżają sprawność, dlatego osteoporozę warto wykryć i leczyć wcześnie.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Kanis J.A., Cooper C., Rizzoli R., Reginster J.Y.',
+                    'title'     => 'European guidance for the diagnosis and management of osteoporosis in postmenopausal women',
+                    'publisher' => 'Osteoporosis International',
+                    'note'      => '2019; 30(1): 3-44',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Osteoporosis',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'choroba-zwyrodnieniowa-stawow' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest choroba zwyrodnieniowa stawów?',
+                    'answer'   => 'To przewlekłe, stopniowe niszczenie chrząstki stawowej, która w zdrowym stawie pozwala kościom poruszać się niemal bez tarcia. Gdy chrząstka się zużywa, dochodzi do bólu, sztywności i ograniczenia ruchu. Najczęściej dotyczy kolan, bioder i kręgosłupa.',
+                ],
+                [
+                    'question' => 'Jakie są objawy choroby zwyrodnieniowej?',
+                    'answer'   => 'Typowy jest ból stawu nasilający się przy ruchu i obciążeniu, sztywność poranna ustępująca po rozruszaniu, trzeszczenia oraz stopniowe ograniczenie zakresu ruchu. Z czasem dochodzi osłabienie mięśni wokół stawu. Dolegliwości zwykle narastają powoli, przez lata.',
+                ],
+                [
+                    'question' => 'Co zwiększa ryzyko choroby zwyrodnieniowej stawów?',
+                    'answer'   => 'Najważniejsze czynniki to wiek, nadwaga i otyłość obciążające stawy, przebyte urazy oraz ciężka praca fizyczna. Znaczenie mają też predyspozycje genetyczne, płeć i wady budowy lub osi kończyn. Nadmierne, jednostronne przeciążenia przyspieszają zużycie chrząstki.',
+                ],
+                [
+                    'question' => 'Jak leczy się chorobę zwyrodnieniową bez operacji?',
+                    'answer'   => 'Podstawą jest leczenie zachowawcze: regularne ćwiczenia wzmacniające i poprawiające ruchomość, redukcja masy ciała przy nadwadze oraz edukacja o właściwym obciążaniu stawu. Pomagają fizjoterapia, leki przeciwbólowe i przeciwzapalne, czasem iniekcje dostawowe. Ruch i kontrola wagi to fundament, na którym opierają się pozostałe metody.',
+                ],
+                [
+                    'question' => 'Kiedy potrzebna jest operacja stawu?',
+                    'answer'   => 'Operację rozważa się, gdy ból i ograniczenie sprawności utrzymują się mimo konsekwentnego leczenia zachowawczego i utrudniają codzienne funkcjonowanie. W zależności od stawu i zaawansowania zmian stosuje się artroskopię, osteotomię korygującą oś kończyny lub wymianę stawu (endoprotezoplastykę). Decyzję podejmuje się indywidualnie.',
+                ],
+                [
+                    'question' => 'Czy chorobie zwyrodnieniowej można zapobiegać?',
+                    'answer'   => 'Nie da się jej całkowicie wykluczyć, ale można spowolnić jej rozwój. Pomaga utrzymanie prawidłowej masy ciała, regularna aktywność wzmacniająca mięśnie, unikanie przeciążeń i urazów oraz dbanie o prawidłową postawę. Wczesna reakcja na ból stawu pozwala działać, zanim zmiany się utrwalą.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Bannuru R.R., Osani M.C., Vaysbrot E.E. i wsp.',
+                    'title'     => 'OARSI guidelines for the non-surgical management of knee, hip, and polyarticular osteoarthritis',
+                    'publisher' => 'Osteoarthritis and Cartilage',
+                    'note'      => '2019; 27(11): 1578-1589',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Arthritis of the Knee',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'skolioza-objawy-diagnostyka-i-leczenie-od-a-do-z' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest skolioza?',
+                    'answer'   => 'To trójwymiarowa deformacja kręgosłupa, w której boczne skrzywienie wynosi co najmniej 10 stopni w pomiarze metodą Cobba i współistnieje z rotacją kręgów. Najczęstsza jest postać idiopatyczna, o nieznanej przyczynie, która stanowi około 80 procent przypadków i ujawnia się zwykle w okresie wzrostu.',
+                ],
+                [
+                    'question' => 'Jak rozpoznać skoliozę?',
+                    'answer'   => 'Pierwszym sygnałem bywa asymetria sylwetki: nierówne barki, łopatki, talia, a w skłonie do przodu widoczny garb żebrowy. W badaniu stosuje się test Adamsa (skłon w przód), a rozpoznanie i wielkość skrzywienia potwierdza zdjęcie RTG całego kręgosłupa wykonane na stojąco, na którym mierzy się kąt Cobba.',
+                ],
+                [
+                    'question' => 'Czy każda skolioza wymaga leczenia?',
+                    'answer'   => 'Nie każda. Niewielkie skrzywienia, zwykle poniżej 20 stopni, często wymagają jedynie obserwacji i okresowej kontroli, zwłaszcza by wychwycić pogłębianie się skrzywienia w okresie szybkiego wzrostu. O sposobie postępowania decydują wielkość kąta, wiek i dynamika zmian.',
+                ],
+                [
+                    'question' => 'Na czym polega leczenie gorsetem?',
+                    'answer'   => 'Gorset ortopedyczny stosuje się zwykle przy kątach około 20-40 stopni u pacjentów, którzy wciąż rosną, by zahamować pogłębianie się skrzywienia. Aby był skuteczny, trzeba go nosić przez większą część doby, zgodnie z zaleceniem. Leczenie prowadzi się pod kontrolą specjalisty, który ocenia postęp.',
+                ],
+                [
+                    'question' => 'Czy ćwiczenia pomagają w skoliozie?',
+                    'answer'   => 'Tak, pomocne są specjalistyczne ćwiczenia korekcyjne, na przykład metoda Schroth, ucząca trójwymiarowego oddychania i aktywnej autokorekty postawy. Wzmacniają mięśnie i wspierają leczenie, ale dobiera się je do rodzaju i wielkości skrzywienia. Plan powinien ułożyć fizjoterapeuta doświadczony w pracy ze skoliozą.',
+                ],
+                [
+                    'question' => 'Kiedy skolioza wymaga operacji?',
+                    'answer'   => 'Leczenie operacyjne rozważa się przy dużych skrzywieniach, zwykle powyżej 45-50 stopni, zwłaszcza gdy nadal się pogłębiają u rosnącego dziecka lub gdy u dorosłego powodują ból i pogorszenie funkcji. Decyzja jest indywidualna i zależy od wielkości kąta, wieku oraz dynamiki zmian.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Negrini S., Donzelli S., Aulisa A.G. i wsp.',
+                    'title'     => '2016 SOSORT guidelines: orthopaedic and rehabilitation treatment of idiopathic scoliosis during growth',
+                    'publisher' => 'Scoliosis and Spinal Disorders',
+                    'note'      => '2018; 13: 3',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Idiopathic Scoliosis in Children and Adolescents',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'uszkodzenie-wiezadla-krzyzowego-przedniego-wkp-acl-czyli-ze-sportem' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest więzadło krzyżowe przednie i co je uszkadza?',
+                    'answer'   => 'Więzadło krzyżowe przednie (ACL) to jedno z głównych więzadeł stabilizujących kolano, które kontroluje przesuwanie i rotację stawu. Najczęściej ulega uszkodzeniu podczas nagłego skrętu kolana przy ustabilizowanej stopie, często bez kontaktu z przeciwnikiem, na przykład przy zmianie kierunku biegu lub lądowaniu.',
+                ],
+                [
+                    'question' => 'Jak rozpoznać zerwanie ACL?',
+                    'answer'   => 'Charakterystyczne jest uczucie pęknięcia lub strzału w kolanie w chwili urazu, szybki obrzęk, ból i poczucie niestabilności, jakby kolano uciekało. Lekarz potwierdza uszkodzenie testami (test Lachmana, test szuflady przedniej, pivot shift), a obraz uzupełnia rezonans magnetyczny, który pokazuje też ewentualne uszkodzenia łąkotek i chrząstki.',
+                ],
+                [
+                    'question' => 'Czy zerwane ACL trzeba operować?',
+                    'answer'   => 'Nie zawsze. Leczenie zachowawcze bywa wystarczające u osób mniej aktywnych, które nie uprawiają sportów z gwałtownymi zwrotami i u których kolano pozostaje stabilne. Rekonstrukcję zaleca się zwykle osobom aktywnym sportowo oraz przy utrzymującej się niestabilności. Część pacjentów leczonych zachowawczo z czasem i tak decyduje się na zabieg.',
+                ],
+                [
+                    'question' => 'Na czym polega rekonstrukcja ACL?',
+                    'answer'   => 'Zabieg polega na odtworzeniu więzadła z przeszczepu, najczęściej z własnych ścięgien pacjenta (ścięgno rzepki, ścięgna mięśni tylnej części uda lub mięśnia czworogłowego). Wykonuje się go artroskopowo. Badania pokazują podobne efekty niezależnie od wybranego rodzaju przeszczepu, a o doborze decyduje chirurg.',
+                ],
+                [
+                    'question' => 'Ile trwa powrót do sportu po rekonstrukcji ACL?',
+                    'answer'   => 'To zwykle wiele miesięcy konsekwentnej rehabilitacji, a nie kwestia tygodni. O powrocie decyduje nie sama data, ale odzyskanie siły, stabilności i kontroli ruchu, ocenianych testami. Zbyt wczesny powrót zwiększa ryzyko ponownego urazu, dlatego progresję ustala się indywidualnie z fizjoterapeutą.',
+                ],
+                [
+                    'question' => 'Po co rehabilitacja przed operacją ACL?',
+                    'answer'   => 'Dobre przygotowanie kolana przed zabiegiem poprawia wyniki leczenia. Celem jest zmniejszenie obrzęku, odzyskanie pełnego wyprostu i dobrego zgięcia oraz wzmocnienie mięśni, tak by siła chorej nogi zbliżyła się do zdrowej. Wprowadza się też ćwiczenia czucia głębokiego. Kolano lepiej przygotowane szybciej wraca do formy po rekonstrukcji.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Diermeier T., Rothrauff B.B., Engebretsen L. i wsp.',
+                    'title'     => 'Treatment after anterior cruciate ligament injury: Panther Symposium ACL Treatment Consensus Group',
+                    'publisher' => 'Knee Surgery, Sports Traumatology, Arthroscopy',
+                    'note'      => '2020; 28(8): 2390-2402',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Anterior Cruciate Ligament (ACL) Injuries',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'choroba-duputryena-przykurcz-rozciegna-dloniowego' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest choroba Dupuytrena?',
+                    'answer'   => 'To łagodna, przewlekła choroba, w której dochodzi do nieprawidłowego rozrostu rozcięgna dłoniowego, czyli tkanki łącznej pod skórą dłoni. Powstają guzki i pasma, które stopniowo przykurczają palce w stronę dłoni. Najczęściej zajmuje palec serdeczny i mały.',
+                ],
+                [
+                    'question' => 'Jakie są objawy choroby Dupuytrena?',
+                    'answer'   => 'Na początku pojawiają się wyczuwalne guzki w dłoni, czasem tkliwe, później powrózkowate pasma pod skórą. Z czasem rozwija się przykurcz zgięciowy palca, który coraz trudniej wyprostować. Utrudnia to codzienne czynności, jak płaskie położenie dłoni na stole czy wkładanie ręki do kieszeni.',
+                ],
+                [
+                    'question' => 'Co zwiększa ryzyko choroby Dupuytrena?',
+                    'answer'   => 'Najważniejsze jest podłoże genetyczne, dlatego choroba często występuje rodzinnie. Częściej dotyczy mężczyzn po 50 roku życia. Ryzyko zwiększają też cukrzyca, nadużywanie alkoholu, palenie oraz powtarzalne mikrourazy dłoni. U kobiet przebieg bywa szybszy i trudniejszy.',
+                ],
+                [
+                    'question' => 'Czy chorobę Dupuytrena da się wyleczyć zachowawczo?',
+                    'answer'   => 'Leczenie zachowawcze nie cofa już powstałego przykurczu. We wczesnym okresie, przy małych, bolesnych guzkach, stosuje się czasem iniekcje sterydowe, ale nie zatrzymują one choroby na stałe. Gdy przykurcz utrudnia funkcję ręki, potrzebne są metody zabiegowe.',
+                ],
+                [
+                    'question' => 'Jakie są metody zabiegowe w chorobie Dupuytrena?',
+                    'answer'   => 'Stosuje się igłową aponeurotomię (przezskórne przecięcie pasma), wstrzyknięcie kolagenazy rozpuszczającej zmienione pasmo oraz operacyjne wycięcie rozcięgna (fasciektomię), które jest najczęściej stosowane. Metody polegające na samym przecięciu pasma dają szybki efekt, ale wiążą się z większym ryzykiem nawrotu niż wycięcie.',
+                ],
+                [
+                    'question' => 'Czy choroba Dupuytrena nawraca?',
+                    'answer'   => 'Tak, ma charakter postępujący i bywa nawrotowa, niezależnie od metody leczenia. Ryzyko nawrotu jest większe po zabiegach polegających na przecięciu pasma niż po jego wycięciu oraz u osób z silnym obciążeniem rodzinnym i wczesnym początkiem choroby. Dlatego potrzebna bywa obserwacja i czasem powtórne leczenie.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Shih B., Bayat A.',
+                    'title'     => 'Scientific understanding and clinical management of Dupuytren disease',
+                    'publisher' => 'Nature Reviews Rheumatology',
+                    'note'      => '2010; 6(12): 715-726',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Dupuytrens Disease (Dupuytrens Contracture)',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v5', true);
+});
+
 /**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
