@@ -767,6 +767,242 @@ add_action('init', function () {
     update_option('fitmedica_faq_setup_v5', true);
 });
 
+/* -----------------------------------------------
+   AUTO-SETUP FAQ + ZRODLA - partia v6
+   (zwyrodnienie kregoslupa szyjnego, wdowi garb,
+   choroba Scheuermanna, osteotomia, bol glowy a TMD).
+   Bez weryfikatora. Uruchamia sie raz.
+   ----------------------------------------------- */
+
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v6')) return;
+
+    $articles = [
+        'choroba-zwyrodnieniowa-stawow-kregoslupa-szyjnego' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest zwyrodnienie kręgosłupa szyjnego?',
+                    'answer'   => 'To związane głównie z wiekiem zużywanie się struktur odcinka szyjnego kręgosłupa: chrząstki stawowej, krążków i kości, czemu towarzyszy powstawanie wyrośli kostnych (osteofitów). Z czasem może to drażnić lub uciskać korzenie nerwowe, a w cięższych przypadkach rdzeń kręgowy. Zmiany te są bardzo częste po 60 roku życia, choć nie zawsze dają objawy.',
+                ],
+                [
+                    'question' => 'Jakie są objawy zwyrodnienia szyjnego?',
+                    'answer'   => 'Najczęściej ból i sztywność karku, ból między łopatkami oraz ograniczenie ruchomości szyi. Gdy dochodzi do ucisku nerwu, pojawiają się mrowienie, drętwienie i osłabienie siły w ręce. Częste są też bóle głowy, zwłaszcza w okolicy potylicznej. Objawy nasilają się przy długim utrzymywaniu jednej pozycji głowy.',
+                ],
+                [
+                    'question' => 'Kiedy ból szyi wymaga pilnej konsultacji?',
+                    'answer'   => 'Niepokojące jest narastające osłabienie lub drętwienie rąk, zaburzenia precyzji ruchów dłoni, problemy z chodzeniem i równowagą oraz zaburzenia kontroli pęcherza. Mogą wskazywać na ucisk rdzenia kręgowego i wymagają szybkiej oceny lekarskiej. Zwykły ból karku bez tych objawów nie jest stanem nagłym, ale też warto go zdiagnozować.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się zwyrodnienie kręgosłupa szyjnego?',
+                    'answer'   => 'Podstawą jest badanie lekarskie i ocena objawów neurologicznych. Obrazowanie zaczyna się zwykle od RTG, które pokazuje zmiany kostne i osteofity, a przy podejrzeniu ucisku nerwów lub rdzenia wykonuje się rezonans magnetyczny (MRI). Wynik badania zawsze zestawia się z dolegliwościami pacjenta.',
+                ],
+                [
+                    'question' => 'Jak leczy się zwyrodnienie szyjne?',
+                    'answer'   => 'U większości pacjentów wystarcza leczenie zachowawcze: rehabilitacja i fizjoterapia, ćwiczenia poprawiające ruchomość i wzmacniające mięśnie, zabiegi fizykalne, terapia manualna oraz doraźnie leki przeciwbólowe i przeciwzapalne. Operację rozważa się głównie przy nasilonym ucisku na nerwy lub rdzeń z objawami neurologicznymi, gdy leczenie zachowawcze nie pomaga.',
+                ],
+                [
+                    'question' => 'Jak dbać o szyję przy zmianach zwyrodnieniowych?',
+                    'answer'   => 'Pomaga regularny ruch i ćwiczenia wzmacniające mięśnie karku i obręczy barkowej, a także ergonomia pracy: ustawienie monitora na wysokości oczu, przerwy i unikanie długiego patrzenia w dół na telefon. Warto zadbać o dobrą pozycję snu i unikać gwałtownych przeciążeń szyi. Takie nawyki ograniczają nasilanie się objawów.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Theodore N.',
+                    'title'     => 'Degenerative Cervical Spondylosis',
+                    'publisher' => 'New England Journal of Medicine',
+                    'note'      => '2020; 383(2): 159-168',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Cervical Spondylosis (Arthritis of the Neck)',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'wdowi-garb-co-to-jest-i-jak-skutecznie-go-leczyc' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest wdowi garb?',
+                    'answer'   => 'To potoczna nazwa nadmiernej kifozy piersiowej, czyli pogłębionego zaokrąglenia górnej części pleców, często z wyraźnym zgrubieniem w okolicy przejścia między odcinkiem szyjnym a piersiowym kręgosłupa. Towarzyszy mu zwykle wysunięcie głowy do przodu i przygarbiona sylwetka.',
+                ],
+                [
+                    'question' => 'Skąd bierze się wdowi garb?',
+                    'answer'   => 'Najczęściej z długotrwale nieprawidłowej postawy, na przykład pochylania się nad komputerem i telefonem, co osłabia mięśnie grzbietu i skraca mięśnie klatki piersiowej. Sprzyjają mu też zmiany zwyrodnieniowe i osteoporoza osłabiająca kręgi, a czasem zaburzenia hormonalne. Z wiekiem ryzyko rośnie.',
+                ],
+                [
+                    'question' => 'Jakie objawy daje wdowi garb?',
+                    'answer'   => 'Poza widocznym zaokrągleniem pleców i wysuniętą głową często pojawiają się ból i sztywność szyi, napięcie mięśni karku, ból między łopatkami oraz nawracające bóle głowy. Sylwetka staje się bardziej przygarbiona, a dłuższe utrzymanie wyprostowanej pozycji bywa męczące.',
+                ],
+                [
+                    'question' => 'Czy wdowi garb można cofnąć?',
+                    'answer'   => 'Jeśli wynika głównie z postawy i osłabienia mięśni, to konsekwentne ćwiczenia i praca nad nawykami często wyraźnie poprawiają sylwetkę. Gdy u podłoża leżą utrwalone zmiany kostne, na przykład po złamaniach w przebiegu osteoporozy, pełne wyprostowanie bywa niemożliwe, ale leczenie i tak zmniejsza dolegliwości i hamuje pogłębianie się garbu.',
+                ],
+                [
+                    'question' => 'Jak leczy się wdowi garb?',
+                    'answer'   => 'Podstawą jest postępowanie zachowawcze: ćwiczenia wzmacniające mięśnie grzbietu, rozciąganie mięśni klatki piersiowej, nauka prawidłowej postawy oraz terapia manualna, a doraźnie leki przeciwbólowe. Pomocne są proste ćwiczenia, jak cofanie brody i ściąganie łopatek. Zabieg chirurgiczny jest potrzebny rzadko.',
+                ],
+                [
+                    'question' => 'Jak zapobiegać wdowiemu garbowi?',
+                    'answer'   => 'Najwięcej daje dbanie o postawę na co dzień, regularny ruch wzmacniający plecy oraz przerwy i ergonomia przy pracy siedzącej i korzystaniu z telefonu. U osób starszych ważna jest też profilaktyka osteoporozy, bo złamania kręgów pogłębiają garb. Wcześnie wprowadzone nawyki działają najlepiej.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Katzman W.B., Wanek L., Shepherd J.A., Sellmeyer D.E.',
+                    'title'     => 'Age-Related Hyperkyphosis: Its Causes, Consequences, and Management',
+                    'publisher' => 'Journal of Orthopaedic & Sports Physical Therapy',
+                    'note'      => '2010; 40(6): 352-360',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Kyphosis (Roundback) of the Spine',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'choroba-scheuermanna-objawy-i-leczenie-kregoslupa' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest choroba Scheuermanna?',
+                    'answer'   => 'To młodzieńcza kifoza piersiowa, czyli nadmierne, sztywne zaokrąglenie pleców rozwijające się w okresie dojrzewania na skutek zaburzeń wzrostu trzonów kręgów. Kręgi przyjmują klinowaty kształt, przez co kręgosłup wygina się ku tyłowi bardziej niż prawidłowo. Częściej dotyczy chłopców i ujawnia się zwykle między 13 a 18 rokiem życia.',
+                ],
+                [
+                    'question' => 'Jak odróżnić chorobę Scheuermanna od zwykłego garbienia się?',
+                    'answer'   => 'Przy zwykłej, nawykowej wadzie postawy plecy da się aktywnie wyprostować, a krzywizna znika przy skłonie i wyproście. W chorobie Scheuermanna kifoza jest sztywna i utrwalona, bo wynika ze zmian w budowie kręgów, dlatego nie koryguje się samym napięciem mięśni. Różnicę potwierdza badanie i zdjęcie RTG.',
+                ],
+                [
+                    'question' => 'Jak rozpoznaje się chorobę Scheuermanna?',
+                    'answer'   => 'Podstawą jest badanie i boczne zdjęcie RTG kręgosłupa. Rozpoznanie potwierdza klinowate zniekształcenie co najmniej trzech sąsiednich kręgów oraz pogłębiona kifoza piersiowa, zwykle powyżej 45-50 stopni w pomiarze kąta. Lekarz ocenia też dynamikę zmian i stopień dojrzałości kostnej.',
+                ],
+                [
+                    'question' => 'Czy choroba Scheuermanna boli?',
+                    'answer'   => 'Często tak, zwłaszcza ból zmęczeniowy pleców nasilający się po długim siedzeniu, staniu lub wysiłku, który ustępuje w spoczynku. W większości przypadków nie ma objawów neurologicznych. Nasilenie dolegliwości bywa różne i nie zawsze idzie w parze z wielkością skrzywienia.',
+                ],
+                [
+                    'question' => 'Jak leczy się chorobę Scheuermanna?',
+                    'answer'   => 'U większości pacjentów podstawą jest leczenie zachowawcze: kinezyterapia i ćwiczenia, fizykoterapia, dbanie o higienę kręgosłupa, a u rosnących dzieci z większym skrzywieniem gorset noszony przez wiele miesięcy. Wcześnie rozpoczęte leczenie daje lepsze efekty. Operację rozważa się przy bardzo dużych, postępujących skrzywieniach lub nasilonym bólu mimo leczenia.',
+                ],
+                [
+                    'question' => 'Czy z chorobą Scheuermanna można uprawiać sport?',
+                    'answer'   => 'Tak, ruch jest wskazany, ale dobrany rozsądnie. Zaleca się aktywności odciążające i wzmacniające plecy, na przykład pływanie, zwłaszcza na grzbiecie. Unika się natomiast forsownych ćwiczeń mocno obciążających kręgosłup i gwałtownych przeciążeń. Plan najlepiej ustalić z fizjoterapeutą, dostosowując go do etapu choroby.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Palazzo C., Sailhan F., Revel M.',
+                    'title'     => 'Scheuermann disease: an update',
+                    'publisher' => 'Joint Bone Spine',
+                    'note'      => '2014; 81(3): 209-214',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Kyphosis (Roundback) of the Spine',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'osteotomia-na-czym-polega-i-co-warto-wiedziec-przed-zabiegiem' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest osteotomia?',
+                    'answer'   => 'To zabieg chirurgiczny polegający na celowym przecięciu kości i zmianie jej ustawienia, osi lub długości, a następnie stabilizacji w nowej pozycji, najczęściej płytką i śrubami. Celem jest poprawa biomechaniki i odciążenie zużytej części stawu lub korekta deformacji.',
+                ],
+                [
+                    'question' => 'Przy jakich problemach wykonuje się osteotomię?',
+                    'answer'   => 'Najczęściej dotyczy kolana, gdy zwyrodnienie obejmuje głównie jeden przedział stawu, a oś kończyny jest szpotawa lub koślawa. Stosuje się ją też przy deformacjach pourazowych, niektórych wadach wrodzonych oraz w innych okolicach, na przykład w chirurgii szczęki czy biodra. Pozwala odsunąć w czasie konieczność wszczepienia endoprotezy.',
+                ],
+                [
+                    'question' => 'Na czym polega osteotomia kolana?',
+                    'answer'   => 'Chirurg przecina kość (zwykle piszczel lub kość udową) i koryguje oś kończyny tak, by przenieść obciążenie ze zużytego przedziału stawu na zdrowszy. Kość ustawia się w nowej pozycji i stabilizuje implantem do czasu zrostu. Dzięki temu zmniejsza się ból i poprawia funkcja kolana.',
+                ],
+                [
+                    'question' => 'Kto jest dobrym kandydatem do osteotomii?',
+                    'answer'   => 'Zwykle są to młodsze, aktywne osoby ze zwyrodnieniem obejmującym jeden przedział stawu i z nieprawidłową osią kończyny, które chcą zachować własny staw. U pacjentów z zaawansowanym, wieloprzedziałowym zwyrodnieniem częściej rozważa się endoprotezę. Ostateczną kwalifikację ustala ortopeda na podstawie badania i zdjęć.',
+                ],
+                [
+                    'question' => 'Jak wygląda rekonwalescencja po osteotomii?',
+                    'answer'   => 'Powrót do pełnej sprawności trwa zwykle od 3 do 6 miesięcy, bo kość musi się zrosnąć. Na początku kończynę się odciąża, korzystając z kul, czasem z ortezy lub unieruchomienia, a obciążanie zwiększa stopniowo według zaleceń. Ważna jest rehabilitacja, która przywraca zakres ruchu i siłę mięśni. Powrót do pracy fizycznej bywa odległy o kilka miesięcy.',
+                ],
+                [
+                    'question' => 'Czym osteotomia różni się od endoprotezy?',
+                    'answer'   => 'Osteotomia zachowuje własny staw i koryguje jego obciążenie przez zmianę osi kości, dlatego stosuje się ją głównie przy zmianach w jednym przedziale i u młodszych, aktywnych osób. Endoproteza to wymiana zniszczonego stawu na sztuczny, rozważana przy zaawansowanym, rozległym zwyrodnieniu. Wybór zależy od wieku, aktywności i stopnia zużycia stawu.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Brouwer R.W., Huizinga M.R., Duivenvoorden T. i wsp.',
+                    'title'     => 'Osteotomy for treating knee osteoarthritis',
+                    'publisher' => 'Cochrane Database of Systematic Reviews',
+                    'note'      => '2014; CD004019',
+                ],
+            ],
+        ],
+        'bol-glowy-a-schorzenia-stawu-skroniowo-zuchwowego' => [
+            'faq' => [
+                [
+                    'question' => 'Czy ból głowy może pochodzić od stawu skroniowo-żuchwowego?',
+                    'answer'   => 'Tak. Zaburzenia stawu skroniowo-żuchwowego i mięśni żucia (TMD) mogą dawać ból promieniujący do skroni, okolicy za uchem, twarzy i karku, łatwo mylony ze zwykłym bólem głowy. Dzieje się tak, bo napięte mięśnie żucia i przeciążony staw przenoszą ból na sąsiednie okolice. Dlatego nawracający ból głowy z dolegliwościami szczęki warto skojarzyć z TMD.',
+                ],
+                [
+                    'question' => 'Jakie objawy wskazują na zaburzenia stawu skroniowo-żuchwowego?',
+                    'answer'   => 'Typowe są ból twarzy i okolicy stawu, klikanie lub przeskakiwanie przy otwieraniu ust, uczucie blokowania żuchwy oraz trudność z szerokim otwarciem. Często towarzyszą im ból głowy, napięcie mięśni karku, czasem szumy w uszach lub zawroty głowy. Objawy nasilają się przy żuciu i zaciskaniu zębów.',
+                ],
+                [
+                    'question' => 'Co wywołuje zaburzenia stawu skroniowo-żuchwowego?',
+                    'answer'   => 'Przyczyny zwykle nakładają się na siebie. Znaczenie ma stres prowadzący do zaciskania i zgrzytania zębami (bruksizm), nieprawidłowy zgryz, utrata zębów lub źle dopasowane uzupełnienia protetyczne, a także przeciążenia i urazy. Często to połączenie czynników, a nie jedna konkretna wada.',
+                ],
+                [
+                    'question' => 'Czym jest bruksizm i jak wiąże się z TMD?',
+                    'answer'   => 'Bruksizm to mimowolne zaciskanie i zgrzytanie zębami, najczęściej w nocy lub w stresie. Powtarzane, silne napięcie przeciąża mięśnie żucia i staw skroniowo-żuchwowy, co sprzyja bólowi głowy, szczęki i ścieraniu zębów. Dlatego leczenie TMD często obejmuje też ograniczanie bruksizmu.',
+                ],
+                [
+                    'question' => 'Jak leczy się zaburzenia stawu skroniowo-żuchwowego?',
+                    'answer'   => 'Leczenie jest zwykle wielodyscyplinarne i zachowawcze. Stomatolog ocenia zgryz i często zaleca szynę (nakładkę) odciążającą staw oraz chroniącą zęby, a fizjoterapeuta pracuje nad mięśniami żucia, szyją i ruchomością stawu technikami manualnymi. Pomaga też redukcja stresu i ograniczenie nawyku zaciskania zębów. Plan dobiera się indywidualnie.',
+                ],
+                [
+                    'question' => 'Do kogo zgłosić się z podejrzeniem TMD?',
+                    'answer'   => 'Dobrym punktem wyjścia jest stomatolog, który oceni zgryz, staw i ewentualny bruksizm, oraz fizjoterapeuta zajmujący się stawem skroniowo-żuchwowym. Przy nasilonych lub przewlekłych bólach głowy warto skonsultować się także z lekarzem, by wykluczyć inne przyczyny. Współpraca tych specjalistów daje najlepsze efekty.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Schiffman E., Ohrbach R., Truelove E. i wsp.',
+                    'title'     => 'Diagnostic Criteria for Temporomandibular Disorders (DC/TMD) for Clinical and Research Applications',
+                    'publisher' => 'Journal of Oral & Facial Pain and Headache',
+                    'note'      => '2014; 28(1): 6-27',
+                ],
+                [
+                    'authors'   => 'List T., Jensen R.H.',
+                    'title'     => 'Temporomandibular disorders: old ideas and new concepts',
+                    'publisher' => 'Cephalalgia',
+                    'note'      => '2017; 37(7): 692-704',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v6', true);
+});
+
 /**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
