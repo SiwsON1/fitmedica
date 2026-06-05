@@ -1202,6 +1202,248 @@ add_action('init', function () {
     update_option('fitmedica_faq_setup_v7', true);
 });
 
+/* -----------------------------------------------
+   AUTO-SETUP FAQ + ZRODLA - partia v8 (kardio + endo)
+   (choroba niedokrwienna serca, niewydolnosc serca,
+   arytmia, miazdzyca, nadczynnosc tarczycy).
+   Bez weryfikatora. Uruchamia sie raz.
+   ----------------------------------------------- */
+
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v8')) return;
+
+    $articles = [
+        'choroba-niedokrwienna-serca' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest choroba niedokrwienna serca?',
+                    'answer'   => 'To stan, w którym mięsień sercowy otrzymuje za mało tlenu, bo zwężone tętnice wieńcowe dostarczają zbyt mało krwi. Najczęstszą przyczyną jest miażdżyca tych tętnic. Choroba może mieć postać stabilną, z dolegliwościami przy wysiłku, lub ostrą, gdy dochodzi do nagłego zamknięcia naczynia i zawału.',
+                ],
+                [
+                    'question' => 'Jakie są objawy choroby wieńcowej?',
+                    'answer'   => 'Typowy jest ból lub ucisk w klatce piersiowej, czasem promieniujący do barku, ramienia czy żuchwy, pojawiający się przy wysiłku lub stresie i ustępujący w spoczynku. Towarzyszyć mu mogą duszność i szybkie męczenie się. Silny, długotrwały ból w klatce, zwłaszcza w spoczynku, może oznaczać zawał i wymaga pilnej pomocy.',
+                ],
+                [
+                    'question' => 'Kiedy ból w klatce piersiowej wymaga wezwania pogotowia?',
+                    'answer'   => 'Natychmiastowej pomocy wymaga silny, długo niemijający ból lub ucisk w klatce, zwłaszcza promieniujący do ramienia czy żuchwy, z dusznością, potami i lękiem. To możliwe objawy zawału serca. W takiej sytuacji nie należy czekać ani prowadzić samochodu, tylko zadzwonić pod numer alarmowy 112 lub 999.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się chorobę niedokrwienną serca?',
+                    'answer'   => 'Podstawą jest ocena objawów i czynników ryzyka oraz EKG, w tym próby obciążeniowe. Pomocne są badania obrazowe serca, a stan tętnic wieńcowych najlepiej obrazuje koronarografia lub tomografia tętnic wieńcowych. Wybór badań zależy od objawów i ryzyka, a o nich decyduje kardiolog.',
+                ],
+                [
+                    'question' => 'Jak leczy się chorobę wieńcową?',
+                    'answer'   => 'Leczenie łączy zmianę stylu życia, leki i, w razie potrzeby, zabiegi. Stosuje się między innymi leki obniżające cholesterol, przeciwpłytkowe i poprawiające pracę serca. Przy istotnych zwężeniach wykonuje się zabieg poszerzenia tętnicy ze stentem (angioplastykę) lub pomostowanie (by-passy). Decyzję dobiera się indywidualnie.',
+                ],
+                [
+                    'question' => 'Jak zmniejszyć ryzyko choroby wieńcowej?',
+                    'answer'   => 'Najwięcej daje kontrola czynników ryzyka: niepalenie, leczenie nadciśnienia, cukrzycy i wysokiego cholesterolu, utrzymanie prawidłowej masy ciała, zdrowa dieta i regularna aktywność fizyczna. Te same działania spowalniają miażdżycę i chronią przed zawałem oraz udarem.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Knuuti J., Wijns W., Saraste A. i wsp.',
+                    'title'     => '2019 ESC Guidelines for the diagnosis and management of chronic coronary syndromes',
+                    'publisher' => 'European Heart Journal',
+                    'note'      => '2020; 41(3): 407-477',
+                ],
+                [
+                    'authors'   => 'American Heart Association',
+                    'title'     => 'Coronary Artery Disease',
+                    'publisher' => 'AHA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'niewydolnosc-serca-przyczyny-objawy-leczenie' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest niewydolność serca?',
+                    'answer'   => 'To stan, w którym serce nie pompuje krwi w ilości pokrywającej zapotrzebowanie organizmu. Nie oznacza, że serce się zatrzymuje, tylko że pracuje mniej wydolnie. Może rozwijać się powoli (przewlekła) lub gwałtownie (ostra), i dotyczyć lewej, prawej albo obu części serca.',
+                ],
+                [
+                    'question' => 'Jakie są objawy niewydolności serca?',
+                    'answer'   => 'Najczęstsze to duszność, zwłaszcza przy wysiłku i w pozycji leżącej, zmęczenie i spadek sił, obrzęki nóg, stóp i kostek oraz zwiększone oddawanie moczu w nocy. Bywa też kołatanie serca i powiększenie obwodu brzucha. Narastanie tych objawów warto skonsultować z lekarzem.',
+                ],
+                [
+                    'question' => 'Co prowadzi do niewydolności serca?',
+                    'answer'   => 'Najczęstsze przyczyny to nieleczone nadciśnienie i choroba wieńcowa, a także kardiomiopatie, wady i zaburzenia rytmu serca, przebyte zapalenie mięśnia sercowego oraz cukrzyca i otyłość. Często działa kilka czynników naraz, które przez lata przeciążają serce.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się niewydolność serca?',
+                    'answer'   => 'Podstawą jest badanie, EKG oraz echokardiografia (USG serca), która ocenia kurczliwość i budowę serca. Pomocne są badania krwi, w tym oznaczenie peptydów natriuretycznych. Lekarz zestawia wyniki z objawami, by ocenić rodzaj i zaawansowanie niewydolności.',
+                ],
+                [
+                    'question' => 'Jak leczy się niewydolność serca?',
+                    'answer'   => 'Leczenie łączy leki i zmianę stylu życia, a w wybranych przypadkach zabiegi. Stosuje się między innymi inhibitory ACE lub ich odpowiedniki, beta-blokery, leki moczopędne i antagonistów aldosteronu. Ważne są kontrola masy ciała, ograniczenie soli i regularne przyjmowanie leków. W zaawansowanych przypadkach rozważa się wszczepialne urządzenia lub przeszczep.',
+                ],
+                [
+                    'question' => 'Czy z niewydolnością serca można normalnie żyć?',
+                    'answer'   => 'Wielu pacjentów przy dobrze prowadzonym leczeniu funkcjonuje aktywnie przez długi czas. Kluczowe są regularne przyjmowanie leków, kontrola masy ciała i ciśnienia, ograniczenie soli, rozsądna aktywność fizyczna i szybkie reagowanie na nasilenie objawów. Niewydolność serca jest chorobą przewlekłą, którą trzeba systematycznie kontrolować.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'McDonagh T.A., Metra M., Adamo M. i wsp.',
+                    'title'     => '2021 ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure',
+                    'publisher' => 'European Heart Journal',
+                    'note'      => '2021; 42(36): 3599-3726',
+                ],
+                [
+                    'authors'   => 'American Heart Association',
+                    'title'     => 'Heart Failure',
+                    'publisher' => 'AHA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'zaburzenia-rytmu-serca-arytmia' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest arytmia?',
+                    'answer'   => 'To zaburzenie rytmu serca, które powstaje, gdy impulsy elektryczne sterujące jego pracą nie tworzą się lub nie rozchodzą prawidłowo. Serce bije wtedy za szybko, za wolno lub nieregularnie. Niektóre arytmie są niegroźne, inne wymagają leczenia, dlatego warto je ocenić.',
+                ],
+                [
+                    'question' => 'Jakie są objawy arytmii?',
+                    'answer'   => 'Często odczuwa się kołatanie serca, uczucie szybkiego bicia lub zamierania serca, a także zawroty głowy, osłabienie, duszność czy ból w klatce piersiowej. W cięższych przypadkach może dojść do omdlenia. Część arytmii przebiega jednak bez wyraźnych objawów i wykrywa się je dopiero w badaniu.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się arytmię?',
+                    'answer'   => 'Podstawą jest EKG, które rejestruje rytm serca. Ponieważ arytmia bywa napadowa, często stosuje się monitorowanie Holter EKG przez dobę lub dłużej, by uchwycić zaburzenia w codziennych warunkach. W zależności od sytuacji lekarz może zlecić dodatkowe badania serca.',
+                ],
+                [
+                    'question' => 'Czy arytmia jest groźna?',
+                    'answer'   => 'To zależy od rodzaju. Wiele arytmii jest łagodnych, ale niektóre, jak migotanie przedsionków, zwiększają ryzyko powikłań, w tym udaru mózgu, lub mogą upośledzać pracę serca. Dlatego nawracające kołatania, omdlenia czy ból w klatce piersiowej warto zdiagnozować, a nie lekceważyć.',
+                ],
+                [
+                    'question' => 'Jak leczy się zaburzenia rytmu serca?',
+                    'answer'   => 'Leczenie dobiera się do rodzaju arytmii i jej przyczyny. Stosuje się leki kontrolujące rytm i częstość pracy serca, a przy arytmiach zatorowych, jak migotanie przedsionków, także leczenie przeciwkrzepliwe zmniejszające ryzyko udaru. W wybranych przypadkach wykonuje się ablację, kardiowersję lub wszczepia się urządzenia, na przykład rozrusznik.',
+                ],
+                [
+                    'question' => 'Co może wywoływać lub nasilać arytmię?',
+                    'answer'   => 'Sprzyjają jej choroby serca (zawał, niewydolność, nadciśnienie), cukrzyca i choroby tarczycy, zaburzenia elektrolitowe oraz używki: alkohol, nikotyna i nadmiar kofeiny. Znaczenie mają też stres i niedobór snu. Ograniczenie tych czynników wspiera leczenie i zmniejsza nawroty.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Hindricks G., Potpara T., Dagres N. i wsp.',
+                    'title'     => '2020 ESC Guidelines for the diagnosis and management of atrial fibrillation',
+                    'publisher' => 'European Heart Journal',
+                    'note'      => '2021; 42(5): 373-498',
+                ],
+                [
+                    'authors'   => 'American Heart Association',
+                    'title'     => 'Arrhythmia',
+                    'publisher' => 'AHA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'miazdzyca-naczyn-krwionosnych' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest miażdżyca?',
+                    'answer'   => 'To przewlekła choroba tętnic, w której w ścianach naczyń odkładają się blaszki z cholesterolu i tłuszczów, stopniowo zwężając ich światło. Z czasem blaszki włóknieją i wapnieją, a na ich powierzchni mogą tworzyć się zakrzepy. Ogranicza to dopływ krwi do narządów i jest główną przyczyną zawałów i udarów.',
+                ],
+                [
+                    'question' => 'Jakie są objawy miażdżycy?',
+                    'answer'   => 'Przez długi czas miażdżyca rozwija się bezobjawowo, a dolegliwości zależą od zajętej tętnicy. W naczyniach serca daje ból w klatce piersiowej, w tętnicach mózgu objawy niedokrwienia i ryzyko udaru, w nogach ból przy chodzeniu, a w nerkach nadciśnienie. Często pierwszym sygnałem jest dopiero poważne powikłanie.',
+                ],
+                [
+                    'question' => 'Co zwiększa ryzyko miażdżycy?',
+                    'answer'   => 'Najważniejsze czynniki to wysoki cholesterol, palenie tytoniu, nadciśnienie, cukrzyca, nadwaga i otyłość, mała aktywność fizyczna oraz nieprawidłowa dieta. Znaczenie mają też wiek i obciążenia rodzinne. Większość z tych czynników można kontrolować, co realnie spowalnia chorobę.',
+                ],
+                [
+                    'question' => 'Czym grozi miażdżyca?',
+                    'answer'   => 'Najpoważniejsze powikłania to zawał mięśnia sercowego i udar niedokrwienny mózgu, do których dochodzi, gdy blaszka zamyka tętnicę lub powstaje na niej zakrzep. Miażdżyca tętnic kończyn może prowadzić do niedokrwienia nóg. Dlatego tak ważne jest wczesne ograniczanie czynników ryzyka.',
+                ],
+                [
+                    'question' => 'Jak leczy się i hamuje miażdżycę?',
+                    'answer'   => 'Podstawą jest zmiana stylu życia: niepalenie, zdrowa dieta, aktywność fizyczna i redukcja masy ciała, a także leczenie nadciśnienia, cukrzycy i wysokiego cholesterolu, często z użyciem leków obniżających lipidy. Przy istotnych zwężeniach stosuje się zabiegi udrażniające tętnicę. Celem jest spowolnienie choroby i zapobieganie powikłaniom.',
+                ],
+                [
+                    'question' => 'Czy miażdżycy można zapobiec?',
+                    'answer'   => 'Rozwój miażdżycy można znacznie spowolnić, a u wielu osób w dużej mierze jej zapobiec, działając na czynniki ryzyka. Najwięcej daje niepalenie, zdrowa dieta uboga w tłuszcze nasycone, regularny ruch, prawidłowa masa ciała oraz kontrola ciśnienia, cukru i cholesterolu. Im wcześniej, tym lepszy efekt.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Mach F., Baigent C., Catapano A.L. i wsp.',
+                    'title'     => '2019 ESC/EAS Guidelines for the management of dyslipidaemias: lipid modification to reduce cardiovascular risk',
+                    'publisher' => 'European Heart Journal',
+                    'note'      => '2020; 41(1): 111-188',
+                ],
+                [
+                    'authors'   => 'American Heart Association',
+                    'title'     => 'Atherosclerosis',
+                    'publisher' => 'AHA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'nadczynnosc-tarczycy' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest nadczynność tarczycy?',
+                    'answer'   => 'To stan, w którym tarczyca produkuje nadmiar hormonów (T3 i T4), co przyspiesza wiele procesów w organizmie. Przemiana materii, praca serca i układu nerwowego ulegają pobudzeniu. Najczęstszą przyczyną jest choroba Gravesa-Basedowa, czyli zaburzenie autoimmunologiczne.',
+                ],
+                [
+                    'question' => 'Jakie są objawy nadczynności tarczycy?',
+                    'answer'   => 'Typowe są chudnięcie mimo dobrego apetytu, przyspieszone i mocne bicie serca, nerwowość, drażliwość i niepokój, nadmierne pocenie się oraz nietolerancja ciepła. Częste są też drżenie rąk, bezsenność, biegunki i osłabienie mięśni. Objawy bywają mylone ze stresem czy przemęczeniem.',
+                ],
+                [
+                    'question' => 'Co wywołuje nadczynność tarczycy?',
+                    'answer'   => 'Najczęstszą przyczyną jest choroba Gravesa-Basedowa, w której układ odpornościowy pobudza tarczycę do nadprodukcji hormonów. Nadczynność mogą też wywołać nadczynne guzki tarczycy oraz niektóre stany zapalne gruczołu. Ustalenie przyczyny jest ważne, bo wpływa na wybór leczenia.',
+                ],
+                [
+                    'question' => 'Jak rozpoznaje się nadczynność tarczycy?',
+                    'answer'   => 'Podstawą są badania krwi: obniżone TSH przy podwyższonych hormonach tarczycy (FT3 i FT4) wskazują na nadczynność. Przy podejrzeniu choroby Gravesa-Basedowa oznacza się przeciwciała, a obraz uzupełnia USG tarczycy, czasem badanie izotopowe. Wyniki interpretuje lekarz w odniesieniu do objawów.',
+                ],
+                [
+                    'question' => 'Jak leczy się nadczynność tarczycy?',
+                    'answer'   => 'Są trzy główne drogi: leki przeciwtarczycowe (tyreostatyki) hamujące produkcję hormonów, leczenie jodem radioaktywnym oraz operacja usunięcia części lub całości tarczycy. Wybór zależy od przyczyny, nasilenia choroby, wieku i sytuacji pacjenta, na przykład ciąży. Decyzję podejmuje lekarz wspólnie z pacjentem.',
+                ],
+                [
+                    'question' => 'Czy nieleczona nadczynność tarczycy jest groźna?',
+                    'answer'   => 'Tak. Długotrwały nadmiar hormonów obciąża serce i może prowadzić do zaburzeń rytmu, w tym migotania przedsionków, a także do osłabienia kości i osteoporozy. Bardzo nasilona nadczynność grozi groźnym przełomem tarczycowym. Dlatego objawów nie warto bagatelizować i należy je zdiagnozować.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Ross D.S., Burch H.B., Cooper D.S. i wsp.',
+                    'title'     => '2016 American Thyroid Association Guidelines for Diagnosis and Management of Hyperthyroidism and Other Causes of Thyrotoxicosis',
+                    'publisher' => 'Thyroid',
+                    'note'      => '2016; 26(10): 1343-1421',
+                ],
+                [
+                    'authors'   => 'American Thyroid Association',
+                    'title'     => 'Hyperthyroidism (Overactive)',
+                    'publisher' => 'ATA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v8', true);
+});
+
 /**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
