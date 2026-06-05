@@ -46,7 +46,7 @@ add_action('init', function () {
    ----------------------------------------------- */
 
 add_action('init', function () {
-    if (get_option('fitmedica_faq_setup_v2')) return;
+    if (get_option('fitmedica_faq_setup_v2_pl')) return;
 
     $articles = [
         'zerwany-biceps-przyczyny-leczenie-i-rehabilitacja' => [
@@ -54,28 +54,28 @@ add_action('init', function () {
             'review_date' => '2026-05',
             'faq' => [
                 [
-                    'question' => 'Ile trwa powrot do sprawnosci po operacji zerwanego bicepsa?',
-                    'answer'   => 'Pelny powrot zajmuje zwykle od 4 do 6 miesiecy. Pierwsze tygodnie to ochrona zszytego sciegna, ruchy reka bez obciazenia wprowadza sie okolo 4-6 tygodnia, codzienne czynnosci wracaja po okolo 3 miesiacach, a obciazenia sportowe i silowe po 6 miesiacach. Tempo zalezy od typu zerwania i uprawianej dyscypliny.',
+                    'question' => 'Ile trwa powrót do sprawności po operacji zerwanego bicepsa?',
+                    'answer'   => 'Pełny powrót zajmuje zwykle od 4 do 6 miesięcy. Pierwsze tygodnie to ochrona zszytego ścięgna, ruchy ręką bez obciążenia wprowadza się około 4-6 tygodnia, codzienne czynności wracają po około 3 miesiącach, a obciążenia sportowe i siłowe po 6 miesiącach. Tempo zależy od typu zerwania i uprawianej dyscypliny.',
                 ],
                 [
-                    'question' => 'Czy dystalne zerwanie bicepsa trzeba operowac w okreslonym czasie?',
-                    'answer'   => 'Tak, przy calkowitym zerwaniu przyczepu dalszego liczy sie czas. Najlepsze warunki do zszycia sciegna sa w pierwszych dwoch, trzech tygodniach od urazu. Pozniej sciegno sie obkurcza i bliznowacieje, co utrudnia operacje i pogarsza odzysk sily. Dlatego bol i nagle oslabienie zgiecia lokcia warto skonsultowac szybko.',
+                    'question' => 'Czy dystalne zerwanie bicepsa trzeba operować w określonym czasie?',
+                    'answer'   => 'Tak, przy całkowitym zerwaniu przyczepu dalszego liczy się czas. Najlepsze warunki do zszycia ścięgna są w pierwszych dwóch, trzech tygodniach od urazu. Później ścięgno się obkurcza i bliznowacieje, co utrudnia operację i pogarsza odzysk siły. Dlatego ból i nagłe osłabienie zgięcia łokcia warto skonsultować szybko.',
                 ],
                 [
-                    'question' => 'Co sie stanie, jesli nie zoperuje zerwanego sciegna dystalnego?',
-                    'answer'   => 'Sciegno dalszego przyczepu nie zrosnie sie samo z koscia. Bez operacji zostaje trwaly ubytek sily, najbardziej odczuwalny przy odwracaniu przedramienia (np. wkrecanie srubokretem) i zginaniu lokcia. U osob malo aktywnych bywa to akceptowalne, ale sportowcy i pracujacy fizycznie zwykle korzystaja z rekonstrukcji.',
+                    'question' => 'Co się stanie, jeśli nie zoperuję zerwanego ścięgna dystalnego?',
+                    'answer'   => 'Ścięgno dalszego przyczepu nie zrośnie się samo z kością. Bez operacji zostaje trwały ubytek siły, najbardziej odczuwalny przy odwracaniu przedramienia (np. wkręcanie śrubokrętem) i zginaniu łokcia. U osób mało aktywnych bywa to akceptowalne, ale sportowcy i pracujący fizycznie zwykle korzystają z rekonstrukcji.',
                 ],
                 [
-                    'question' => 'Czy zerwanie glowy dlugiej bicepsa (w barku) zawsze wymaga operacji?',
-                    'answer'   => 'Najczesciej nie. Proksymalne zerwanie glowy dlugiej czesto leczy sie zachowawczo, bo pozostale przyczepy przejmuja funkcje, a utrata sily jest niewielka. Operacje rozwaza sie glownie u osob mlodych, aktywnych sportowo lub gdy przeszkadza widoczna deformacja albo bolesny skurcz miesnia.',
+                    'question' => 'Czy zerwanie głowy długiej bicepsa (w barku) zawsze wymaga operacji?',
+                    'answer'   => 'Najczęściej nie. Proksymalne zerwanie głowy długiej często leczy się zachowawczo, bo pozostałe przyczepy przejmują funkcję, a utrata siły jest niewielka. Operację rozważa się głównie u osób młodych, aktywnych sportowo lub gdy przeszkadza widoczna deformacja albo bolesny skurcz mięśnia.',
                 ],
                 [
                     'question' => 'Czy "efekt Popeye\'a" zniknie po leczeniu?',
-                    'answer'   => 'Widoczne zgrubienie miesnia to przemieszczony brzusiec po zerwaniu glowy dlugiej w barku. Przy leczeniu zachowawczym taka deformacja zwykle pozostaje, choc rzadko przeszkadza w funkcji, a operacja koryguje ja glownie ze wzgledow estetycznych lub przy bolesnym skurczu. To inny problem niz zerwanie przyczepu dalszego przy lokciu, gdzie liczy sie przede wszystkim odzyskanie sily, a nie wyglad ramienia.',
+                    'answer'   => 'Widoczne zgrubienie mięśnia to przemieszczony brzusiec po zerwaniu głowy długiej w barku. Przy leczeniu zachowawczym taka deformacja zwykle pozostaje, choć rzadko przeszkadza w funkcji, a operacja koryguje ją głównie ze względów estetycznych lub przy bolesnym skurczu. To inny problem niż zerwanie przyczepu dalszego przy łokciu, gdzie liczy się przede wszystkim odzyskanie siły, a nie wygląd ramienia.',
                 ],
                 [
-                    'question' => 'Kiedy moge wrocic na silownie i do podnoszenia ciezarow?',
-                    'answer'   => 'Lekkie cwiczenia bez obciazania ramienia fizjoterapeuta wprowadza zwykle po kilku tygodniach, ale pelny trening silowy i dzwiganie duzych ciezarow dopiero po okolo 6 miesiacach od operacji. Zbyt wczesny powrot grozi ponownym zerwaniem swiezo zszytego sciegna. Progresje obciazen ustala sie indywidualnie.',
+                    'question' => 'Kiedy mogę wrócić na siłownię i do podnoszenia ciężarów?',
+                    'answer'   => 'Lekkie ćwiczenia bez obciążania ramienia fizjoterapeuta wprowadza zwykle po kilku tygodniach, ale pełny trening siłowy i dźwiganie dużych ciężarów dopiero po około 6 miesiącach od operacji. Zbyt wczesny powrót grozi ponownym zerwaniem świeżo zszytego ścięgna. Progresję obciążeń ustala się indywidualnie.',
                 ],
             ],
             'sources' => [
@@ -83,7 +83,7 @@ add_action('init', function () {
                     'authors'   => 'American Academy of Orthopaedic Surgeons',
                     'title'     => 'Biceps Tendon Tear at the Elbow',
                     'publisher' => 'OrthoInfo (AAOS)',
-                    'note'      => 'Material edukacyjny dla pacjentow',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
                 ],
                 [
                     'authors'   => 'Looney A.M., Day J., Bodendorfer B.M. i wsp.',
@@ -101,7 +101,7 @@ add_action('init', function () {
                     'authors'   => 'American Academy of Orthopaedic Surgeons',
                     'title'     => 'Biceps Tendon Tear at the Shoulder',
                     'publisher' => 'OrthoInfo (AAOS)',
-                    'note'      => 'Material edukacyjny dla pacjentow',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
                 ],
             ],
         ],
@@ -110,28 +110,28 @@ add_action('init', function () {
             'review_date' => '2026-05',
             'faq' => [
                 [
-                    'question' => 'Ile trwa leczenie tendinopatii sciegna Achillesa?',
-                    'answer'   => 'Zwykle od 3 do 6 miesiecy konsekwentnej rehabilitacji. Podstawa jest okolo 12-tygodniowy program cwiczen, ale przy przewleklych dolegliwosciach poprawa bywa wolniejsza. Sciegno adaptuje sie powoli, bo jest slabo ukrwione, dlatego liczy sie regularnosc i cierpliwosc, a nie sam odpoczynek.',
+                    'question' => 'Ile trwa leczenie tendinopatii ścięgna Achillesa?',
+                    'answer'   => 'Zwykle od 3 do 6 miesięcy konsekwentnej rehabilitacji. Podstawą jest około 12-tygodniowy program ćwiczeń, ale przy przewlekłych dolegliwościach poprawa bywa wolniejsza. Ścięgno adaptuje się powoli, bo jest słabo ukrwione, dlatego liczy się regularność i cierpliwość, a nie sam odpoczynek.',
                 ],
                 [
-                    'question' => 'Czy moge biegac i trenowac podczas leczenia bolu Achillesa?',
-                    'answer'   => 'Czesto mozna, ale tylko po zmniejszeniu obciazenia i jesli bol nie narasta w trakcie ani nastepnego dnia. Calkowity bezruch nie jest zalecany, bo sciegno potrzebuje kontrolowanego obciazenia, zeby sie regenerowac. Na czas leczenia warto ograniczyc bieganie i skoki, a kondycje utrzymac mniej obciazajacymi formami: plywaniem, rowerem, wioslarstwem. Reakcja sciegna dzien po wysilku to lepszy wyznacznik niz sam bol podczas treningu.',
+                    'question' => 'Czy mogę biegać i trenować podczas leczenia bólu Achillesa?',
+                    'answer'   => 'Często można, ale tylko po zmniejszeniu obciążenia i jeśli ból nie narasta w trakcie ani następnego dnia. Całkowity bezruch nie jest zalecany, bo ścięgno potrzebuje kontrolowanego obciążenia, żeby się regenerować. Na czas leczenia warto ograniczyć bieganie i skoki, a kondycję utrzymać mniej obciążającymi formami: pływaniem, rowerem, wioślarstwem. Reakcja ścięgna dzień po wysiłku to lepszy wyznacznik niż sam ból podczas treningu.',
                 ],
                 [
-                    'question' => 'Na czym polegaja cwiczenia ekscentryczne i jak dlugo je wykonywac?',
-                    'answer'   => 'To kontrolowane opuszczanie piety, ktore wzmacnia sciegno pod obciazeniem. Klasyczny protokol zaklada trzy serie po 15 powtorzen, dwa razy dziennie, przez okolo 12 tygodni, z noga wyprostowana i ugieta w kolanie. To jeden ze sprawdzonych sposobow, ale obecnie stosuje sie tez inne formy stopniowego obciazania sciegna, dobierane do bolu i etapu leczenia. Plan powinien ulozyc fizjoterapeuta, bo zbyt wczesna intensywnosc potrafi nasilic bol.',
+                    'question' => 'Na czym polegają ćwiczenia ekscentryczne i jak długo je wykonywać?',
+                    'answer'   => 'To kontrolowane opuszczanie pięty, które wzmacnia ścięgno pod obciążeniem. Klasyczny protokół zakłada trzy serie po 15 powtórzeń, dwa razy dziennie, przez około 12 tygodni, z nogą wyprostowaną i ugiętą w kolanie. To jeden ze sprawdzonych sposobów, ale obecnie stosuje się też inne formy stopniowego obciążania ścięgna, dobierane do bólu i etapu leczenia. Plan powinien ułożyć fizjoterapeuta, bo zbyt wczesna intensywność potrafi nasilić ból.',
                 ],
                 [
-                    'question' => 'Czy fala uderzeniowa i osocze bogatoplytkowe (PRP) pomagaja na bol Achillesa?',
-                    'answer'   => 'Moga byc dodatkiem do cwiczen u czesci pacjentow z przewleklym bolem, ale efekt nie jest gwarantowany. Fala uderzeniowa bywa laczona z rehabilitacja, gdy sama terapia ruchem nie wystarcza. PRP nie ma mocnych dowodow jako rutynowe leczenie tendinopatii Achillesa, dlatego o jego zastosowaniu decyduje sie indywidualnie po badaniu. Fundamentem leczenia pozostaja cwiczenia, a zabiegi je uzupelniaja, nie zastepuja.',
+                    'question' => 'Czy fala uderzeniowa i osocze bogatopłytkowe (PRP) pomagają na ból Achillesa?',
+                    'answer'   => 'Mogą być dodatkiem do ćwiczeń u części pacjentów z przewlekłym bólem, ale efekt nie jest gwarantowany. Fala uderzeniowa bywa łączona z rehabilitacją, gdy sama terapia ruchem nie wystarcza. PRP nie ma mocnych dowodów jako rutynowe leczenie tendinopatii Achillesa, dlatego o jego zastosowaniu decyduje się indywidualnie po badaniu. Fundamentem leczenia pozostają ćwiczenia, a zabiegi je uzupełniają, nie zastępują.',
                 ],
                 [
-                    'question' => 'Jak odroznic tendinopatie od zerwania sciegna Achillesa?',
-                    'answer'   => 'Tendinopatia narasta stopniowo: bol i sztywnosc pojawiaja sie przy starcie aktywnosci i nasilaja z czasem. Zerwanie to nagly uraz, czesto z uczuciem uderzenia lub "strzalu" w lydke, oslabieniem odbicia i trudnoscia ze stanieciem na palcach. Bol bywa silny na poczatku, ale potrafi szybko zelzec, co nie znaczy, ze uraz jest blahy. Zerwanie wymaga pilnej konsultacji, bo decyzja o leczeniu zapada w pierwszych dniach.',
+                    'question' => 'Jak odróżnić tendinopatię od zerwania ścięgna Achillesa?',
+                    'answer'   => 'Tendinopatia narasta stopniowo: ból i sztywność pojawiają się przy starcie aktywności i nasilają z czasem. Zerwanie to nagły uraz, często z uczuciem uderzenia lub "strzału" w łydkę, osłabieniem odbicia i trudnością ze stanięciem na palcach. Ból bywa silny na początku, ale potrafi szybko zelżeć, co nie znaczy, że uraz jest błahy. Zerwanie wymaga pilnej konsultacji, bo decyzja o leczeniu zapada w pierwszych dniach.',
                 ],
                 [
-                    'question' => 'Czy bol sciegna Achillesa moze wrocic i jak temu zapobiec?',
-                    'answer'   => 'Tak, nawroty sa czeste, jesli wroci sie do pelnych obciazen zbyt szybko. Ryzyko zmniejsza stopniowe zwiekszanie kilometrazu, rozgrzewka, dobre obuwie, praca nad ruchomoscia stawu skokowego i sila lydki. Utrzymanie cwiczen wzmacniajacych po ustapieniu bolu to najlepsza profilaktyka.',
+                    'question' => 'Czy ból ścięgna Achillesa może wrócić i jak temu zapobiec?',
+                    'answer'   => 'Tak, nawroty są częste, jeśli wróci się do pełnych obciążeń zbyt szybko. Ryzyko zmniejsza stopniowe zwiększanie kilometrażu, rozgrzewka, dobre obuwie, praca nad ruchomością stawu skokowego i siłą łydki. Utrzymanie ćwiczeń wzmacniających po ustąpieniu bólu to najlepsza profilaktyka.',
                 ],
             ],
             'sources' => [
@@ -181,7 +181,7 @@ add_action('init', function () {
         wp_reset_postdata();
     }
 
-    update_option('fitmedica_faq_setup_v2', true);
+    update_option('fitmedica_faq_setup_v2_pl', true);
 });
 
 /* -----------------------------------------------
@@ -200,27 +200,27 @@ add_action('init', function () {
             'faq' => [
                 [
                     'question' => 'Czym jest kolano biegacza?',
-                    'answer'   => 'To zespol pasma biodrowo-piszczelowego, czyli przeciazeniowy bol po zewnetrznej stronie kolana. Powstaje, gdy pasmo biegnace wzdluz uda drazni tkanki w okolicy bocznego klykcia kosci udowej przy powtarzalnym zginaniu i prostowaniu kolana. Najczesciej dotyka biegaczy i kolarzy, ale pojawia sie u kazdego, kto zbyt szybko zwieksza obciazenia treningowe.',
+                    'answer'   => 'To zespół pasma biodrowo-piszczelowego, czyli przeciążeniowy ból po zewnętrznej stronie kolana. Powstaje, gdy pasmo biegnące wzdłuż uda drażni tkanki w okolicy bocznego kłykcia kości udowej przy powtarzalnym zginaniu i prostowaniu kolana. Najczęściej dotyka biegaczy i kolarzy, ale pojawia się u każdego, kto zbyt szybko zwiększa obciążenia treningowe.',
                 ],
                 [
-                    'question' => 'Po czym poznac kolano biegacza, a nie inny bol kolana?',
-                    'answer'   => 'Charakterystyczny jest ostry lub piekacy bol po zewnetrznej stronie kolana, ktory narasta w trakcie biegu i czesto zmusza do przerwania treningu. Dolegliwosci nasilaja sie zwlaszcza przy zbieganiu z gorki i schodzeniu po schodach. Bol zwykle ustepuje w spoczynku, by wrocic przy kolejnej aktywnosci. To odroznia go od bolu z przodu kolana, ktory daje inny wzorzec.',
+                    'question' => 'Po czym poznać kolano biegacza, a nie inny ból kolana?',
+                    'answer'   => 'Charakterystyczny jest ostry lub piekący ból po zewnętrznej stronie kolana, który narasta w trakcie biegu i często zmusza do przerwania treningu. Dolegliwości nasilają się zwłaszcza przy zbieganiu z górki i schodzeniu po schodach. Ból zwykle ustępuje w spoczynku, by wrócić przy kolejnej aktywności. To odróżnia go od bólu z przodu kolana, który daje inny wzorzec.',
                 ],
                 [
-                    'question' => 'Czy moge dalej biegac z kolanem biegacza?',
-                    'answer'   => 'Zwykle trzeba czasowo zmniejszyc obciazenie, a nie kategorycznie odstawic ruch. W ostrej fazie ogranicza sie bieganie i zbieganie z gorki, bo to najmocniej drazni pasmo. Kondycje mozna utrzymac formami mniej obciazajacymi bok kolana, na przyklad plywaniem. Powrot do biegania wprowadza sie stopniowo, gdy bol ustepuje, najlepiej z korekta techniki i objetosci treningu.',
+                    'question' => 'Czy mogę dalej biegać z kolanem biegacza?',
+                    'answer'   => 'Zwykle trzeba czasowo zmniejszyć obciążenie, a nie kategorycznie odstawić ruch. W ostrej fazie ogranicza się bieganie i zbieganie z górki, bo to najmocniej drażni pasmo. Kondycję można utrzymać formami mniej obciążającymi bok kolana, na przykład pływaniem. Powrót do biegania wprowadza się stopniowo, gdy ból ustępuje, najlepiej z korektą techniki i objętości treningu.',
                 ],
                 [
                     'question' => 'Ile trwa leczenie kolana biegacza?',
-                    'answer'   => 'Najczesciej od kilku tygodni do kilku miesiecy, zaleznie od czasu trwania objawow i konsekwencji w rehabilitacji. Krotko trwajace dolegliwosci zwykle ustepuja szybciej, a przewlekle wymagaja cierpliwosci. Kluczowe jest nie tylko wyciszenie bolu, ale wzmocnienie miesni biodra i posladka oraz poprawa techniki, bo to zmniejsza ryzyko nawrotu.',
+                    'answer'   => 'Najczęściej od kilku tygodni do kilku miesięcy, zależnie od czasu trwania objawów i konsekwencji w rehabilitacji. Krótko trwające dolegliwości zwykle ustępują szybciej, a przewlekłe wymagają cierpliwości. Kluczowe jest nie tylko wyciszenie bólu, ale wzmocnienie mięśni biodra i pośladka oraz poprawa techniki, bo to zmniejsza ryzyko nawrotu.',
                 ],
                 [
-                    'question' => 'Jak leczy sie kolano biegacza i czy potrzebna jest operacja?',
-                    'answer'   => 'Podstawa jest leczenie zachowawcze: czasowe odciazenie, fizjoterapia (terapia manualna, zabiegi fizykalne) oraz cwiczenia wzmacniajace miesnie posladkow i stabilizujace biodro. Pomocne bywaja korekta techniki biegu oraz dobor obuwia lub wkladek. Operacje rozwaza sie rzadko, dopiero gdy dlugie i konsekwentne leczenie zachowawcze nie przynosi poprawy.',
+                    'question' => 'Jak leczy się kolano biegacza i czy potrzebna jest operacja?',
+                    'answer'   => 'Podstawą jest leczenie zachowawcze: czasowe odciążenie, fizjoterapia (terapia manualna, zabiegi fizykalne) oraz ćwiczenia wzmacniające mięśnie pośladków i stabilizujące biodro. Pomocne bywają korekta techniki biegu oraz dobór obuwia lub wkładek. Operację rozważa się rzadko, dopiero gdy długie i konsekwentne leczenie zachowawcze nie przynosi poprawy.',
                 ],
                 [
-                    'question' => 'Jak zapobiegac nawrotom kolana biegacza?',
-                    'answer'   => 'Najwiecej daje stopniowe zwiekszanie kilometrazu i intensywnosci, bez gwaltownych skokow objetosci. Warto wzmacniac miesnie posladkow i biodra, dbac o rozgrzewke oraz technike biegu, a takze unikac dlugiego biegania po pochylym, jednostronnym podlozu. Utrzymanie cwiczen wzmacniajacych po ustapieniu bolu to najlepsza profilaktyka.',
+                    'question' => 'Jak zapobiegać nawrotom kolana biegacza?',
+                    'answer'   => 'Najwięcej daje stopniowe zwiększanie kilometrażu i intensywności, bez gwałtownych skoków objętości. Warto wzmacniać mięśnie pośladków i biodra, dbać o rozgrzewkę oraz technikę biegu, a także unikać długiego biegania po pochyłym, jednostronnym podłożu. Utrzymanie ćwiczeń wzmacniających po ustąpieniu bólu to najlepsza profilaktyka.',
                 ],
             ],
             'sources' => [
@@ -246,35 +246,35 @@ add_action('init', function () {
                     'authors'   => 'American Academy of Orthopaedic Surgeons',
                     'title'     => 'Iliotibial Band (IT Band) Syndrome',
                     'publisher' => 'OrthoInfo (AAOS)',
-                    'note'      => 'Material edukacyjny dla pacjentow',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
                 ],
             ],
         ],
         'zespol-ciesni-nadgarstka' => [
             'faq' => [
                 [
-                    'question' => 'Jak rozpoznac zespol ciesni nadgarstka?',
-                    'answer'   => 'Typowe jest mrowienie i dretwienie kciuka, palca wskazujacego, srodkowego oraz polowy serdecznego, czyli obszaru unerwianego przez nerw posrodkowy. Z czasem dochodzi oslabienie sily chwytu i wypadanie przedmiotow z reki. Na poczatku objawy bywaja przemijajace i pojawiaja sie przy trzymaniu telefonu, kierownicy czy ksiazki.',
+                    'question' => 'Jak rozpoznać zespół cieśni nadgarstka?',
+                    'answer'   => 'Typowe jest mrowienie i drętwienie kciuka, palca wskazującego, środkowego oraz połowy serdecznego, czyli obszaru unerwianego przez nerw pośrodkowy. Z czasem dochodzi osłabienie siły chwytu i wypadanie przedmiotów z ręki. Na początku objawy bywają przemijające i pojawiają się przy trzymaniu telefonu, kierownicy czy książki.',
                 ],
                 [
-                    'question' => 'Dlaczego objawy ciesni nadgarstka nasilaja sie w nocy?',
-                    'answer'   => 'W czasie snu nadgarstek czesto uklada sie w zgieciu, co dodatkowo zmniejsza przestrzen w kanale nadgarstka i nasila ucisk na nerw. Dlatego charakterystyczne jest wybudzanie sie z mrowieniem i bolem reki oraz potrzeba jej rozruszania albo potrzasania, zeby objawy ustapily. Z tego powodu jednym z pierwszych zalecen jest noszenie szyny na noc.',
+                    'question' => 'Dlaczego objawy cieśni nadgarstka nasilają się w nocy?',
+                    'answer'   => 'W czasie snu nadgarstek często układa się w zgięciu, co dodatkowo zmniejsza przestrzeń w kanale nadgarstka i nasila ucisk na nerw. Dlatego charakterystyczne jest wybudzanie się z mrowieniem i bólem ręki oraz potrzeba jej rozruszania albo potrząsania, żeby objawy ustąpiły. Z tego powodu jednym z pierwszych zaleceń jest noszenie szyny na noc.',
                 ],
                 [
-                    'question' => 'Jakie badanie potwierdza zespol ciesni nadgarstka?',
-                    'answer'   => 'Rozpoznanie opiera sie na wywiadzie i badaniu, w tym testach prowokacyjnych (test Tinela i test Phalena). Badaniem potwierdzajacym stopien uszkodzenia nerwu jest badanie przewodnictwa nerwowego (EMG/NCV), uznawane za standard. Pomocne bywa USG nadgarstka, ktore ocenia nerw posrodkowy i okoliczne tkanki.',
+                    'question' => 'Jakie badanie potwierdza zespół cieśni nadgarstka?',
+                    'answer'   => 'Rozpoznanie opiera się na wywiadzie i badaniu, w tym testach prowokacyjnych (test Tinela i test Phalena). Badaniem potwierdzającym stopień uszkodzenia nerwu jest badanie przewodnictwa nerwowego (EMG/NCV), uznawane za standard. Pomocne bywa USG nadgarstka, które ocenia nerw pośrodkowy i okoliczne tkanki.',
                 ],
                 [
-                    'question' => 'Czy zespol ciesni nadgarstka mozna wyleczyc bez operacji?',
-                    'answer'   => 'We wczesnym i umiarkowanym nasileniu czesto tak. Stosuje sie usztywnienie nadgarstka (zwlaszcza na noc), iniekcje kortykosteroidow zmniejszajace obrzek i stan zapalny oraz fizjoterapie. Leczenie zachowawcze dziala najlepiej, gdy objawy trwaja krotko i da sie ograniczyc przeciazenia. Przy nasilonym lub dlugotrwalym ucisku z oslabieniem reki skuteczniejsze bywa leczenie operacyjne.',
+                    'question' => 'Czy zespół cieśni nadgarstka można wyleczyć bez operacji?',
+                    'answer'   => 'We wczesnym i umiarkowanym nasileniu często tak. Stosuje się usztywnienie nadgarstka (zwłaszcza na noc), iniekcje kortykosteroidów zmniejszające obrzęk i stan zapalny oraz fizjoterapię. Leczenie zachowawcze działa najlepiej, gdy objawy trwają krótko i da się ograniczyć przeciążenia. Przy nasilonym lub długotrwałym ucisku z osłabieniem ręki skuteczniejsze bywa leczenie operacyjne.',
                 ],
                 [
-                    'question' => 'Ile trwa powrot do sprawnosci po operacji ciesni nadgarstka?',
-                    'answer'   => 'Zabieg polega na przecieciu wiezadla uciskajacego nerw i wykonuje sie go metoda klasyczna lub endoskopowa. Do lekkiej pracy wraca sie zwykle po okolo 2-4 tygodniach po metodzie endoskopowej i po okolo 4-6 tygodniach po klasycznej, a pelna sprawnosc wraca po okolo 2-3 miesiacach. Czesc dolegliwosci moze utrzymywac sie jeszcze przez kilka tygodni po operacji.',
+                    'question' => 'Ile trwa powrót do sprawności po operacji cieśni nadgarstka?',
+                    'answer'   => 'Zabieg polega na przecięciu więzadła uciskającego nerw i wykonuje się go metodą klasyczną lub endoskopową. Do lekkiej pracy wraca się zwykle po około 2-4 tygodniach po metodzie endoskopowej i po około 4-6 tygodniach po klasycznej, a pełna sprawność wraca po około 2-3 miesiącach. Część dolegliwości może utrzymywać się jeszcze przez kilka tygodni po operacji.',
                 ],
                 [
-                    'question' => 'Czy objawy ciesni nadgarstka moga wrocic po leczeniu?',
-                    'answer'   => 'Nawrot jest mozliwy, zwlaszcza gdy nie usunieto czynnikow przeciazajacych nadgarstek. Dlatego wazna jest ergonomia pracy i przerwy przy czynnosciach obciazajacych reke. Nieleczony, dlugotrwaly ucisk nerwu prowadzi do postepujacego i czasem trwalego uszkodzenia czucia oraz oslabienia dloni, dlatego objawow nie warto bagatelizowac.',
+                    'question' => 'Czy objawy cieśni nadgarstka mogą wrócić po leczeniu?',
+                    'answer'   => 'Nawrót jest możliwy, zwłaszcza gdy nie usunięto czynników przeciążających nadgarstek. Dlatego ważna jest ergonomia pracy i przerwy przy czynnościach obciążających rękę. Nieleczony, długotrwały ucisk nerwu prowadzi do postępującego i czasem trwałego uszkodzenia czucia oraz osłabienia dłoni, dlatego objawów nie warto bagatelizować.',
                 ],
             ],
             'sources' => [
@@ -300,35 +300,35 @@ add_action('init', function () {
                     'authors'   => 'American Academy of Orthopaedic Surgeons',
                     'title'     => 'Carpal Tunnel Syndrome',
                     'publisher' => 'OrthoInfo (AAOS)',
-                    'note'      => 'Material edukacyjny dla pacjentow',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
                 ],
             ],
         ],
         'skrecenie-stawu-skokowego-definicja-objawy-leczenie' => [
             'faq' => [
                 [
-                    'question' => 'Jak odroznic skrecenie kostki od zlamania?',
-                    'answer'   => 'Po samych objawach nie zawsze sie da, bo silny bol, obrzek i zasinienie wystepuja w obu przypadkach. Dlatego przy powazniejszym urazie wykonuje sie RTG, ktore wyklucza zlamanie lub przemieszczenie kosci. Gdy podejrzewa sie zerwanie wiezadel, pomocne jest USG stawu skokowego. Jesli po urazie nie mozna obciazyc nogi ani na niej stanac, warto pilnie zglosic sie do lekarza.',
+                    'question' => 'Jak odróżnić skręcenie kostki od złamania?',
+                    'answer'   => 'Po samych objawach nie zawsze się da, bo silny ból, obrzęk i zasinienie występują w obu przypadkach. Dlatego przy poważniejszym urazie wykonuje się RTG, które wyklucza złamanie lub przemieszczenie kości. Gdy podejrzewa się zerwanie więzadeł, pomocne jest USG stawu skokowego. Jeśli po urazie nie można obciążyć nogi ani na niej stanąć, warto pilnie zgłosić się do lekarza.',
                 ],
                 [
-                    'question' => 'Co oznaczaja stopnie skrecenia kostki?',
-                    'answer'   => 'W I stopniu dochodzi do naciagniecia lub naderwania czesci wiezadel, z niewielkim obrzekiem i bez utraty stabilnosci. II stopien to istotne uszkodzenie wiezadel i torebki stawowej, z wiekszym bolem i ograniczeniem ruchu. III stopien oznacza calkowite zerwanie wiezadel, rozlegly obrzek, silny bol i niestabilnosc stawu. Stopien urazu decyduje o sposobie leczenia.',
+                    'question' => 'Co oznaczają stopnie skręcenia kostki?',
+                    'answer'   => 'W I stopniu dochodzi do naciągnięcia lub naderwania części więzadeł, z niewielkim obrzękiem i bez utraty stabilności. II stopień to istotne uszkodzenie więzadeł i torebki stawowej, z większym bólem i ograniczeniem ruchu. III stopień oznacza całkowite zerwanie więzadeł, rozległy obrzęk, silny ból i niestabilność stawu. Stopień urazu decyduje o sposobie leczenia.',
                 ],
                 [
-                    'question' => 'Co robic zaraz po skreceniu stawu skokowego?',
-                    'answer'   => 'W pierwszych godzinach pomaga schemat PRICE: ochrona stawu (na przyklad orteza), odciazenie i odpoczynek, chlodzenie zimnymi okladami, ucisk opaska elastyczna oraz uniesienie nogi powyzej poziomu serca. Takie postepowanie ogranicza obrzek i bol. Zimno i ucisk warto zastosowac jak najszybciej, zanim obrzek zdazy sie rozwinac.',
+                    'question' => 'Co robić zaraz po skręceniu stawu skokowego?',
+                    'answer'   => 'W pierwszych godzinach pomaga schemat PRICE: ochrona stawu (na przykład orteza), odciążenie i odpoczynek, chłodzenie zimnymi okładami, ucisk opaską elastyczną oraz uniesienie nogi powyżej poziomu serca. Takie postępowanie ogranicza obrzęk i ból. Zimno i ucisk warto zastosować jak najszybciej, zanim obrzęk zdąży się rozwinąć.',
                 ],
                 [
-                    'question' => 'Czy skrecona kostke trzeba unieruchamiac na sztywno?',
-                    'answer'   => 'Zwykle nie na dlugo. W wiekszosci skrecen lepsze efekty daje leczenie czynnosciowe, czyli stabilizacja orteza i stopniowy powrot do ruchu oraz obciazania, niz dlugie unieruchomienie w sztywnym gipsie. Wczesne, kontrolowane usprawnianie pod okiem fizjoterapeuty sprzyja szybszemu powrotowi do sprawnosci. Sposob leczenia zawsze dobiera sie do stopnia urazu.',
+                    'question' => 'Czy skręconą kostkę trzeba unieruchamiać na sztywno?',
+                    'answer'   => 'Zwykle nie na długo. W większości skręceń lepsze efekty daje leczenie czynnościowe, czyli stabilizacja ortezą i stopniowy powrót do ruchu oraz obciążania, niż długie unieruchomienie w sztywnym gipsie. Wczesne, kontrolowane usprawnianie pod okiem fizjoterapeuty sprzyja szybszemu powrotowi do sprawności. Sposób leczenia zawsze dobiera się do stopnia urazu.',
                 ],
                 [
-                    'question' => 'Czy skrecenie stawu skokowego wymaga operacji?',
-                    'answer'   => 'Najczesciej nie. Skrecenia I i II stopnia leczy sie zachowawczo, laczac odciazenie, leki przeciwbolowe i rehabilitacje. Operacje rozwaza sie glownie przy calkowitym zerwaniu wiezadel (III stopien) lub przy utrzymujacej sie niestabilnosci mimo leczenia. Zabieg czesto wykonuje sie artroskopowo, przez niewielkie naciecia.',
+                    'question' => 'Czy skręcenie stawu skokowego wymaga operacji?',
+                    'answer'   => 'Najczęściej nie. Skręcenia I i II stopnia leczy się zachowawczo, łącząc odciążenie, leki przeciwbólowe i rehabilitację. Operację rozważa się głównie przy całkowitym zerwaniu więzadeł (III stopień) lub przy utrzymującej się niestabilności mimo leczenia. Zabieg często wykonuje się artroskopowo, przez niewielkie nacięcia.',
                 ],
                 [
-                    'question' => 'Czy po skreceniu kostka moze pozostac niestabilna?',
-                    'answer'   => 'Tak, zle leczone lub nawracajace skrecenia moga prowadzic do przewleklej niestabilnosci stawu, a z czasem do uszkodzenia chrzastki i zmian zwyrodnieniowych. Dlatego po urazie wazna jest pelna rehabilitacja, w tym cwiczenia rownowagi i czucia glebokiego, ktore wzmacniaja stabilizacje i zmniejszaja ryzyko kolejnych skrecen.',
+                    'question' => 'Czy po skręceniu kostka może pozostać niestabilna?',
+                    'answer'   => 'Tak, źle leczone lub nawracające skręcenia mogą prowadzić do przewlekłej niestabilności stawu, a z czasem do uszkodzenia chrząstki i zmian zwyrodnieniowych. Dlatego po urazie ważna jest pełna rehabilitacja, w tym ćwiczenia równowagi i czucia głębokiego, które wzmacniają stabilizację i zmniejszają ryzyko kolejnych skręceń.',
                 ],
             ],
             'sources' => [
@@ -348,7 +348,7 @@ add_action('init', function () {
                     'authors'   => 'American Academy of Orthopaedic Surgeons',
                     'title'     => 'Sprained Ankle',
                     'publisher' => 'OrthoInfo (AAOS)',
-                    'note'      => 'Material edukacyjny dla pacjentow',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
                 ],
             ],
         ],
