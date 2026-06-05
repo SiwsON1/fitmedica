@@ -28,6 +28,11 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 | skolioza-objawy-diagnostyka-i-leczenie-od-a-do-z | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 | uszkodzenie-wiezadla-krzyzowego-przedniego-wkp-acl-czyli-ze-sportem | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 | choroba-duputryena-przykurcz-rozciegna-dloniowego | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| choroba-zwyrodnieniowa-stawow-kregoslupa-szyjnego | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| wdowi-garb-co-to-jest-i-jak-skutecznie-go-leczyc | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| choroba-scheuermanna-objawy-i-leczenie-kregoslupa | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| osteotomia-na-czym-polega-i-co-warto-wiedziec-przed-zabiegiem | tak (6) | tak (1) | brak | PROD (2026-06-05) |
+| bol-glowy-a-schorzenia-stawu-skroniowo-zuchwowego | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 
 ### Maja FAQ wklejony w tresc (Elementor HTML widget) - NIE nasz plugin
 Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna schema FAQPage. NIE dodawac pluginem (byl duplikat 2026-06-05, usuniety przez delete_post_meta). Do ewentualnej migracji do pluginu trzeba najpierw usunac widget z tresci.
@@ -44,6 +49,9 @@ Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna
 - krecz-szyi-przyczyny-objawy-i-leczenie (faq + schema w body)
 - szpotawosc-kolan-przyczyny-objawy-i-skuteczne-metody-leczenia (faq + schema w body)
 - bole-bioder-przyczyny-objawy-i-profilaktyka (faq + schema w body)
+- zlamanie-kosci-srodstopia-definicja-objawy-leczenie (faq + schema w body)
+- torbiel-nad-kolanem-jak-powstaje-i-kiedy-udac-sie-do-lekarza (faq + schema w body)
+- rekonstrukcja-wiezadla-krzyzowego-co-trzeba-wiedziec (faq + schema w body)
 
 ## Zrodla - zasada
 Kazde zrodlo naukowe zweryfikowane (PubMed/PMID/DOI) przed wpisaniem. Zero zmyslonych cytowan.
