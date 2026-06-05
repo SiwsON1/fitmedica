@@ -46,7 +46,7 @@ add_action('init', function () {
    ----------------------------------------------- */
 
 add_action('init', function () {
-    if (get_option('fitmedica_faq_setup_v2_pl')) return;
+    if (get_option('fitmedica_faq_setup_v2')) return;
 
     $articles = [
         'zerwany-biceps-przyczyny-leczenie-i-rehabilitacja' => [
@@ -181,7 +181,7 @@ add_action('init', function () {
         wp_reset_postdata();
     }
 
-    update_option('fitmedica_faq_setup_v2_pl', true);
+    update_option('fitmedica_faq_setup_v2', true);
 });
 
 /* -----------------------------------------------
