@@ -265,6 +265,266 @@ add_action('init', function () {
     update_option('fitmedica_faq_setup_v3', true);
 });
 
+/* -----------------------------------------------
+   AUTO-SETUP FAQ + ZRODLA - partia ortopedyczna v4
+   (chondromalacja rzepki, lakotka, korzonki,
+   dyskopatia, palec zatrzaskujacy). Bez weryfikatora.
+   Uruchamia sie raz.
+   ----------------------------------------------- */
+
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v4')) return;
+
+    $articles = [
+        'chondromalacja-rzepki-kolana-leczenie-przyczyny-objawy' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest chondromalacja rzepki?',
+                    'answer'   => 'To rozmiękanie i uszkodzenie chrząstki pokrywającej tylną powierzchnię rzepki, które prowadzi do bólu z przodu kolana. Chrząstka traci gładkość, pojawiają się szczeliny i ubytki. Problem częściej dotyczy młodych, aktywnych osób i kobiet. Stopień uszkodzenia ocenia się w czterostopniowej skali Outerbridge, od rozmiękania po ubytek z odsłonięciem kości.',
+                ],
+                [
+                    'question' => 'Jakie są objawy chondromalacji rzepki?',
+                    'answer'   => 'Typowy jest tępy ból z przodu kolana, nasilający się przy wchodzeniu i schodzeniu po schodach, kucaniu oraz długim siedzeniu ze zgiętym kolanem. Częste są trzeszczenia i przeskakiwania podczas ruchu, uczucie sztywności po dłuższym bezruchu, czasem obrzęk. Dolegliwości narastają przy przeciążeniu stawu.',
+                ],
+                [
+                    'question' => 'Jak rozpoznaje się chondromalację rzepki?',
+                    'answer'   => 'Podstawą jest badanie kolana i wywiad, uzupełnione badaniami obrazowymi. Najwięcej informacji o stanie chrząstki daje rezonans magnetyczny (MRI). RTG i USG bywają pomocnicze, a najdokładniejszą, bezpośrednią ocenę umożliwia artroskopia, stosowana jednak głównie przy planowaniu zabiegu.',
+                ],
+                [
+                    'question' => 'Czy chondromalacja rzepki się cofa?',
+                    'answer'   => 'Sama chrząstka nie regeneruje się samoistnie, bo nie ma własnego ukrwienia ani unerwienia. Dlatego celem leczenia nie jest odbudowa chrząstki, ale zatrzymanie postępu, zmniejszenie bólu i poprawa funkcji kolana. We wczesnych stopniach konsekwentna rehabilitacja często pozwala wrócić do aktywności bez dolegliwości.',
+                ],
+                [
+                    'question' => 'Jak leczy się chondromalację i czy potrzebna jest operacja?',
+                    'answer'   => 'W stopniach I-II podstawą jest leczenie zachowawcze: fizjoterapia, wzmacnianie mięśni uda (zwłaszcza czworogłowego) i biodra, korekta wzorców ruchowych, czasem taping czy orteza. Operację, na przykład chondroplastykę artroskopową, rozważa się przy zaawansowanych uszkodzeniach lub gdy leczenie zachowawcze nie pomaga.',
+                ],
+                [
+                    'question' => 'Czy z chondromalacją rzepki można ćwiczyć?',
+                    'answer'   => 'Tak, ruch jest wręcz potrzebny, ale dobrany tak, by nie przeciążać rzepki. Unika się głębokich przysiadów i ćwiczeń z dużym zgięciem pod obciążeniem, a stawia na wzmacnianie mięśni i aktywności o niskim nacisku na staw, jak jazda na rowerze w umiarkowanym zakresie ruchu czy pływanie. Plan najlepiej ułożyć z fizjoterapeutą.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Willy R.W., Hoglund L.T., Barton C.J. i wsp.',
+                    'title'     => 'Patellofemoral Pain: Clinical Practice Guidelines Revision 2019',
+                    'publisher' => 'Journal of Orthopaedic & Sports Physical Therapy',
+                    'note'      => '2019; 49(9): CPG1-CPG95',
+                ],
+                [
+                    'authors'   => 'Collins N.J., Barton C.J., van Middelkoop M. i wsp.',
+                    'title'     => '2018 Consensus statement on exercise therapy and physical interventions to treat patellofemoral pain',
+                    'publisher' => 'British Journal of Sports Medicine',
+                    'note'      => '2018; 52(18): 1170-1178',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Patellofemoral Pain Syndrome',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'lakotka-lekotka-czyli-najczestsze-uszkodzenia-powodujace-bol-kolana' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest łąkotka i jaką pełni rolę?',
+                    'answer'   => 'Łąkotki to dwa chrzęstne amortyzatory w kolanie (przyśrodkowa i boczna), leżące między kością udową a piszczelą. Rozkładają obciążenia, stabilizują staw i chronią chrząstkę. Przenoszą znaczną część nacisku w kolanie, dlatego ich uszkodzenie odbija się na całym stawie.',
+                ],
+                [
+                    'question' => 'Jak dochodzi do uszkodzenia łąkotki?',
+                    'answer'   => 'U młodszych zwykle podczas urazu skrętnego, gdy zgięte kolano obraca się przy ustabilizowanej stopie, na przykład w sporcie. U osób starszych łąkotka bywa osłabiona zmianami zwyrodnieniowymi i pęka przy codziennych czynnościach, jak wstawanie czy schodzenie po schodach. Uszkodzenie może być nagłe albo narastać z mikrourazów.',
+                ],
+                [
+                    'question' => 'Po czym poznać uszkodzoną łąkotkę?',
+                    'answer'   => 'Charakterystyczny jest ból w szparze stawu, uczucie blokowania lub zacinania kolana, czasem przeskakiwanie i niestabilność. Często pojawia się obrzęk i ograniczenie pełnego wyprostu lub zgięcia. Objawy nasilają się przy skręcaniu i kucaniu.',
+                ],
+                [
+                    'question' => 'Jakie badanie potwierdza uszkodzenie łąkotki?',
+                    'answer'   => 'Po badaniu kolana z testami prowokacyjnymi najwięcej wnosi rezonans magnetyczny (MRI), który pokazuje rodzaj i lokalizację pęknięcia oraz inne uszkodzenia, na przykład więzadeł. USG bywa pomocnicze. Dokładną ocenę i jednoczesne leczenie umożliwia artroskopia.',
+                ],
+                [
+                    'question' => 'Czy uszkodzoną łąkotkę zawsze trzeba operować?',
+                    'answer'   => 'Nie. Część uszkodzeń, zwłaszcza degeneracyjnych i bez blokowania kolana, leczy się zachowawczo: odciążeniem, lekami i rehabilitacją. Gdy potrzebny jest zabieg, dąży się dziś do zachowania łąkotki przez jej zeszycie, jeśli rodzaj i lokalizacja pęknięcia na to pozwalają, a usunięcie fragmentu ogranicza do koniecznego minimum.',
+                ],
+                [
+                    'question' => 'Ile trwa powrót do sprawności po urazie łąkotki?',
+                    'answer'   => 'Przy niewielkich uszkodzeniach leczonych zachowawczo zwykle kilka tygodni, przy poważniejszych i po zabiegu kilka miesięcy. Tempo zależy od rodzaju uszkodzenia oraz tego, czy łąkotkę zszyto, czy usunięto jej fragment. Kluczowa dla pełnego powrotu jest rehabilitacja.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Beaufils P., Becker R., Kopf S., Pujol N. i wsp.',
+                    'title'     => 'The knee meniscus: management of traumatic tears and degenerative lesions',
+                    'publisher' => 'EFORT Open Reviews',
+                    'note'      => '2017; 2(5): 195-203',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Meniscus Tears',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'korzonki-co-to-jest-i-jak-skutecznie-leczyc-bol-korzeni-nerwowych' => [
+            'faq' => [
+                [
+                    'question' => 'Co to są korzonki?',
+                    'answer'   => 'To potoczna nazwa bólu wynikającego z podrażnienia lub ucisku korzeni nerwowych wychodzących z rdzenia kręgowego, czyli radikulopatii. Ponieważ korzenie przewodzą impulsy do kończyn, ból promieniuje poza sam kręgosłup, na przykład do nogi (rwa kulszowa) lub ręki.',
+                ],
+                [
+                    'question' => 'Jakie są objawy korzonków?',
+                    'answer'   => 'Najczęściej silny ból promieniujący wzdłuż kończyny, któremu towarzyszą mrowienie, drętwienie, czasem osłabienie siły mięśni i ograniczona ruchomość kręgosłupa. Ból bywa ostry, nasila się przy ruchu, kaszlu czy kichaniu. Rozkład objawów wskazuje, który korzeń jest uciśnięty.',
+                ],
+                [
+                    'question' => 'Co najczęściej wywołuje ból korzonków?',
+                    'answer'   => 'Zwykle przyczyny mechaniczne: przepuklina krążka międzykręgowego uciskająca korzeń, zmiany zwyrodnieniowe kręgosłupa, przeciążenia i urazy. Rzadziej stoją za tym infekcje, choroby ogólnoustrojowe czy zmiany nowotworowe, dlatego utrzymujący się ból warto zdiagnozować.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się korzonki?',
+                    'answer'   => 'Podstawą jest badanie neurologiczne i wywiad, które lokalizują uciśnięty korzeń. Przy nasilonych lub utrzymujących się objawach wykonuje się rezonans magnetyczny (MRI), najlepiej pokazujący krążki i korzenie nerwowe. RTG i tomografia bywają uzupełnieniem.',
+                ],
+                [
+                    'question' => 'Jak leczy się ból korzonków?',
+                    'answer'   => 'U większości pacjentów wystarcza leczenie zachowawcze: leki przeciwbólowe i przeciwzapalne, utrzymanie aktywności w miarę możliwości zamiast leżenia, fizjoterapia i nauka ergonomii. Operację rozważa się głównie przy nasilających się objawach neurologicznych lub gdy leczenie zachowawcze nie pomaga.',
+                ],
+                [
+                    'question' => 'Kiedy z bólem korzonków zgłosić się pilnie do lekarza?',
+                    'answer'   => 'Niepokojące są: narastające osłabienie nogi lub ręki, drętwienie okolicy krocza, zaburzenia oddawania moczu lub stolca oraz silny ból po urazie. Takie objawy mogą oznaczać poważny ucisk i wymagają szybkiej konsultacji, a nie czekania, aż samo przejdzie.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'National Institute for Health and Care Excellence (NICE)',
+                    'title'     => 'Low back pain and sciatica in over 16s: assessment and management (NG59)',
+                    'publisher' => 'NICE',
+                    'note'      => '2016, aktualizacja 2020',
+                ],
+                [
+                    'authors'   => 'Kreiner D.S. i wsp.',
+                    'title'     => 'An evidence-based clinical guideline for the diagnosis and treatment of lumbar disc herniation with radiculopathy',
+                    'publisher' => 'The Spine Journal',
+                    'note'      => '2014; 14(1): 180-191',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Herniated Disk in the Lower Back',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'dyskopatia-diagnoza-i-leczenie' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest dyskopatia?',
+                    'answer'   => 'To choroba krążków międzykręgowych, w której krążek ulega degeneracji lub przemieszczeniu i może uciskać struktury nerwowe. Potocznie mówi się o wypadnięciu dysku lub przepuklinie. Najczęściej dotyczy odcinka lędźwiowego, zwłaszcza poziomu L5-S1, który dźwiga największe obciążenia.',
+                ],
+                [
+                    'question' => 'Czy dyskopatia to to samo co przepuklina?',
+                    'answer'   => 'Nie do końca. Dyskopatia to szersze pojęcie obejmujące zmiany w krążku, a przepuklina to jeden z jej etapów. Zmiany dzieli się zwykle na degenerację, protruzję (uwypuklenie), ekstruzję (przerwanie pierścienia) i sekwestrację (oderwanie fragmentu jądra). Im dalszy etap, tym większe ryzyko ucisku na nerw.',
+                ],
+                [
+                    'question' => 'Jakie objawy daje dyskopatia?',
+                    'answer'   => 'Objawy zależą od odcinka i tego, czy uciskany jest nerw. Typowy jest ból kręgosłupa, często promieniujący do kończyny, z mrowieniem, drętwieniem i osłabieniem siły. W odcinku lędźwiowym ból schodzi do nogi, w szyjnym do ręki. Część zmian przebiega długo bez wyraźnych dolegliwości.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się dyskopatię?',
+                    'answer'   => 'Najwięcej pokazuje rezonans magnetyczny (MRI), który dobrze obrazuje krążki, ich przemieszczenie i ucisk na korzenie. Tomografia komputerowa ocenia struktury kostne, a badanie EMG pomaga ocenić funkcję nerwów. Wynik badania zawsze zestawia się z objawami pacjenta.',
+                ],
+                [
+                    'question' => 'Jak leczy się dyskopatię i kiedy potrzebna jest operacja?',
+                    'answer'   => 'U większości pacjentów podstawą jest leczenie zachowawcze: farmakoterapia, fizjoterapia i kinezyterapia, terapia manualna, czasem iniekcje, oraz nauka prawidłowych obciążeń. Operację rozważa się głównie przy nasilonych, utrzymujących się objawach neurologicznych lub gdy leczenie zachowawcze zawodzi, a nie rutynowo na sam obraz z MRI.',
+                ],
+                [
+                    'question' => 'Jak zapobiegać dyskopatii i jej nawrotom?',
+                    'answer'   => 'Najwięcej daje regularny, rozsądny ruch wzmacniający mięśnie tułowia (pomocne jest pływanie), dbanie o prawidłową postawę i ergonomię przy pracy oraz unikanie dźwigania z okrągłymi plecami. Pomaga też utrzymanie prawidłowej masy ciała i odpowiednie miejsce do spania.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Kreiner D.S. i wsp.',
+                    'title'     => 'An evidence-based clinical guideline for the diagnosis and treatment of lumbar disc herniation with radiculopathy',
+                    'publisher' => 'The Spine Journal',
+                    'note'      => '2014; 14(1): 180-191',
+                ],
+                [
+                    'authors'   => 'National Institute for Health and Care Excellence (NICE)',
+                    'title'     => 'Low back pain and sciatica in over 16s: assessment and management (NG59)',
+                    'publisher' => 'NICE',
+                    'note'      => '2016, aktualizacja 2020',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Herniated Disk in the Lower Back',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'palec-zatrzaskujacy-czym-jest-i-dlaczego-dochodzi-do-blokowania-palca' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest palec zatrzaskujący?',
+                    'answer'   => 'To schorzenie ścięgien zginaczy palca, w którym ścięgno z trudem przesuwa się pod troczkiem A1 u podstawy palca. Powstaje zwężenie i stan zapalny, przez co palec blokuje się i przeskakuje przy zginaniu oraz prostowaniu. Stąd nazwa palec zatrzaskujący lub trzaskający.',
+                ],
+                [
+                    'question' => 'Jakie są objawy palca zatrzaskującego?',
+                    'answer'   => 'Typowy jest ból i tkliwość u podstawy palca po stronie dłoniowej, uczucie blokowania oraz trzask lub kliknięcie podczas ruchu. Często dochodzi sztywność po odpoczynku, zwłaszcza rano. W zaawansowanym stadium palec potrafi zablokować się w zgięciu i trudno go wyprostować.',
+                ],
+                [
+                    'question' => 'Kto jest najbardziej narażony na palec zatrzaskujący?',
+                    'answer'   => 'Częściej dotyczy kobiet oraz osób między 40. a 60. rokiem życia. Ryzyko zwiększają powtarzalne, silne chwyty i przeciążenia dłoni, a także cukrzyca, choroby tarczycy oraz schorzenia reumatyczne. U osób z cukrzycą problem bywa bardziej oporny na leczenie.',
+                ],
+                [
+                    'question' => 'Jak rozpoznaje się palec zatrzaskujący?',
+                    'answer'   => 'Rozpoznanie stawia się zwykle na podstawie badania dłoni i wywiadu, bez konieczności badań obrazowych. Lekarz ocenia bolesność troczka, wyczuwalne przeskakiwanie ścięgna i zakres ruchu palca. USG bywa pomocne w sytuacjach wątpliwych lub przed zabiegiem.',
+                ],
+                [
+                    'question' => 'Jak leczy się palec zatrzaskujący bez operacji?',
+                    'answer'   => 'We wczesnym stadium pomaga odciążenie, unieruchomienie palca w szynie, leki przeciwzapalne i fizjoterapia. Skuteczną metodą jest iniekcja sterydu do pochewki ścięgna, która zmniejsza obrzęk i poprawia ślizg. Część pacjentów wymaga powtórzenia zastrzyku, a efekt bywa trwalszy w łagodniejszych przypadkach.',
+                ],
+                [
+                    'question' => 'Na czym polega operacja palca zatrzaskującego?',
+                    'answer'   => 'Gdy leczenie zachowawcze nie pomaga, wykonuje się drobny zabieg przecięcia troczka A1 w znieczuleniu miejscowym, zwykle bez hospitalizacji. Uwolnione ścięgno odzyskuje swobodny ślizg, a blokowanie ustępuje. Po zabiegu zaleca się wczesne ruchy palca, by zapobiec zrostom.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Makkouk A.H., Oetgen M.E., Swigart C.R., Dodds S.D.',
+                    'title'     => 'Trigger finger: etiology, evaluation, and treatment',
+                    'publisher' => 'Current Reviews in Musculoskeletal Medicine',
+                    'note'      => '2008; 1(2): 92-96',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Trigger Finger',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v4', true);
+});
+
 /**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
