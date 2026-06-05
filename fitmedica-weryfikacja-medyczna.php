@@ -1444,6 +1444,248 @@ add_action('init', function () {
     update_option('fitmedica_faq_setup_v8', true);
 });
 
+/* -----------------------------------------------
+   AUTO-SETUP FAQ + ZRODLA - partia v9
+   (Hashimoto, zawal serca, otylosc, zaburzenia
+   lekowe, bezsennosc). Bez weryfikatora.
+   Uruchamia sie raz.
+   ----------------------------------------------- */
+
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v9')) return;
+
+    $articles = [
+        'choroba-hashimoto' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest choroba Hashimoto?',
+                    'answer'   => 'To autoimmunologiczne zapalenie tarczycy, w którym układ odpornościowy stopniowo niszczy komórki gruczołu. Z czasem prowadzi to najczęściej do niedoczynności tarczycy, czyli niedoboru jej hormonów. Jest to jedna z najczęstszych przyczyn niedoczynności tarczycy, zwłaszcza u kobiet.',
+                ],
+                [
+                    'question' => 'Jakie są objawy choroby Hashimoto?',
+                    'answer'   => 'Objawy wynikają głównie z niedoczynności tarczycy: przewlekłe zmęczenie i senność, przyrost masy ciała, marznięcie, sucha skóra, wypadanie włosów, zaparcia, obniżony nastrój i problemy z pamięcią. U kobiet bywają zaburzenia miesiączkowania. Na wczesnym etapie choroba może przebiegać skąpoobjawowo.',
+                ],
+                [
+                    'question' => 'Jakie badania potwierdzają Hashimoto?',
+                    'answer'   => 'Podstawą jest oznaczenie przeciwciał przeciwtarczycowych, przede wszystkim anty-TPO, a często też anty-TG, oraz ocena czynności tarczycy przez TSH i hormony (FT4). Obraz uzupełnia USG tarczycy, które pokazuje typowe dla zapalenia zmiany. Wyniki interpretuje lekarz w odniesieniu do objawów.',
+                ],
+                [
+                    'question' => 'Jak leczy się chorobę Hashimoto?',
+                    'answer'   => 'Nie ma leczenia usuwającego przyczynę, dlatego terapia polega na wyrównywaniu niedoboru hormonów, gdy rozwinie się niedoczynność. Stosuje się lewotyroksynę w dawce dobranej przez lekarza i korygowanej na podstawie kontrolnych badań TSH. Sama obecność przeciwciał bez niedoczynności nie zawsze wymaga leczenia hormonalnego.',
+                ],
+                [
+                    'question' => 'Czy dieta ma znaczenie w Hashimoto?',
+                    'answer'   => 'Dieta nie zastępuje leczenia, ale wspiera samopoczucie i ogólne zdrowie. Zaleca się regularne, zbilansowane posiłki, dużo warzyw, ograniczenie cukrów prostych i wysoko przetworzonej żywności oraz zadbanie o odpowiednią podaż jodu, selenu i witaminy D zgodnie z zaleceniami lekarza. Restrykcyjne diety eliminacyjne warto konsultować ze specjalistą.',
+                ],
+                [
+                    'question' => 'Czy z chorobą Hashimoto można normalnie żyć?',
+                    'answer'   => 'Tak. Dobrze wyrównana niedoczynność tarczycy pozwala normalnie funkcjonować, pracować i zachodzić w ciążę. Kluczowe są regularne przyjmowanie leku oraz okresowa kontrola TSH, zwłaszcza przy planowaniu ciąży. Nieleczona lub źle kontrolowana choroba może natomiast obciążać serce i wpływać na płodność.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Caturegli P., De Remigis A., Rose N.R.',
+                    'title'     => 'Hashimoto thyroiditis: clinical and diagnostic criteria',
+                    'publisher' => 'Autoimmunity Reviews',
+                    'note'      => '2014; 13(4-5): 391-397',
+                ],
+                [
+                    'authors'   => 'American Thyroid Association',
+                    'title'     => 'Hashimotos Thyroiditis (Lymphocytic Thyroiditis)',
+                    'publisher' => 'ATA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'zawal-serca' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest zawał serca?',
+                    'answer'   => 'To ostry stan, w którym fragment mięśnia sercowego obumiera z powodu nagłego odcięcia dopływu krwi. Najczęściej dochodzi do niego, gdy pęka blaszka miażdżycowa w tętnicy wieńcowej i tworzy się na niej zakrzep zamykający naczynie. Im szybciej przywróci się przepływ, tym mniejsze uszkodzenie serca.',
+                ],
+                [
+                    'question' => 'Jakie są objawy zawału serca?',
+                    'answer'   => 'Typowy jest silny ból lub ucisk w klatce piersiowej, często promieniujący do ramienia, barku, szyi lub żuchwy, trwający dłużej niż kilka minut i nieustępujący w spoczynku. Towarzyszą mu duszność, zimne poty, nudności, osłabienie i lęk. U kobiet, osób starszych i chorych na cukrzycę objawy bywają mniej typowe, na przykład samo zmęczenie i duszność.',
+                ],
+                [
+                    'question' => 'Co robić przy podejrzeniu zawału serca?',
+                    'answer'   => 'Należy natychmiast wezwać pogotowie (112 lub 999), bo liczy się każda minuta. Chorego układa się w pozycji półsiedzącej, zapewnia spokój i dostęp powietrza oraz rozluźnia ciasne ubranie. Jeśli nie ma przeciwwskazań i pozwala na to stan, można podać aspirynę. Przy zatrzymaniu krążenia rozpoczyna się resuscytację (30 uciśnięć na 2 oddechy). Nie wolno samemu jechać do szpitala za kierownicą.',
+                ],
+                [
+                    'question' => 'Jak rozpoznaje się zawał serca?',
+                    'answer'   => 'Podstawą są EKG oraz badania krwi oznaczające troponiny, czyli białka uwalniane z uszkodzonego serca. EKG może pokazać charakterystyczne zmiany, a w razie potrzeby wykonuje się koronarografię, która lokalizuje zamknięte naczynie i umożliwia jego udrożnienie. Rozpoznanie stawia się szybko, bo decyduje o pilnym leczeniu.',
+                ],
+                [
+                    'question' => 'Jak leczy się zawał serca?',
+                    'answer'   => 'Najważniejsze jest jak najszybsze przywrócenie przepływu w zamkniętej tętnicy. Najczęściej wykonuje się pilną angioplastykę wieńcową, czyli poszerzenie naczynia i wszczepienie stentu. W części przypadków potrzebne jest pomostowanie (by-passy). Po zawale stosuje się leki i rehabilitację kardiologiczną, które zmniejszają ryzyko kolejnego incydentu.',
+                ],
+                [
+                    'question' => 'Jak zmniejszyć ryzyko zawału serca?',
+                    'answer'   => 'Najwięcej daje kontrola czynników ryzyka: niepalenie, leczenie nadciśnienia, cukrzycy i wysokiego cholesterolu, utrzymanie prawidłowej masy ciała, zdrowa dieta i regularna aktywność fizyczna. Ważne jest też ograniczenie stresu i regularne badania profilaktyczne, zwłaszcza przy obciążeniu rodzinnym.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Byrne R.A., Rossello X., Coughlan J.J. i wsp.',
+                    'title'     => '2023 ESC Guidelines for the management of acute coronary syndromes',
+                    'publisher' => 'European Heart Journal',
+                    'note'      => '2023; 44(38): 3720-3826',
+                ],
+                [
+                    'authors'   => 'American Heart Association',
+                    'title'     => 'Heart Attack (Myocardial Infarction)',
+                    'publisher' => 'AHA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'otylosc' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest otyłość?',
+                    'answer'   => 'To przewlekła choroba, w której nadmiar tkanki tłuszczowej szkodzi zdrowiu. Nie jest kwestią samej estetyki ani braku silnej woli, lecz złożonym zaburzeniem, na które wpływają nawyki, genetyka, hormony i czynniki środowiskowe. Jak każda choroba przewlekła, wymaga leczenia i długoterminowej opieki.',
+                ],
+                [
+                    'question' => 'Jak ocenia się otyłość i co oznacza BMI?',
+                    'answer'   => 'Pomocniczo używa się wskaźnika masy ciała (BMI). Wartość powyżej 25 oznacza nadwagę, a 30 i więcej otyłość, którą dzieli się na trzy stopnie (I: 30-34,9, II: 35-39,9, III: 40 i więcej). BMI nie uwzględnia jednak budowy ciała ani rozmieszczenia tłuszczu, dlatego ocenę uzupełnia się o obwód talii i ogólny stan zdrowia.',
+                ],
+                [
+                    'question' => 'Czym grozi otyłość?',
+                    'answer'   => 'Otyłość zwiększa ryzyko wielu poważnych chorób: cukrzycy typu 2, nadciśnienia, zawału serca i udaru, niektórych nowotworów, chorób stawów oraz bezdechu sennego. Obciąża też samopoczucie i zdrowie psychiczne. Ryzyko rośnie zwłaszcza przy otyłości brzusznej, gdy tłuszcz gromadzi się wokół narządów.',
+                ],
+                [
+                    'question' => 'Co powoduje otyłość?',
+                    'answer'   => 'Najczęściej dodatni bilans energetyczny, czyli przewaga przyjmowanych kalorii nad wydatkowanymi, w połączeniu z małą aktywnością fizyczną. Znaczenie mają jednak także predyspozycje genetyczne, zaburzenia hormonalne, niektóre leki, stres, niedobór snu i czynniki środowiskowe. U różnych osób przeważają różne przyczyny.',
+                ],
+                [
+                    'question' => 'Jak leczy się otyłość?',
+                    'answer'   => 'Podstawą jest trwała zmiana stylu życia: zbilansowana dieta, większa aktywność fizyczna i wsparcie nawyków, najlepiej pod okiem dietetyka i lekarza. W zależności od stopnia otyłości i chorób towarzyszących stosuje się też farmakoterapię, a przy otyłości dużego stopnia rozważa leczenie chirurgiczne (operacje bariatryczne). Plan dobiera się indywidualnie.',
+                ],
+                [
+                    'question' => 'Czy warto chudnąć nawet niewiele?',
+                    'answer'   => 'Tak. Już umiarkowana redukcja masy ciała poprawia ciśnienie, poziom cukru i cholesterolu, jakość snu oraz samopoczucie i zmniejsza obciążenie stawów. Nie chodzi o szybką, drastyczną dietę, lecz o trwałą, stopniową zmianę, którą da się utrzymać. Nawet kilka procent mniejszej masy ciała przynosi realne korzyści zdrowotne.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Wharton S., Lau D.C.W., Vallis M. i wsp.',
+                    'title'     => 'Obesity in adults: a clinical practice guideline',
+                    'publisher' => 'CMAJ',
+                    'note'      => '2020; 192(31): E875-E891',
+                ],
+                [
+                    'authors'   => 'World Health Organization',
+                    'title'     => 'Obesity and overweight',
+                    'publisher' => 'WHO',
+                    'note'      => 'Materiał informacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'czym-sa-zaburzenia-lekowe-jak-je-diagnozowac-i-leczyc' => [
+            'faq' => [
+                [
+                    'question' => 'Czym są zaburzenia lękowe?',
+                    'answer'   => 'To grupa zaburzeń psychicznych, których wspólną cechą jest nadmierny, długotrwały lęk nieadekwatny do sytuacji, który utrudnia codzienne funkcjonowanie. Lęk jest naturalną reakcją na zagrożenie, ale w zaburzeniach lękowych pojawia się zbyt często, zbyt silnie lub bez realnej przyczyny. To choroba, którą można skutecznie leczyć.',
+                ],
+                [
+                    'question' => 'Jakie są rodzaje zaburzeń lękowych?',
+                    'answer'   => 'Do najczęstszych należą zespół lęku uogólnionego (przewlekły, rozlany niepokój), zespół lęku napadowego z atakami paniki oraz fobie, czyli silny lęk przed konkretnymi sytuacjami lub bodźcami, na przykład fobia społeczna. Różnią się przebiegiem, ale łączy je nadmierny, utrudniający życie lęk.',
+                ],
+                [
+                    'question' => 'Jakie objawy dają zaburzenia lękowe?',
+                    'answer'   => 'Objawy są zarówno psychiczne, jak i fizyczne. Pojawiają się napięcie, niepokój, drażliwość, trudności z koncentracją i zaburzenia snu, a także objawy z ciała: kołatanie serca, ucisk w klatce piersiowej, duszność, drżenie, pocenie się i dolegliwości żołądkowe. Objawy somatyczne bywają tak silne, że przypominają chorobę serca.',
+                ],
+                [
+                    'question' => 'Czym napad paniki różni się od zwykłego stresu?',
+                    'answer'   => 'Napad paniki to nagły, bardzo intensywny atak lęku z silnymi objawami z ciała: przyspieszonym biciem serca, dusznością, zawrotami głowy i uczuciem utraty kontroli lub zagrożenia życia. Pojawia się gwałtownie i zwykle szybko narasta, w odróżnieniu od stopniowego napięcia, jakie daje zwykły stres. Powtarzające się napady wymagają konsultacji.',
+                ],
+                [
+                    'question' => 'Jak leczy się zaburzenia lękowe?',
+                    'answer'   => 'Skuteczna jest psychoterapia, zwłaszcza poznawczo-behawioralna (CBT), często z elementami ekspozycji. W razie potrzeby dołącza się farmakoterapię, najczęściej leki z grupy SSRI lub SNRI, dobierane przez lekarza. Leki uspokajające z grupy benzodiazepin stosuje się tylko krótko, doraźnie, bo grożą uzależnieniem. Pomaga też higiena snu, aktywność fizyczna i techniki relaksacyjne.',
+                ],
+                [
+                    'question' => 'Kiedy zgłosić się po pomoc z powodu lęku?',
+                    'answer'   => 'Warto sięgnąć po pomoc, gdy lęk jest silny, utrzymuje się tygodniami, ogranicza pracę, relacje czy codzienne czynności albo gdy pojawiają się napady paniki lub unikanie wielu sytuacji. Pomoc oferują psycholog i psychiatra. Im wcześniej rozpocznie się leczenie, tym zwykle łatwiej opanować objawy.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Craske M.G., Stein M.B.',
+                    'title'     => 'Anxiety',
+                    'publisher' => 'The Lancet',
+                    'note'      => '2016; 388(10063): 3048-3059',
+                ],
+                [
+                    'authors'   => 'World Health Organization',
+                    'title'     => 'Anxiety disorders',
+                    'publisher' => 'WHO',
+                    'note'      => 'Materiał informacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'bezsennosc-przyczyny-objawy-i-sprawdzone-sposoby-na-poprawe-jakosci-snu' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest bezsenność?',
+                    'answer'   => 'To zaburzenie snu polegające na trudnościach z zasypianiem, częstym wybudzaniu się w nocy lub zbyt wczesnym budzeniu, mimo odpowiednich warunków do snu. Skutkuje uczuciem niewyspania i gorszym funkcjonowaniem w ciągu dnia. Bywa krótkotrwała, związana z przejściową sytuacją, lub przewlekła, gdy utrzymuje się tygodniami.',
+                ],
+                [
+                    'question' => 'Jakie są przyczyny bezsenności?',
+                    'answer'   => 'Najczęściej stoi za nią stres i napięcie, zaburzenia rytmu dobowego (na przykład praca zmianowa), nadużywanie kofeiny i alkoholu oraz korzystanie z ekranów przed snem. Bezsenność towarzyszy też chorobom somatycznym, zaburzeniom hormonalnym (w tym tarczycy) oraz depresji i zaburzeniom lękowym. Często działa kilka czynników naraz.',
+                ],
+                [
+                    'question' => 'Kiedy bezsenność wymaga konsultacji z lekarzem?',
+                    'answer'   => 'Warto skonsultować się, gdy problemy ze snem utrzymują się dłużej niż około trzy, cztery tygodnie, nawracają lub wyraźnie pogarszają funkcjonowanie w ciągu dnia. Konsultacja jest też wskazana, gdy bezsenności towarzyszą objawy depresji, lęku, chrapanie z bezdechami albo choroby przewlekłe. Lekarz pomoże ustalić przyczynę.',
+                ],
+                [
+                    'question' => 'Na czym polega higiena snu?',
+                    'answer'   => 'To zestaw nawyków sprzyjających dobremu snu: stałe pory kładzenia się i wstawania, ciemna, cicha i chłodna sypialnia, unikanie ekranów, kofeiny i obfitych posiłków przed snem oraz ograniczenie drzemek w ciągu dnia. Łóżko warto kojarzyć ze snem, a nie z pracą czy oglądaniem telefonu. Te zasady są podstawą leczenia.',
+                ],
+                [
+                    'question' => 'Jak leczy się przewlekłą bezsenność?',
+                    'answer'   => 'Metodą pierwszego wyboru jest terapia poznawczo-behawioralna bezsenności (CBT-I), która pracuje nad nawykami i myślami utrudniającymi sen. Leki nasenne stosuje się raczej krótkotrwale i pod kontrolą lekarza, bo nie usuwają przyczyny i mogą uzależniać. Ważne jest też leczenie chorób, które bezsenność podtrzymują.',
+                ],
+                [
+                    'question' => 'Czym grozi przewlekły niedobór snu?',
+                    'answer'   => 'Utrzymujący się niedobór snu pogarsza koncentrację, pamięć i nastrój, zwiększa drażliwość i ryzyko błędów, na przykład za kierownicą. W dłuższej perspektywie sprzyja nadciśnieniu, chorobom serca, cukrzycy i otyłości oraz nasila zaburzenia lękowe i depresję. Dlatego przewlekłej bezsenności nie warto lekceważyć.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Riemann D., Baglioni C., Bassetti C. i wsp.',
+                    'title'     => 'European guideline for the diagnosis and treatment of insomnia',
+                    'publisher' => 'Journal of Sleep Research',
+                    'note'      => '2017; 26(6): 675-700',
+                ],
+                [
+                    'authors'   => 'American Academy of Sleep Medicine',
+                    'title'     => 'Insomnia',
+                    'publisher' => 'AASM (Sleep Education)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v9', true);
+});
+
 /**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
