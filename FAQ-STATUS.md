@@ -42,6 +42,11 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 | zaburzenia-rytmu-serca-arytmia | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 | miazdzyca-naczyn-krwionosnych | tak (6) | tak (2) | brak | PROD (2026-06-05) |
 | nadczynnosc-tarczycy | tak (6) | tak (2) | brak | PROD (2026-06-05) |
+| choroba-hashimoto | tak (6) | tak (2) | brak | PROD (2026-06-06) |
+| zawal-serca | tak (6) | tak (2) | brak | PROD (2026-06-06) |
+| otylosc | tak (6) | tak (2) | brak | PROD (2026-06-06) |
+| czym-sa-zaburzenia-lekowe-jak-je-diagnozowac-i-leczyc | tak (6) | tak (2) | brak | PROD (2026-06-06) |
+| bezsennosc-przyczyny-objawy-i-sprawdzone-sposoby-na-poprawe-jakosci-snu | tak (6) | tak (2) | brak | PROD (2026-06-06) |
 
 ### Maja FAQ wklejony w tresc (Elementor HTML widget) - NIE nasz plugin
 Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna schema FAQPage. NIE dodawac pluginem (byl duplikat 2026-06-05, usuniety przez delete_post_meta). Do ewentualnej migracji do pluginu trzeba najpierw usunac widget z tresci.
