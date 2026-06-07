@@ -1686,6 +1686,248 @@ add_action('init', function () {
     update_option('fitmedica_faq_setup_v9', true);
 });
 
+/* -----------------------------------------------
+   AUTO-SETUP FAQ + ZRODLA - partia v10
+   (kardiomiopatia, tetniak aorty piersiowej,
+   dwubiegunowosc, ADHD u doroslych, spektrum autyzmu).
+   Bez weryfikatora. Uruchamia sie raz.
+   ----------------------------------------------- */
+
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v10')) return;
+
+    $articles = [
+        'kardiomiopatia' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest kardiomiopatia?',
+                    'answer'   => 'To choroba samego mięśnia sercowego, w której jego budowa i praca są nieprawidłowe, przez co sercu trudniej skutecznie tłoczyć krew. Nie jest to to samo co choroba wieńcowa, choć też może prowadzić do niewydolności serca. Część kardiomiopatii ma podłoże genetyczne i występuje rodzinnie.',
+                ],
+                [
+                    'question' => 'Jakie są rodzaje kardiomiopatii?',
+                    'answer'   => 'Najczęstsza jest postać rozstrzeniowa, w której serce się powiększa i słabiej kurczy. Kardiomiopatia przerostowa polega na nadmiernym pogrubieniu mięśnia, często uwarunkowanym genetycznie. Rzadsza postać restrykcyjna oznacza usztywnienie ścian i upośledzone napełnianie serca. Rodzaj choroby wpływa na objawy i leczenie.',
+                ],
+                [
+                    'question' => 'Jakie są objawy kardiomiopatii?',
+                    'answer'   => 'Często pojawiają się duszność przy wysiłku, zmęczenie, obrzęki nóg, kołatanie serca i zaburzenia rytmu, czasem ból w klatce piersiowej oraz zawroty głowy lub omdlenia. Część osób długo nie ma objawów, a chorobę wykrywa się przypadkowo. Omdlenia i groźne arytmie wymagają pilnej oceny kardiologa.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się kardiomiopatię?',
+                    'answer'   => 'Podstawą jest badanie, EKG i echokardiografia (USG serca), która ocenia budowę i kurczliwość. Pomocny bywa rezonans magnetyczny serca, a przy podejrzeniu podłoża dziedzicznego rozważa się badania genetyczne i diagnostykę u krewnych. W wybranych przypadkach wykonuje się biopsję mięśnia sercowego.',
+                ],
+                [
+                    'question' => 'Jak leczy się kardiomiopatię?',
+                    'answer'   => 'Leczenie zależy od typu i objawów. Stosuje się leki wspierające pracę serca i kontrolujące rytm oraz leczenie niewydolności serca, jeśli się rozwija. U osób z podwyższonym ryzykiem groźnych arytmii rozważa się wszczepialny kardiowerter-defibrylator (ICD), a w zaawansowanych przypadkach inne zabiegi lub przeszczep. Plan ustala kardiolog.',
+                ],
+                [
+                    'question' => 'Czy kardiomiopatia jest dziedziczna i co to oznacza dla rodziny?',
+                    'answer'   => 'Część kardiomiopatii, zwłaszcza przerostowa, ma podłoże genetyczne i może występować u krewnych. Dlatego po rozpoznaniu u jednej osoby lekarz często zaleca badania kardiologiczne najbliższej rodziny, by wcześnie wykryć chorobę u kolejnych członków. Wczesne wykrycie pozwala lepiej chronić serce i ograniczyć ryzyko powikłań.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Arbelo E., Protonotarios A., Gimeno J.R. i wsp.',
+                    'title'     => '2023 ESC Guidelines for the management of cardiomyopathies',
+                    'publisher' => 'European Heart Journal',
+                    'note'      => '2023; 44(37): 3503-3626',
+                ],
+                [
+                    'authors'   => 'American Heart Association',
+                    'title'     => 'Cardiomyopathy',
+                    'publisher' => 'AHA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'tetniak-aorty-piersiowej' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest tętniak aorty piersiowej?',
+                    'answer'   => 'To miejscowe poszerzenie aorty w odcinku piersiowym, powstające tam, gdzie jej ściana traci wytrzymałość i rozciąga się pod naporem krwi. O tętniaku mówi się, gdy średnica aorty istotnie przekracza normę. Powiększający się tętniak grozi groźnymi powikłaniami, dlatego wymaga kontroli.',
+                ],
+                [
+                    'question' => 'Jakie są przyczyny i czynniki ryzyka tętniaka aorty?',
+                    'answer'   => 'Najczęstsze przyczyny to miażdżyca i nadciśnienie osłabiające ścianę naczynia oraz choroby tkanki łącznej i uwarunkowania genetyczne (na przykład zespół Marfana). Ryzyko zwiększają wiek powyżej 65 lat, płeć męska, palenie tytoniu, nadciśnienie oraz tętniaki w rodzinie. Znaczenie ma też wrodzona dwupłatkowa zastawka aortalna.',
+                ],
+                [
+                    'question' => 'Czy tętniak aorty piersiowej daje objawy?',
+                    'answer'   => 'Najczęściej przez długi czas nie daje żadnych objawów i bywa wykrywany przypadkowo w badaniach obrazowych. Gdy jest duży, może powodować ból w klatce piersiowej lub plecach, chrypkę, kaszel czy uczucie braku powietrza. Nagły, bardzo silny ból może oznaczać groźne powikłanie i wymaga natychmiastowej pomocy.',
+                ],
+                [
+                    'question' => 'Jak wykrywa się tętniaka aorty?',
+                    'answer'   => 'Tętniaka uwidaczniają badania obrazowe: tomografia komputerowa, rezonans magnetyczny oraz echokardiografia, a w niektórych lokalizacjach USG. Pozwalają zmierzyć średnicę aorty i obserwować, czy tętniak się powiększa. Regularne kontrole są podstawą bezpiecznego prowadzenia pacjenta.',
+                ],
+                [
+                    'question' => 'Jak leczy się tętniaka aorty piersiowej?',
+                    'answer'   => 'Małe, stabilne tętniaki zwykle się obserwuje, kontrolując średnicę i lecząc nadciśnienie oraz inne czynniki ryzyka, w tym zalecając rzucenie palenia. Gdy tętniak osiąga większe rozmiary lub szybko rośnie, rozważa się leczenie zabiegowe: operację naprawczą lub wewnątrznaczyniowe wszczepienie stentgraftu. Decyzję podejmuje się indywidualnie.',
+                ],
+                [
+                    'question' => 'Czym grozi nieleczony tętniak aorty?',
+                    'answer'   => 'Najpoważniejsze powikłania to pęknięcie tętniaka oraz rozwarstwienie aorty, które są bezpośrednim zagrożeniem życia. Ryzyko rośnie wraz ze średnicą i tempem powiększania się tętniaka. Dlatego tak ważne są regularne kontrole i kontrola czynników ryzyka, zwłaszcza ciśnienia i palenia.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Erbel R., Aboyans V., Boileau C. i wsp.',
+                    'title'     => '2014 ESC Guidelines on the diagnosis and treatment of aortic diseases',
+                    'publisher' => 'European Heart Journal',
+                    'note'      => '2014; 35(41): 2873-2926',
+                ],
+                [
+                    'authors'   => 'American Heart Association',
+                    'title'     => 'Aortic Aneurysm',
+                    'publisher' => 'AHA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'czym-jest-dwubiegunowosc-jak-ja-rozpoznac-i-jakie-sa-mozliwosci-leczenia' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest choroba afektywna dwubiegunowa?',
+                    'answer'   => 'To przewlekła choroba psychiczna, w której nastrój zmienia się w skrajnych zakresach: od epizodów podwyższonego nastroju i energii (mania lub łagodniejsza hipomania) po epizody depresji. Między epizodami często występują okresy względnej równowagi. Choroba istotnie wpływa na życie, ale można ją skutecznie leczyć.',
+                ],
+                [
+                    'question' => 'Czym różni się typ I od typu II?',
+                    'answer'   => 'W typie I występują pełne epizody manii, często bardzo nasilone, na przemian z epizodami depresji. W typie II zamiast pełnej manii pojawia się łagodniejsza hipomania, ale epizody depresji bywają długie i ciężkie. Rozróżnienie jest ważne, bo wpływa na dobór leczenia.',
+                ],
+                [
+                    'question' => 'Jak rozpoznać epizod manii i hipomanii?',
+                    'answer'   => 'Typowe są podwyższony lub drażliwy nastrój, wyraźnie zwiększona energia, zmniejszona potrzeba snu, gadatliwość, gonitwa myśli oraz impulsywne, ryzykowne decyzje, na przykład nieprzemyślane wydatki. W manii objawy są na tyle silne, że poważnie zaburzają funkcjonowanie, a w hipomanii łagodniejsze. Takie zmiany warto skonsultować ze specjalistą.',
+                ],
+                [
+                    'question' => 'Co powoduje chorobę dwubiegunową?',
+                    'answer'   => 'Nie ma jednej przyczyny. Dużą rolę odgrywają czynniki genetyczne, dlatego choroba często występuje rodzinnie, a do ujawnienia się przyczyniają stres, trudne wydarzenia życiowe, zaburzenia snu czy używki. To połączenie podatności biologicznej i czynników środowiskowych.',
+                ],
+                [
+                    'question' => 'Jak leczy się chorobę dwubiegunową?',
+                    'answer'   => 'Podstawą jest farmakoterapia stabilizująca nastrój, w tym lit oraz niektóre leki przeciwpadaczkowe i przeciwpsychotyczne, dobierane przez psychiatrę. Leczenie jest zwykle długoterminowe i ma zapobiegać kolejnym epizodom. Uzupełnia je psychoterapia, psychoedukacja, dbanie o regularny sen i rytm dnia oraz wsparcie bliskich.',
+                ],
+                [
+                    'question' => 'Czy z chorobą dwubiegunową można normalnie żyć?',
+                    'answer'   => 'Tak. Przy regularnym leczeniu i stabilnym trybie życia wiele osób funkcjonuje na co dzień, pracuje i utrzymuje relacje. Kluczowe są systematyczne przyjmowanie leków, kontakt z psychiatrą oraz szybkie reagowanie na wczesne sygnały nawrotu. Samodzielne odstawianie leków po poprawie często prowadzi do nawrotu epizodu.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Grande I., Berk M., Birmaher B., Vieta E.',
+                    'title'     => 'Bipolar disorder',
+                    'publisher' => 'The Lancet',
+                    'note'      => '2016; 387(10027): 1561-1572',
+                ],
+                [
+                    'authors'   => 'World Health Organization',
+                    'title'     => 'Bipolar disorder',
+                    'publisher' => 'WHO',
+                    'note'      => 'Materiał informacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'czym-jest-adhd-u-doroslych-objawy-diagnostyka-i-leczenie' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest ADHD u dorosłych?',
+                    'answer'   => 'ADHD to zaburzenie neurorozwojowe rozpoczynające się w dzieciństwie, którego objawy u części osób utrzymują się w dorosłości. Dotyczą głównie uwagi, nadmiernej ruchliwości i impulsywności, choć u dorosłych obraz bywa inny niż u dzieci. To nie kwestia lenistwa czy braku charakteru, lecz sposobu, w jaki funkcjonuje mózg.',
+                ],
+                [
+                    'question' => 'Jak ADHD objawia się u dorosłych?',
+                    'answer'   => 'Częste są trudności ze skupieniem i organizacją, odkładanie i niekończenie zadań, chroniczne spóźnianie się, zapominanie o zobowiązaniach oraz szybka utrata motywacji. Nadruchliwość bywa mniej widoczna niż u dzieci, częściej jako wewnętrzny niepokój. Dochodzi też impulsywność i trudności w regulacji emocji.',
+                ],
+                [
+                    'question' => 'Czym ADHD u dorosłych różni się od ADHD u dzieci?',
+                    'answer'   => 'U dorosłych wyraźna nadruchliwość zwykle słabnie lub zmienia się w wewnętrzne napięcie, a na pierwszy plan wysuwają się problemy z koncentracją, organizacją i regulacją emocji. Objawy odbijają się głównie na pracy, nauce i relacjach. Aby rozpoznać ADHD u dorosłego, ich ślady muszą sięgać dzieciństwa.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się ADHD u dorosłych?',
+                    'answer'   => 'Nie ma jednego testu na ADHD. Diagnozę stawia specjalista na podstawie szczegółowego wywiadu, w tym z dzieciństwa, oraz kwestionariuszy i oceny wpływu objawów na codzienne życie. Według kryteriów objawy powinny być obecne już przed okresem dorastania i istotnie utrudniać funkcjonowanie w więcej niż jednym obszarze. Ważne jest też wykluczenie innych przyczyn.',
+                ],
+                [
+                    'question' => 'Jak leczy się ADHD u dorosłych?',
+                    'answer'   => 'Leczenie zwykle łączy kilka metod. Stosuje się farmakoterapię wpływającą na działanie neuroprzekaźników, dobieraną przez lekarza, oraz psychoterapię, zwłaszcza poznawczo-behawioralną. Dużą rolę odgrywa nauka praktycznych strategii: zarządzania czasem, organizacji i radzenia sobie z emocjami. Plan dobiera się indywidualnie.',
+                ],
+                [
+                    'question' => 'Czy warto diagnozować ADHD w dorosłości?',
+                    'answer'   => 'Tak, bo trafne rozpoznanie pozwala zrozumieć dotychczasowe trudności i wdrożyć skuteczne wsparcie. Leczenie i odpowiednie strategie często wyraźnie poprawiają funkcjonowanie w pracy, nauce i relacjach oraz samopoczucie. Nierozpoznane ADHD bywa natomiast źródłem przewlekłego stresu, a czasem współwystępuje z depresją czy lękiem.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Posner J., Polanczyk G.V., Sonuga-Barke E.',
+                    'title'     => 'Attention-deficit hyperactivity disorder',
+                    'publisher' => 'The Lancet',
+                    'note'      => '2020; 395(10222): 450-462',
+                ],
+                [
+                    'authors'   => 'National Institute for Health and Care Excellence (NICE)',
+                    'title'     => 'Attention deficit hyperactivity disorder: diagnosis and management (NG87)',
+                    'publisher' => 'NICE',
+                    'note'      => '2018, aktualizacja 2019',
+                ],
+            ],
+        ],
+        'spektrum-autyzmu-co-to-jest-i-jak-rozpoznac-objawy' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest spektrum autyzmu?',
+                    'answer'   => 'To grupa zaburzeń neurorozwojowych wpływających na komunikację, relacje społeczne oraz sposób odbierania świata, którym towarzyszą powtarzalne zachowania i wąskie, intensywne zainteresowania. Mówi się o spektrum, bo objawy i ich nasilenie są bardzo różne u różnych osób. To nie choroba, lecz odmienny sposób funkcjonowania mózgu.',
+                ],
+                [
+                    'question' => 'Jakie są objawy spektrum autyzmu?',
+                    'answer'   => 'U dzieci zwracają uwagę ograniczony kontakt wzrokowy, słabsza reakcja na imię, opóźniony lub nietypowy rozwój mowy, powtarzalne zachowania oraz silne przywiązanie do rutyny. U dorosłych częste są trudności w relacjach i rozumieniu niuansów społecznych, jak ironia, potrzeba przewidywalności oraz intensywne zainteresowania. Obraz bywa bardzo zróżnicowany.',
+                ],
+                [
+                    'question' => 'Kiedy ujawnia się autyzm?',
+                    'answer'   => 'Pierwsze sygnały pojawiają się zwykle we wczesnym dzieciństwie, choć u części osób, zwłaszcza bez niepełnosprawności intelektualnej, diagnozę stawia się dopiero w wieku szkolnym lub w dorosłości. Bywa, że trudności stają się wyraźne, gdy rosną wymagania społeczne. Wczesne rozpoznanie ułatwia dobranie wsparcia.',
+                ],
+                [
+                    'question' => 'Dlaczego autyzm bywa później rozpoznawany u kobiet?',
+                    'answer'   => 'Kobiety i dziewczęta częściej maskują trudności, naśladując zachowania społeczne otoczenia, przez co objawy są mniej widoczne. Takie maskowanie bywa wyczerpujące i opóźnia rozpoznanie, a nierozpoznane trudności mogą prowadzić do przeciążenia, lęku czy obniżonego nastroju. Dlatego warto brać pod uwagę autyzm także u kobiet.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się spektrum autyzmu?',
+                    'answer'   => 'Diagnoza opiera się na szczegółowym wywiadzie obejmującym rozwój od dzieciństwa, obserwacji oraz testach psychologicznych, często z udziałem zespołu specjalistów. Nie ma pojedynczego badania laboratoryjnego, które potwierdza autyzm. Ocena uwzględnia też wykluczenie lub rozpoznanie współwystępujących trudności.',
+                ],
+                [
+                    'question' => 'Jakie wsparcie pomaga osobom w spektrum autyzmu?',
+                    'answer'   => 'Pomaga indywidualnie dobrane wsparcie: terapia rozwijająca umiejętności komunikacyjne i społeczne, dostosowanie otoczenia i rutyny, a w razie potrzeby pomoc psychologiczna przy współwystępującym lęku czy obniżonym nastroju. Celem nie jest zmiana osobowości, lecz ułatwienie codziennego funkcjonowania i wykorzystanie mocnych stron.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Lord C., Elsabbagh M., Baird G., Veenstra-Vanderweele J.',
+                    'title'     => 'Autism spectrum disorder',
+                    'publisher' => 'The Lancet',
+                    'note'      => '2018; 392(10146): 508-520',
+                ],
+                [
+                    'authors'   => 'World Health Organization',
+                    'title'     => 'Autism',
+                    'publisher' => 'WHO',
+                    'note'      => 'Materiał informacyjny dla pacjentów',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v10', true);
+});
+
 /**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
