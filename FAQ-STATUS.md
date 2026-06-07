@@ -47,6 +47,11 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 | otylosc | tak (6) | tak (2) | brak | PROD (2026-06-06) |
 | czym-sa-zaburzenia-lekowe-jak-je-diagnozowac-i-leczyc | tak (6) | tak (2) | brak | PROD (2026-06-06) |
 | bezsennosc-przyczyny-objawy-i-sprawdzone-sposoby-na-poprawe-jakosci-snu | tak (6) | tak (2) | brak | PROD (2026-06-06) |
+| kardiomiopatia | tak (6) | tak (2) | brak | PROD (2026-06-07) |
+| tetniak-aorty-piersiowej | tak (6) | tak (2) | brak | PROD (2026-06-07) |
+| czym-jest-dwubiegunowosc-jak-ja-rozpoznac-i-jakie-sa-mozliwosci-leczenia | tak (6) | tak (2) | brak | PROD (2026-06-07) |
+| czym-jest-adhd-u-doroslych-objawy-diagnostyka-i-leczenie | tak (6) | tak (2) | brak | PROD (2026-06-07) |
+| spektrum-autyzmu-co-to-jest-i-jak-rozpoznac-objawy | tak (6) | tak (2) | brak | PROD (2026-06-07) |
 
 ### Maja FAQ wklejony w tresc (Elementor HTML widget) - NIE nasz plugin
 Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna schema FAQPage. NIE dodawac pluginem (byl duplikat 2026-06-05, usuniety przez delete_post_meta). Do ewentualnej migracji do pluginu trzeba najpierw usunac widget z tresci.
