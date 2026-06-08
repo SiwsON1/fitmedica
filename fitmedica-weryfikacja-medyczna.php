@@ -1928,6 +1928,242 @@ add_action('init', function () {
     update_option('fitmedica_faq_setup_v10', true);
 });
 
+/* -----------------------------------------------
+   AUTO-SETUP FAQ + ZRODLA - partia v11
+   (bradykardia, kolatania serca, badania prostaty,
+   otylosc u dzieci, nietolerancja pokarmowa).
+   Bez weryfikatora. Uruchamia sie raz.
+   ----------------------------------------------- */
+
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v11')) return;
+
+    $articles = [
+        'bradykardia-przyczyny-objawy-i-leczenie' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest bradykardia?',
+                    'answer'   => 'To zwolnienie czynności serca poniżej dolnej granicy normy, którą u dorosłych przyjmuje się zwykle około 60 uderzeń na minutę. O bradykardii mówi się najczęściej, gdy tętno w ciągu dnia, w czuwaniu, spada wyraźnie poniżej tej wartości. Sama wolna akcja serca nie zawsze oznacza chorobę.',
+                ],
+                [
+                    'question' => 'Czy wolne tętno zawsze jest groźne?',
+                    'answer'   => 'Nie. U osób wytrenowanych, zwłaszcza sportowców, spoczynkowe tętno rzędu 40-50 uderzeń na minutę bywa normą i nie wymaga leczenia. Wolne tętno staje się problemem, gdy daje objawy lub wynika z choroby. Liczy się więc nie sama liczba, ale samopoczucie i przyczyna.',
+                ],
+                [
+                    'question' => 'Jakie są objawy bradykardii?',
+                    'answer'   => 'Gdy serce bije zbyt wolno, by zapewnić odpowiedni przepływ krwi, pojawiają się zmęczenie i gorsza tolerancja wysiłku, zawroty głowy, zaburzenia koncentracji, duszność, a czasem omdlenia lub zasłabnięcia. Nasilone objawy, zwłaszcza omdlenia, wymagają pilnej oceny kardiologicznej.',
+                ],
+                [
+                    'question' => 'Co powoduje bradykardię?',
+                    'answer'   => 'Przyczyny dzielą się na sercowe (choroby układu bodźcoprzewodzącego, zawał, zapalenie mięśnia sercowego) i pozasercowe. Do tych drugich należą niedoczynność tarczycy, zaburzenia elektrolitowe, bezdech senny oraz leki, na przykład beta-blokery, niektóre leki na nadciśnienie, digoksyna czy opioidy. Czasem to właśnie lek wymaga modyfikacji.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się bradykardię?',
+                    'answer'   => 'Podstawą jest EKG, które rejestruje rytm serca. Ponieważ wolne tętno bywa okresowe, często stosuje się monitorowanie Holter EKG przez dobę lub dłużej, by powiązać objawy z zapisem. Lekarz ocenia też możliwe przyczyny, w tym tarczycę i przyjmowane leki.',
+                ],
+                [
+                    'question' => 'Jak leczy się bradykardię?',
+                    'answer'   => 'Jeśli bradykardia nie daje objawów i nie wynika z choroby, zwykle nie wymaga leczenia, a jedynie obserwacji. Gdy przyczyną jest lek lub zaburzenie, na przykład tarczycy, leczy się przyczynę. Przy objawowej, utrwalonej bradykardii skuteczną metodą jest wszczepienie stymulatora serca (rozrusznika). Decyzję podejmuje kardiolog.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Glikson M., Nielsen J.C., Kronborg M.B. i wsp.',
+                    'title'     => '2021 ESC Guidelines on cardiac pacing and cardiac resynchronization therapy',
+                    'publisher' => 'European Heart Journal',
+                    'note'      => '2021; 42(35): 3427-3520',
+                ],
+                [
+                    'authors'   => 'American Heart Association',
+                    'title'     => 'Bradycardia: Slow Heart Rate',
+                    'publisher' => 'AHA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'kolatania-serca-przyczyny-i-objawy-jak-wyglada-leczenie' => [
+            'faq' => [
+                [
+                    'question' => 'Czym są kołatania serca?',
+                    'answer'   => 'To odczuwalne, mocne, szybkie lub nieregularne bicie serca, które zwraca uwagę, choć zwykle trwa krótko. Mogą pojawić się w spoczynku albo przy wysiłku. Często są niegroźne, ale bywają też objawem zaburzeń rytmu lub innej choroby, dlatego nawracające epizody warto ocenić.',
+                ],
+                [
+                    'question' => 'Co najczęściej wywołuje kołatania serca?',
+                    'answer'   => 'Bardzo często stoją za nimi stres i silne emocje, wysiłek fizyczny oraz używki: kofeina, alkohol i nikotyna. Sprzyjają im też niektóre leki, zaburzenia hormonalne (w tym choroby tarczycy, ciąża, menopauza) oraz odwodnienie. Część kołatań wynika jednak z arytmii lub innej choroby serca.',
+                ],
+                [
+                    'question' => 'Kiedy kołatania serca są niegroźne, a kiedy powinny niepokoić?',
+                    'answer'   => 'Pojedyncze kołatania związane ze stresem, kawą czy wysiłkiem, u osoby bez choroby serca, zwykle nie są groźne. Niepokoić powinny kołatania częste, długotrwałe, bez wyraźnej przyczyny, a zwłaszcza takie, którym towarzyszą ból w klatce piersiowej, silna duszność, omdlenie lub zasłabnięcie. Wtedy potrzebna jest pilna konsultacja.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się przyczynę kołatań?',
+                    'answer'   => 'Podstawą jest EKG, ale ponieważ kołatania bywają napadowe, często potrzebne jest dłuższe monitorowanie: Holter EKG przez dobę lub kilka dni, a przy rzadkich epizodach rejestrator zdarzeń noszony nawet kilka tygodni. Echo serca ocenia jego budowę. Lekarz sprawdza też tarczycę i inne możliwe przyczyny.',
+                ],
+                [
+                    'question' => 'Jak leczy się kołatania serca?',
+                    'answer'   => 'Jeśli kołatania nie wynikają z choroby serca, zwykle wystarcza ograniczenie wyzwalaczy: stresu, kofeiny, alkoholu i nikotyny oraz zadbanie o sen i nawodnienie. Gdy przyczyną jest konkretna arytmia lub choroba, leczy się ją, czasem lekami (na przykład beta-blokerami), a w wybranych przypadkach ablacją. Postępowanie dobiera kardiolog.',
+                ],
+                [
+                    'question' => 'Czy kołatania serca mogą wynikać z tarczycy lub stresu?',
+                    'answer'   => 'Tak. Nadczynność tarczycy przyspiesza pracę serca i często powoduje kołatania, dlatego przy ich nawracaniu warto sprawdzić tarczycę. Również przewlekły stres i lęk, w tym napady paniki, dają silne odczucie bicia serca. Ustalenie przyczyny pozwala dobrać właściwe postępowanie zamiast leczyć sam objaw.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Raviele A., Giada F., Bergfeldt L. i wsp.',
+                    'title'     => 'Management of patients with palpitations: a position paper from the European Heart Rhythm Association (EHRA)',
+                    'publisher' => 'Europace',
+                    'note'      => '2011; 13(7): 920-934',
+                ],
+                [
+                    'authors'   => 'American Heart Association',
+                    'title'     => 'Heart Palpitations',
+                    'publisher' => 'AHA',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'jakie-badania-na-prostate-wykonac' => [
+            'faq' => [
+                [
+                    'question' => 'Jakie badania wykrywają choroby prostaty?',
+                    'answer'   => 'Podstawą są oznaczenie PSA we krwi oraz badanie palpacyjne prostaty przez odbyt (per rectum), które ocenia jej wielkość i strukturę. Uzupełniająco wykonuje się USG (często przezodbytnicze), a przy podejrzeniu nowotworu rezonans magnetyczny i biopsję prostaty. Dobór badań ustala urolog na podstawie wieku, objawów i ryzyka.',
+                ],
+                [
+                    'question' => 'Czym jest PSA i co oznacza podwyższony wynik?',
+                    'answer'   => 'PSA to białko produkowane przez prostatę, którego stężenie bada się we krwi. Podwyższony wynik nie oznacza od razu raka, bo PSA rośnie też przy łagodnym przeroście prostaty, stanie zapalnym czy po niektórych czynnościach. Dlatego wynik interpretuje się łącznie z badaniem, wiekiem i dynamiką zmian, a nie jako pojedynczą liczbę.',
+                ],
+                [
+                    'question' => 'Od kiedy i jak często badać prostatę?',
+                    'answer'   => 'Badania zwykle proponuje się mężczyznom od około 50 roku życia, a przy obciążeniu rodzinnym rakiem prostaty wcześniej, około 40-45 lat. Częstotliwość ustala się indywidualnie, w podejściu dostosowanym do ryzyka, na podstawie wyjściowego PSA i czynników ryzyka. Decyzję o badaniach warto podjąć po rozmowie z lekarzem.',
+                ],
+                [
+                    'question' => 'Czy badanie PSA i per rectum boli?',
+                    'answer'   => 'Pobranie krwi na PSA to zwykłe badanie laboratoryjne. Badanie palpacyjne przez odbyt trwa krótko i bywa nieprzyjemne, ale zazwyczaj nie jest bolesne. Oba badania są podstawą wczesnej diagnostyki i nie warto ich unikać z powodu skrępowania, bo wczesne wykrycie choroby znacznie poprawia rokowanie.',
+                ],
+                [
+                    'question' => 'Jakie objawy ze strony prostaty powinny skłonić do wizyty?',
+                    'answer'   => 'Niepokojące są problemy z oddawaniem moczu (częste, nocne, słaby strumień, uczucie niepełnego opróżnienia), ból w podbrzuszu lub okolicy krocza, krew w moczu oraz zaburzenia wzwodu i wytrysku. Takie objawy częściej wynikają z łagodnego przerostu lub zapalenia niż raka, ale wymagają oceny urologa.',
+                ],
+                [
+                    'question' => 'Czy podwyższone PSA zawsze oznacza raka prostaty?',
+                    'answer'   => 'Nie. Najczęstszą przyczyną podwyższonego PSA jest łagodny przerost prostaty, a wpływ mają też zapalenie, infekcja dróg moczowych czy niedawny zabieg. Dlatego pojedynczy wynik się weryfikuje, a w razie potrzeby pogłębia diagnostykę o rezonans i ewentualnie biopsję. O dalszych krokach decyduje urolog.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Cornford P., van den Bergh R.C.N., Briers E. i wsp.',
+                    'title'     => 'EAU-EANM-ESTRO-ESUR-ISUP-SIOG Guidelines on Prostate Cancer (Screening, Diagnosis)',
+                    'publisher' => 'European Association of Urology',
+                    'note'      => 'aktualizacja 2024',
+                ],
+                [
+                    'authors'   => 'European Association of Urology',
+                    'title'     => 'Patient Information: Prostate Cancer',
+                    'publisher' => 'EAU Patient Information',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'otylosc-u-dzieci' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest otyłość u dzieci?',
+                    'answer'   => 'To przewlekła choroba, w której nadmiar tkanki tłuszczowej szkodzi zdrowiu dziecka, a nie tylko kwestia wyglądu czy etapu rozwoju. Tak jak u dorosłych, wpływają na nią nawyki, aktywność, genetyka i czynniki środowiskowe. Wymaga uważnego podejścia, bo rzutuje na zdrowie również w dorosłości.',
+                ],
+                [
+                    'question' => 'Jak ocenia się otyłość u dziecka?',
+                    'answer'   => 'U dzieci nie stosuje się stałych progów BMI jak u dorosłych, lecz siatki centylowe uwzględniające wiek i płeć. Mówi się o nadwadze, gdy BMI mieści się między 85 a 95 centylem, a o otyłości, gdy osiąga lub przekracza 95 centyl. Wynik zawsze ocenia lekarz w kontekście rozwoju dziecka.',
+                ],
+                [
+                    'question' => 'Jakie są przyczyny otyłości u dzieci?',
+                    'answer'   => 'W większości przypadków to połączenie nieprawidłowych nawyków żywieniowych, małej aktywności fizycznej i predyspozycji genetycznych. Rzadziej, u niewielkiej części dzieci, otyłość wynika z zaburzeń hormonalnych lub innych chorób, które wymagają osobnej diagnostyki. Znaczenie mają też czynniki psychiczne i środowisko domowe.',
+                ],
+                [
+                    'question' => 'Czym grozi otyłość w dzieciństwie?',
+                    'answer'   => 'Już u dzieci może prowadzić do insulinooporności i cukrzycy typu 2, nadciśnienia, zaburzeń lipidowych, stłuszczenia wątroby oraz problemów z oddychaniem podczas snu. Obciąża też samopoczucie i samoocenę. Ponadto zwiększa ryzyko otyłości i chorób przewlekłych w dorosłości, dlatego warto reagować wcześnie.',
+                ],
+                [
+                    'question' => 'Jak leczy się otyłość u dzieci?',
+                    'answer'   => 'Podstawą jest trwała zmiana stylu życia obejmująca całą rodzinę, a nie tylko samo dziecko: zdrowsze odżywianie, więcej ruchu i ograniczenie czasu przed ekranami. Pomaga wsparcie pediatry i dietetyka oraz dbanie o sen i dobrostan psychiczny. Restrykcyjnych diet u dzieci nie stosuje się bez nadzoru specjalisty.',
+                ],
+                [
+                    'question' => 'Jak zapobiegać otyłości u dzieci?',
+                    'answer'   => 'Najwięcej daje budowanie zdrowych nawyków od najmłodszych lat: regularne, zbilansowane posiłki, ograniczenie słodyczy i słodkich napojów, codzienna aktywność fizyczna oraz rozsądny czas przed ekranem. Kluczowy jest dobry przykład i wspólne nawyki w domu, bo dzieci uczą się przez naśladowanie.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Styne D.M., Arslanian S.A., Connor E.L. i wsp.',
+                    'title'     => 'Pediatric Obesity - Assessment, Treatment, and Prevention: An Endocrine Society Clinical Practice Guideline',
+                    'publisher' => 'The Journal of Clinical Endocrinology & Metabolism',
+                    'note'      => '2017; 102(3): 709-757',
+                ],
+                [
+                    'authors'   => 'World Health Organization',
+                    'title'     => 'Obesity and overweight',
+                    'publisher' => 'WHO',
+                    'note'      => 'Materiał informacyjny dla pacjentów',
+                ],
+            ],
+        ],
+        'nietolerancja-pokarmowa-przyczyny-objawy-i-leczenie' => [
+            'faq' => [
+                [
+                    'question' => 'Czym jest nietolerancja pokarmowa?',
+                    'answer'   => 'To niepożądana reakcja organizmu na pokarm, która, w odróżnieniu od alergii, nie wynika z mechanizmu immunologicznego. Najczęściej stoi za nią niedobór enzymu trawiącego dany składnik lub nadwrażliwość przewodu pokarmowego. Objawy bywają uciążliwe, ale zwykle nie są groźne dla życia.',
+                ],
+                [
+                    'question' => 'Czym nietolerancja różni się od alergii pokarmowej?',
+                    'answer'   => 'Alergia pokarmowa to reakcja układu odpornościowego, często z udziałem przeciwciał IgE, która może być gwałtowna i niebezpieczna, łącznie ze wstrząsem anafilaktycznym. Nietolerancja działa innym mechanizmem, na przykład przez niedobór enzymu (jak przy laktozie), a objawy pojawiają się zwykle wolniej i zależą od ilości zjedzonego pokarmu. To dwa różne problemy, choć bywają mylone.',
+                ],
+                [
+                    'question' => 'Jakie są najczęstsze nietolerancje pokarmowe?',
+                    'answer'   => 'Do częstych należy nietolerancja laktozy, wynikająca z niedoboru enzymu laktazy, oraz nadwrażliwość na składniki fermentujące w jelicie (tak zwane FODMAP), nasilająca objawy zespołu jelita drażliwego. Osobnym, autoimmunologicznym problemem związanym z glutenem jest celiakia, którą diagnozuje się i prowadzi inaczej niż typową nietolerancję.',
+                ],
+                [
+                    'question' => 'Jakie objawy daje nietolerancja pokarmowa?',
+                    'answer'   => 'Najczęstsze są dolegliwości ze strony przewodu pokarmowego: bóle brzucha, wzdęcia, gazy, biegunki lub zaparcia oraz nudności. Bywają też bóle głowy, zmęczenie czy reakcje skórne. Objawy zwykle pojawiają się po pewnym czasie od posiłku i zależą od ilości spożytego składnika.',
+                ],
+                [
+                    'question' => 'Jak diagnozuje się nietolerancję pokarmową?',
+                    'answer'   => 'Podstawą jest dokładny wywiad i dzienniczek żywieniowy oraz kontrolowana dieta eliminacyjna z ponownym wprowadzeniem pokarmu, prowadzona pod okiem specjalisty. Dla konkretnych problemów istnieją sprawdzone badania, na przykład wodorowy test oddechowy w kierunku nietolerancji laktozy czy badania w kierunku celiakii. Warto wiedzieć, że popularne testy oznaczające przeciwciała IgG na pokarmy nie są wiarygodną metodą rozpoznawania nietolerancji.',
+                ],
+                [
+                    'question' => 'Jak leczy się nietolerancję pokarmową?',
+                    'answer'   => 'Podstawą jest ograniczenie lub wykluczenie źle tolerowanego składnika, często nie całkowicie, lecz do progu, który nie wywołuje objawów. Pomaga wsparcie dietetyka, by dieta pozostała zbilansowana, a przy nietolerancji laktozy dostępne są preparaty z enzymem laktazą. W celiakii konieczna jest ścisła, stała dieta bezglutenowa.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Turnbull J.L., Adams H.N., Gorard D.A.',
+                    'title'     => 'Review article: the diagnosis and management of food allergy and food intolerances',
+                    'publisher' => 'Alimentary Pharmacology & Therapeutics',
+                    'note'      => '2015; 41(1): 3-25',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v11', true);
+});
+
 /**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
