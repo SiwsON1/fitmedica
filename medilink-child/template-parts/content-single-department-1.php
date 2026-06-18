@@ -266,7 +266,7 @@ if (in_array($key, $hidden_ids)) continue;
             $fm_dep_id   = get_the_ID();
             $fm_dep_slug = get_post_field( 'post_name', $fm_dep_id );
 
-            // slug poradni -> slug kategorii bloga
+            // slug poradni -> klucz zestawu kuracji
             $fm_map = array(
                 'poradnia-kardiologiczna-wawer'          => 'kardiologia',
                 'poradnia-kardiologiczna-anin'           => 'kardiologia',
@@ -277,35 +277,64 @@ if (in_array($key, $hidden_ids)) continue;
                 'eho-serca-dziecka'                      => 'kardiologia',
                 'holter-ekg-warszawa'                    => 'kardiologia',
             );
-            // kategoria -> tytul sekcji + link "wszystkie"
-            $fm_cat_meta = array(
+            // zestaw kuracji: tytul + link "wszystkie" + plakietka + GRUPY (recznie dobrane slugi, kolejnosc = waznosc)
+            $fm_sets = array(
                 'kardiologia' => array(
-                    'title' => 'Przeczytaj także',
-                    'all'   => 'Zobacz wszystkie artykuły o sercu',
-                    'url'   => home_url( '/blog/category/kardiologia/' ),
+                    'title'   => 'Baza wiedzy o sercu',
+                    'all'     => 'Zobacz wszystkie artykuły o sercu',
+                    'all_url' => home_url( '/blog/category/kardiologia/' ),
+                    'cat'     => 'Kardiologia',
+                    'groups'  => array(
+                        array(
+                            'label' => 'Schorzenia i dolegliwości',
+                            'slugs' => array(
+                                'zawal-serca',
+                                'nadcisnienie-tetnicze-2',
+                                'choroba-niedokrwienna-serca',
+                                'zaburzenia-rytmu-serca-arytmia',
+                                'niewydolnosc-serca-przyczyny-objawy-leczenie',
+                                'miazdzyca-naczyn-krwionosnych',
+                                'kardiomiopatia',
+                                'zapalenie-miesnia-sercowego',
+                                'tetniak-aorty-piersiowej',
+                                'bradykardia-przyczyny-objawy-i-leczenie',
+                                'kolatania-serca-przyczyny-i-objawy-jak-wyglada-leczenie',
+                                'czym-jest-nerwica-serca-objawy-i-leczenie',
+                            ),
+                        ),
+                        array(
+                            'label' => 'Diagnostyka i badania',
+                            'slugs' => array(
+                                'czym-jest-echo-serca-i-jakie-choroby-moze-wykryc-to-badanie',
+                                'badania-ekg',
+                                'ambulatoryjny-pomiar-cisnienia-tetniczego',
+                            ),
+                        ),
+                    ),
                 ),
             );
 
-            $fm_cat = isset( $fm_map[ $fm_dep_slug ] ) ? $fm_map[ $fm_dep_slug ] : '';
+            $fm_key = isset( $fm_map[ $fm_dep_slug ] ) ? $fm_map[ $fm_dep_slug ] : '';
 
-            if ( $fm_cat && isset( $fm_cat_meta[ $fm_cat ] ) ) {
+            if ( $fm_key && isset( $fm_sets[ $fm_key ] ) ) {
 
-                // liczba artykulow zalezna od rozmiaru strony (dlugosc tresci poradni)
-                $fm_chars = mb_strlen( wp_strip_all_tags( get_post_field( 'post_content', $fm_dep_id ) ) );
-                $fm_limit = ( $fm_chars > 2200 ) ? 8 : ( ( $fm_chars > 900 ) ? 6 : 4 );
+                $fm_set   = $fm_sets[ $fm_key ];
+                $fm_slugs = array();
+                foreach ( $fm_set['groups'] as $fm_g ) { $fm_slugs = array_merge( $fm_slugs, $fm_g['slugs'] ); }
 
                 $fm_q = new WP_Query( array(
-                    'category_name'       => $fm_cat,
-                    'posts_per_page'      => $fm_limit,
-                    'orderby'             => 'date',
-                    'order'               => 'DESC',
-                    'post__not_in'        => array( $fm_dep_id ),
+                    'post_type'           => 'post',
+                    'post_status'         => 'publish',
+                    'post_name__in'       => $fm_slugs,
+                    'posts_per_page'      => count( $fm_slugs ),
                     'ignore_sticky_posts' => true,
                     'no_found_rows'       => true,
                 ) );
 
-                if ( $fm_q->have_posts() ) {
-                    $fm_meta = $fm_cat_meta[ $fm_cat ];
+                $fm_by = array();
+                foreach ( $fm_q->posts as $fm_p ) { $fm_by[ $fm_p->post_name ] = $fm_p; }
+
+                if ( ! empty( $fm_by ) ) {
                     ?>
                     <style>
                         .sidebar-widget-area .widget-fm-related .section-title{text-transform:none;}
@@ -322,6 +351,7 @@ if (in_array($key, $hidden_ids)) continue;
                         /* lista */
                         .widget-fm-related ul.fm-list{list-style:none;margin:0;padding:5px 0;}
                         .widget-fm-related ul.fm-list:empty{display:none;}
+                        .sidebar-widget-area .widget-fm-related .fm-list li.fm-item{margin:0;padding:0;list-style:none;}
                         .widget-fm-related li.fm-item + li.fm-item{border-top:1px solid #f0f1f4;}
                         .widget-fm-related a.fm-link{display:flex;gap:13px;align-items:center;padding:11px 16px;text-decoration:none;transition:background-color .18s ease;}
                         .widget-fm-related .fm-thumb{flex:0 0 60px;width:60px;height:60px;border-radius:7px;overflow:hidden;background:#eef2fb;position:relative;}
@@ -341,49 +371,56 @@ if (in_array($key, $hidden_ids)) continue;
                             .widget-fm-related a.fm-all-link:hover{background:#eef3fd;}
                             .widget-fm-related a.fm-all-link:hover svg{transform:translateX(4px);}
                         }
+                        .widget-fm-related .fm-group-label{margin:0;padding:14px 16px 9px;font-family:'Roboto',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5b6472;}
+                        .widget-fm-related .fm-group-label--sep{border-top:1px solid #eef0f3;margin-top:3px;}
                         @media (prefers-reduced-motion: reduce){.widget-fm-related img,.widget-fm-related svg{transition:none;}}
                     </style>
-                    <?php $fm_cat_obj = get_category_by_slug( $fm_cat ); $fm_cat_name = $fm_cat_obj ? $fm_cat_obj->name : ''; ?>
                     <div class="widgets widget-fm-related">
-                        <span class="section-title title-bar-primary"><?php echo esc_html( $fm_meta['title'] ); ?></span>
+                        <span class="section-title title-bar-primary"><?php echo esc_html( $fm_set['title'] ); ?></span>
                         <div class="fm-card">
-                            <?php $fm_i = 0; while ( $fm_q->have_posts() ) : $fm_q->the_post(); ?>
-                                <?php if ( 0 === $fm_i ) : ?>
-                                    <a class="fm-feat" href="<?php echo esc_url( get_permalink() ); ?>">
+                            <?php
+                            $fm_feat_slug = $fm_set['groups'][0]['slugs'][0];
+                            foreach ( $fm_set['groups'] as $fm_gi => $fm_g ) : ?>
+                                <p class="fm-group-label<?php echo $fm_gi > 0 ? ' fm-group-label--sep' : ''; ?>"><?php echo esc_html( $fm_g['label'] ); ?></p>
+                                <?php if ( 0 === $fm_gi && isset( $fm_by[ $fm_feat_slug ] ) ) :
+                                    $fm_p = $fm_by[ $fm_feat_slug ]; ?>
+                                    <a class="fm-feat" href="<?php echo esc_url( get_permalink( $fm_p ) ); ?>">
                                         <span class="fm-feat-media">
-                                            <?php if ( has_post_thumbnail() ) {
-                                                the_post_thumbnail( 'medium', array( 'alt' => esc_attr( get_the_title() ), 'loading' => 'lazy' ) );
-                                            } else { ?>
+                                            <?php $fm_img = get_the_post_thumbnail( $fm_p->ID, 'medium', array( 'alt' => esc_attr( get_the_title( $fm_p ) ), 'loading' => 'lazy' ) );
+                                            if ( $fm_img ) { echo $fm_img; } else { ?>
                                                 <svg class="fm-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>
                                             <?php } ?>
                                             <span class="fm-feat-scrim">
-                                                <?php if ( $fm_cat_name ) : ?><span class="fm-feat-cat"><?php echo esc_html( $fm_cat_name ); ?></span><?php endif; ?>
-                                                <span class="fm-feat-title"><?php echo esc_html( get_the_title() ); ?></span>
+                                                <span class="fm-feat-cat"><?php echo esc_html( $fm_set['cat'] ); ?></span>
+                                                <span class="fm-feat-title"><?php echo esc_html( get_the_title( $fm_p ) ); ?></span>
                                             </span>
                                         </span>
                                     </a>
-                                    <ul class="fm-list">
-                                <?php else : ?>
-                                    <li class="fm-item">
-                                        <a class="fm-link" href="<?php echo esc_url( get_permalink() ); ?>">
-                                            <span class="fm-thumb">
-                                                <?php if ( has_post_thumbnail() ) {
-                                                    the_post_thumbnail( 'thumbnail', array( 'alt' => esc_attr( get_the_title() ), 'loading' => 'lazy' ) );
-                                                } else { ?>
-                                                    <svg class="fm-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>
-                                                <?php } ?>
-                                            </span>
-                                            <span class="fm-body">
-                                                <span class="fm-title"><?php echo esc_html( get_the_title() ); ?></span>
-                                                <span class="fm-date"><?php echo esc_html( get_the_date( 'j M Y' ) ); ?></span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                <?php endif; $fm_i++; ?>
-                            <?php endwhile; ?>
+                                <?php endif; ?>
+                                <ul class="fm-list">
+                                    <?php foreach ( $fm_g['slugs'] as $fm_slug ) :
+                                        if ( 0 === $fm_gi && $fm_slug === $fm_feat_slug ) { continue; }
+                                        if ( ! isset( $fm_by[ $fm_slug ] ) ) { continue; }
+                                        $fm_p = $fm_by[ $fm_slug ]; ?>
+                                        <li class="fm-item">
+                                            <a class="fm-link" href="<?php echo esc_url( get_permalink( $fm_p ) ); ?>">
+                                                <span class="fm-thumb">
+                                                    <?php $fm_img = get_the_post_thumbnail( $fm_p->ID, 'thumbnail', array( 'alt' => esc_attr( get_the_title( $fm_p ) ), 'loading' => 'lazy' ) );
+                                                    if ( $fm_img ) { echo $fm_img; } else { ?>
+                                                        <svg class="fm-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>
+                                                    <?php } ?>
+                                                </span>
+                                                <span class="fm-body">
+                                                    <span class="fm-title"><?php echo esc_html( get_the_title( $fm_p ) ); ?></span>
+                                                    <span class="fm-date"><?php echo esc_html( get_the_date( 'j M Y', $fm_p ) ); ?></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    <?php endforeach; ?>
                                 </ul>
-                            <a class="fm-all-link" href="<?php echo esc_url( $fm_meta['url'] ); ?>">
-                                <?php echo esc_html( $fm_meta['all'] ); ?>
+                            <?php endforeach; ?>
+                            <a class="fm-all-link" href="<?php echo esc_url( $fm_set['all_url'] ); ?>">
+                                <?php echo esc_html( $fm_set['all'] ); ?>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                             </a>
                         </div>
