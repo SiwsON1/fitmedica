@@ -274,10 +274,34 @@ if (in_array($key, $hidden_ids)) continue;
                 'echokardiogram-warszawa'                => 'kardiologia',
                 'eho-serca-dziecka'                      => 'kardiologia',
                 'holter-ekg-warszawa'                    => 'kardiologia',
+                // ortopedia (ogolny ortopeda per dzielnica) - strony body-part-specific (kregoslup/nadgarstek/usg/dzieciecy/stopa) pozniej osobno
+                'ortopeda-anin'                          => 'ortopedia',
+                'ortopeda-bemowo'                        => 'ortopedia',
+                'ortopeda-bialoleka'                     => 'ortopedia',
+                'ortopeda-bielany'                       => 'ortopedia',
+                'ortopeda-falenica'                      => 'ortopedia',
+                'ortopeda-mokotow'                       => 'ortopedia',
+                'ortopeda-ochota-poradnia-ortopedyczna-fitmedica-warszawa' => 'ortopedia',
+                'ortopeda-praga-polnoc'                  => 'ortopedia',
+                'ortopeda-praga-poludnie'                => 'ortopedia',
+                'ortopeda-rembertow'                     => 'ortopedia',
+                'ortopeda-srodmiescie'                   => 'ortopedia',
+                'ortopeda-stare-miasto'                  => 'ortopedia',
+                'ortopeda-targowek'                      => 'ortopedia',
+                'ortopeda-ursus'                         => 'ortopedia',
+                'ortopeda-ursynow'                       => 'ortopedia',
+                'ortopeda-wawer'                         => 'ortopedia',
+                'ortopeda-wesola'                        => 'ortopedia',
+                'ortopeda-wilanow'                       => 'ortopedia',
+                'ortopeda-wlochy'                        => 'ortopedia',
+                'ortopeda-wola'                          => 'ortopedia',
+                'ortopeda-zoliborz'                      => 'ortopedia',
+                'dobry-chirurg-ortopeda-warszawa'        => 'ortopedia',
             );
             // zestaw kuracji: tytul + link "wszystkie" + plakietka + GRUPY (recznie dobrane slugi, kolejnosc = waznosc)
             $fm_sets = array(
                 'kardiologia' => array(
+                    'live'    => true,
                     'title'   => 'Baza wiedzy o sercu',
                     'all'     => 'Zobacz wszystkie artykuły o sercu',
                     'all_url' => home_url( '/blog/category/kardiologia/' ),
@@ -310,11 +334,47 @@ if (in_array($key, $hidden_ids)) continue;
                         ),
                     ),
                 ),
+                'ortopedia' => array(
+                    'live'    => true, // PUBLICZNE od 2026-06-19 (decyzja Marcina: ship mimo uwag Codexa o boilerplate na 22 stronach dzielnicowych)
+                    'title'   => 'Baza wiedzy ortopedyczna',
+                    'all'     => 'Zobacz wszystkie artykuły ortopedyczne',
+                    'all_url' => home_url( '/blog/category/ortopedia/' ),
+                    'cat'     => 'Ortopedia',
+                    'groups'  => array(
+                        array(
+                            'label' => 'Schorzenia i dolegliwości',
+                            'slugs' => array(
+                                'bol-kregoslupa-kiedy-nalezy-wybrac-sie-do-lekarza',
+                                'lakotka-lekotka-czyli-najczestsze-uszkodzenia-powodujace-bol-kolana',
+                                'uszkodzenie-wiezadla-krzyzowego-przedniego-wkp-acl-czyli-ze-sportem',
+                                'lokiec-tenisisty-przyczyny-objawy-profilaktyka-i-mozliwosci-leczenia',
+                                'zespol-zamrozonego-barku',
+                                'skrecenie-stawu-skokowego-definicja-objawy-leczenie',
+                                'bol-achillesa-czym-dokladnie-jest-skad-sie-bierze-i-jakie-istnieja-mozliwosci-leczenia',
+                                'bole-bioder-przyczyny-objawy-i-profilaktyka',
+                                'skolioza-objawy-diagnostyka-i-leczenie-od-a-do-z',
+                                'chondromalacja-rzepki-kolana-leczenie-przyczyny-objawy',
+                                'choroba-duputryena-przykurcz-rozciegna-dloniowego',
+                                'czym-jest-osteoporoza',
+                            ),
+                        ),
+                        array(
+                            'label' => 'Diagnostyka i badania',
+                            'slugs' => array(
+                                'badania-sportowe',
+                                'czynnosciowe-emg-funkcjonalne-emg-semg',
+                                'na-czym-polega-badanie-na-platformie-stabilograficznej',
+                                'iniekcja-prp-osocze-bogatoplytkowe',
+                                'iniekcja-z-kwasem-hialuronowym-do-stawow-obwodowych-i-pochewek-sciegnistych',
+                            ),
+                        ),
+                    ),
+                ),
             );
 
             $fm_key = isset( $fm_map[ $fm_dep_slug ] ) ? $fm_map[ $fm_dep_slug ] : '';
 
-            if ( $fm_key && isset( $fm_sets[ $fm_key ] ) ) {
+            if ( $fm_key && isset( $fm_sets[ $fm_key ] ) && ( ! empty( $fm_sets[ $fm_key ]['live'] ) || isset( $_GET['fmpodglad'] ) ) ) {
 
                 $fm_set   = $fm_sets[ $fm_key ];
                 $fm_slugs = array();
