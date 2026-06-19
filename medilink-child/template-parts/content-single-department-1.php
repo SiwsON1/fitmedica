@@ -297,6 +297,12 @@ if (in_array($key, $hidden_ids)) continue;
                 'ortopeda-wola'                          => 'ortopedia',
                 'ortopeda-zoliborz'                      => 'ortopedia',
                 'dobry-chirurg-ortopeda-warszawa'        => 'ortopedia',
+                // batch 2026-06-19 (gated do akceptacji): psychologia / reumatologia / dietetyka / dermatologia
+                'poradnia-psychologiczna'                => 'psychologia',
+                'poradnia-zdrowia-psychicznego'          => 'psychologia',
+                'dobry-reumatolog-prywatnie'             => 'reumatologia',
+                'dobry-dietetyk-warszawa'                => 'dietetyka',
+                'poradnia-dermatologiczna'               => 'dermatologia',
             );
             // zestaw kuracji: tytul + link "wszystkie" + plakietka + GRUPY (recznie dobrane slugi, kolejnosc = waznosc)
             $fm_sets = array(
@@ -370,6 +376,87 @@ if (in_array($key, $hidden_ids)) continue;
                         ),
                     ),
                 ),
+                'psychologia' => array(
+                    'live'    => false,
+                    'title'   => 'Baza wiedzy psychologicznej',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/psychologia-i-psychiatria/' ),
+                    'cat'     => 'Psychologia',
+                    'groups'  => array(
+                        array(
+                            'label' => '',
+                            'slugs' => array(
+                                'czym-jest-depresja-jak-ja-leczyc',
+                                'czym-sa-zaburzenia-lekowe-jak-je-diagnozowac-i-leczyc',
+                                'czym-jest-adhd-u-doroslych-objawy-diagnostyka-i-leczenie',
+                                'czym-jest-dwubiegunowosc-jak-ja-rozpoznac-i-jakie-sa-mozliwosci-leczenia',
+                                'spektrum-autyzmu-co-to-jest-i-jak-rozpoznac-objawy',
+                                'bezsennosc-przyczyny-objawy-i-sprawdzone-sposoby-na-poprawe-jakosci-snu',
+                                'czym-jest-nerwica-zoladka-i-co-trzeba-wiedziec-na-ten-temat',
+                                'co-warto-wiedziec-o-psychoterapii-i-jej-rodzajach',
+                            ),
+                        ),
+                    ),
+                ),
+                'reumatologia' => array(
+                    'live'    => false,
+                    'title'   => 'Baza wiedzy reumatologiczna',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/reumatologia/' ),
+                    'cat'     => 'Reumatologia',
+                    'groups'  => array(
+                        array(
+                            'label' => '',
+                            'slugs' => array(
+                                'choroba-zwyrodnieniowa-stawow',
+                                'reumatoidalne-zapalenie-stawow',
+                                'dna-moczanowa',
+                                'choroba-zwyrodnieniowa-stawow-kregoslupa-szyjnego',
+                                'zesztywniajace-zapalenie-stawow-kregoslupa',
+                                'reaktywne-zapalenie-stawow',
+                                'osteoporoza',
+                                'blokada-sterydowa-do-stawow-obwodowych-i-tkanek-miekkich',
+                            ),
+                        ),
+                    ),
+                ),
+                'dietetyka' => array(
+                    'live'    => false,
+                    'title'   => 'Baza wiedzy dietetyczna',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/dietetyka/' ),
+                    'cat'     => 'Dietetyka',
+                    'groups'  => array(
+                        array(
+                            'label' => '',
+                            'slugs' => array(
+                                'otylosc',
+                                'nietolerancja-pokarmowa-przyczyny-objawy-i-leczenie',
+                                'testy-na-nietolerancje-pokarmowa',
+                                'biegasz-na-zdrowie-czyli-co-wspolnego-maja-otylosc-geny-i-jogging',
+                                'dziecko-z-niedoborem-masy-ciala',
+                            ),
+                        ),
+                    ),
+                ),
+                'dermatologia' => array(
+                    'live'    => false,
+                    'title'   => 'Baza wiedzy dermatologiczna',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/dermatologia/' ),
+                    'cat'     => 'Dermatologia',
+                    'groups'  => array(
+                        array(
+                            'label' => '',
+                            'slugs' => array(
+                                'jak-wyglada-czerniak-i-jak-rozpoznac-niepokojace-zmiany-skorne-profilaktyka-i-diagnostyka',
+                                'co-to-jest-dermatoskopia',
+                                'oparzenia-sloneczne',
+                                'dermatolog-dzieciecy',
+                            ),
+                        ),
+                    ),
+                ),
             );
 
             $fm_key = isset( $fm_map[ $fm_dep_slug ] ) ? $fm_map[ $fm_dep_slug ] : '';
@@ -439,7 +526,7 @@ if (in_array($key, $hidden_ids)) continue;
                             <?php
                             $fm_feat_slug = $fm_set['groups'][0]['slugs'][0];
                             foreach ( $fm_set['groups'] as $fm_gi => $fm_g ) : ?>
-                                <p class="fm-group-label<?php echo $fm_gi > 0 ? ' fm-group-label--sep' : ''; ?>"><?php echo esc_html( $fm_g['label'] ); ?></p>
+                                <?php if ( ! empty( $fm_g['label'] ) ) : ?><p class="fm-group-label<?php echo $fm_gi > 0 ? ' fm-group-label--sep' : ''; ?>"><?php echo esc_html( $fm_g['label'] ); ?></p><?php endif; ?>
                                 <?php if ( 0 === $fm_gi && isset( $fm_by[ $fm_feat_slug ] ) ) :
                                     $fm_p = $fm_by[ $fm_feat_slug ]; ?>
                                     <a class="fm-feat" href="<?php echo esc_url( get_permalink( $fm_p ) ); ?>">
