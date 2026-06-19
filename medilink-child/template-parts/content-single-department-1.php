@@ -344,6 +344,13 @@ if (in_array($key, $hidden_ids)) continue;
                 'ortopeda-kregoslupa-warszawa-wawer'               => 'orto-kregoslup',
                 'ortopeda-nadgarstka-i-dloni-warszawa-wawer'       => 'orto-reka',
                 'ortopeda-dzieciecy-warszawa-wawer'                => 'orto-dzieciecy',
+                // neurologia (post_name=URL oprocz dobry-neurolog -> 'neurolog'); zestaw zlozony z art. neuro-relevantnych (nerwy/kregoslup)
+                'neurolog'                                         => 'neurologia', // /oferta/dobry-neurolog/
+                'neurochirurg'                                     => 'neurologia',
+                'neurolog-praga-poludnie'                          => 'neurologia',
+                'neurolog-warszawa-anin'                           => 'neurologia',
+                'neurolog-warszawa-falenica'                       => 'neurologia',
+                'neurolog-warszawa-wawer'                          => 'neurologia',
             );
             // zestaw kuracji: tytul + link "wszystkie" + plakietka + GRUPY (recznie dobrane slugi, kolejnosc = waznosc)
             $fm_sets = array(
@@ -682,6 +689,28 @@ if (in_array($key, $hidden_ids)) continue;
                                 'szpotawosc-kolan-przyczyny-objawy-i-skuteczne-metody-leczenia',
                                 'dobry-ortopeda-dzieciecy',
                                 'rehabilitacja-dzieci-w-warszawie',
+                            ),
+                        ),
+                    ),
+                ),
+                'neurologia' => array(
+                    'live'    => true,
+                    'title'   => 'Baza wiedzy neurologiczna',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/neurologia/' ),
+                    'cat'     => 'Neurologia',
+                    'groups'  => array(
+                        array(
+                            'label' => '',
+                            'slugs' => array(
+                                'bole-glowy',
+                                'korzonki-co-to-jest-i-jak-skutecznie-leczyc-bol-korzeni-nerwowych',
+                                'stenoza-kanalu-kregowego-przyczyny-objawy-i-leczenie',
+                                'zespol-ciesni-nadgarstka',
+                                'dyskopatia-diagnoza-i-leczenie',
+                                'krecz-szyi-przyczyny-objawy-i-leczenie',
+                                'bol-glowy-a-schorzenia-stawu-skroniowo-zuchwowego',
+                                'lordoza-szyjna-fizjologia-zaburzenia-sposoby-postepowania',
                             ),
                         ),
                     ),
