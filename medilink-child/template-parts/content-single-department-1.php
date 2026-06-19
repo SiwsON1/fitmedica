@@ -377,7 +377,7 @@ if (in_array($key, $hidden_ids)) continue;
                     ),
                 ),
                 'psychologia' => array(
-                    'live'    => false,
+                    'live'    => true,
                     'title'   => 'Baza wiedzy psychologicznej',
                     'all'     => 'Zobacz wszystkie artykuły',
                     'all_url' => home_url( '/blog/category/psychologia-i-psychiatria/' ),
@@ -440,7 +440,7 @@ if (in_array($key, $hidden_ids)) continue;
                     ),
                 ),
                 'dermatologia' => array(
-                    'live'    => false,
+                    'live'    => true,
                     'title'   => 'Baza wiedzy dermatologiczna',
                     'all'     => 'Zobacz wszystkie artykuły',
                     'all_url' => home_url( '/blog/category/dermatologia/' ),
