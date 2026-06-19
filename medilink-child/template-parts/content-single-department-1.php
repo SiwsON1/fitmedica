@@ -311,6 +311,22 @@ if (in_array($key, $hidden_ids)) continue;
                 'kardiolog'   => 'kardiologia',   // /oferta/dobry-kardiolog-warszawa-prywatnie/
                 'reumatolog'  => 'reumatologia',  // /oferta/dobry-reumatolog-prywatnie/
                 'eye-care-21' => 'dietetyka',     // /oferta/dobry-dietetyk-warszawa/ (slug-pozostalosc po szablonie demo)
+                // fizjoterapia / rehabilitacja (post_name = URL, oprocz fizjoterapeuta-sportowy -> 'fizjoterapeuta')
+                'rehabilitacja-sportowa-warszawa'                  => 'fizjoterapia',
+                'rehabilitacja-i-fizjoterapia-sportowa-anin'       => 'fizjoterapia',
+                'rehabilitacja-i-fizjoterapia-sportowa-praga-poludnie' => 'fizjoterapia',
+                'rehabilitacja-i-fizjoterapia-warszawa-wawer'      => 'fizjoterapia',
+                'rehabilitacja-i-fizjoterapia-sportowa-falenica'   => 'fizjoterapia',
+                'dobry-fizjoterapeuta-warszawa'                    => 'fizjoterapia',
+                'fizjoterapeuta'                                   => 'fizjoterapia', // /oferta/fizjoterapeuta-sportowy/
+                'fizykoterapia-warszawa'                           => 'fizjoterapia',
+                'terapia-manualna-warszawa'                        => 'fizjoterapia',
+                'masaz-leczniczy-warszawa'                         => 'fizjoterapia',
+                'masaz-rehabilitacja-kregoslupa-warszawa'          => 'fizjoterapia',
+                'masaz-sportowy-warszawa'                          => 'fizjoterapia',
+                'fala-uderzeniowa-warszawa'                        => 'fizjoterapia',
+                'kinesiotaping-warszawa'                           => 'fizjoterapia',
+                'sonofeedback-warszawa'                            => 'fizjoterapia',
             );
             // zestaw kuracji: tytul + link "wszystkie" + plakietka + GRUPY (recznie dobrane slugi, kolejnosc = waznosc)
             $fm_sets = array(
@@ -407,7 +423,7 @@ if (in_array($key, $hidden_ids)) continue;
                     ),
                 ),
                 'reumatologia' => array(
-                    'live'    => false,
+                    'live'    => true,
                     'title'   => 'Baza wiedzy reumatologiczna',
                     'all'     => 'Zobacz wszystkie artykuły',
                     'all_url' => home_url( '/blog/category/reumatologia/' ),
@@ -429,7 +445,7 @@ if (in_array($key, $hidden_ids)) continue;
                     ),
                 ),
                 'dietetyka' => array(
-                    'live'    => false,
+                    'live'    => true,
                     'title'   => 'Baza wiedzy dietetyczna',
                     'all'     => 'Zobacz wszystkie artykuły',
                     'all_url' => home_url( '/blog/category/dietetyka/' ),
@@ -461,6 +477,43 @@ if (in_array($key, $hidden_ids)) continue;
                                 'co-to-jest-dermatoskopia',
                                 'oparzenia-sloneczne',
                                 'dermatolog-dzieciecy',
+                            ),
+                        ),
+                    ),
+                ),
+                'fizjoterapia' => array(
+                    'live'    => true,
+                    'title'   => 'Baza wiedzy fizjoterapeutyczna',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/fizjoterapia/' ),
+                    'cat'     => 'Fizjoterapia',
+                    'groups'  => array(
+                        array(
+                            'label' => 'Schorzenia i dolegliwości',
+                            'slugs' => array(
+                                'dyskopatia-diagnoza-i-leczenie',
+                                'kolano-biegacza',
+                                'zespol-zamrozonego-barku',
+                                'zespol-ciesni-nadgarstka',
+                                'lordoza-szyjna-fizjologia-zaburzenia-sposoby-postepowania',
+                                'choroba-zwyrodnieniowa-stawow-kregoslupa-szyjnego',
+                                'dolegliwosci-miesni-i-stawow-u-ludzi-starszych',
+                                'bol-glowy-a-schorzenia-stawu-skroniowo-zuchwowego',
+                                'zapalenie-gesiej-stopy',
+                                'wady-postawy-u-dzieci',
+                            ),
+                        ),
+                        array(
+                            'label' => 'Rehabilitacja i zabiegi',
+                            'slugs' => array(
+                                'rehabilitacja-kregoslupa-ledzwiowego-na-czym-polega-i-jakie-cwiczenia-obejmuje',
+                                'rehabilitacja-po-artroskopii-stawu-kolanowego',
+                                'terapia-manualna-w-warszawie',
+                                'masaz-leczniczy-warszawa',
+                                'czym-dokladnie-jest-drenaz-limfatyczny-i-kiedy-sie-go-stosuje',
+                                'masaz-i-rehabilitacja-kregoslupa-warszawa',
+                                'rehabilitacja-dzieci-w-warszawie',
+                                'sezon-bez-kontuzji',
                             ),
                         ),
                     ),
