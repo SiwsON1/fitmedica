@@ -339,6 +339,11 @@ if (in_array($key, $hidden_ids)) continue;
                 'usg-nadgarstka-i-dloni'                           => 'usg',
                 'usg-lokcia-warszawa-diagnostyka-stawu-lokciowego-w-fitmedica' => 'usg',
                 'usg-kolana-warszawa'                              => 'usg',
+                // ortopedia body-part-specific (tailored sety per czesc ciala)
+                'chirurgia-stopy'                                  => 'orto-stopa',
+                'ortopeda-kregoslupa-warszawa-wawer'               => 'orto-kregoslup',
+                'ortopeda-nadgarstka-i-dloni-warszawa-wawer'       => 'orto-reka',
+                'ortopeda-dzieciecy-warszawa-wawer'                => 'orto-dzieciecy',
             );
             // zestaw kuracji: tytul + link "wszystkie" + plakietka + GRUPY (recznie dobrane slugi, kolejnosc = waznosc)
             $fm_sets = array(
@@ -585,6 +590,98 @@ if (in_array($key, $hidden_ids)) continue;
                                 'usg-tarczycy',
                                 'usg-ukladu-moczowego',
                                 'usg-wezlow-chlonnych',
+                            ),
+                        ),
+                    ),
+                ),
+                'orto-stopa' => array(
+                    'live'    => true,
+                    'title'   => 'Baza wiedzy: stopa i staw skokowy',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/ortopedia/' ),
+                    'cat'     => 'Ortopedia',
+                    'groups'  => array(
+                        array(
+                            'label' => '',
+                            'slugs' => array(
+                                'zlamanie-kosci-srodstopia-definicja-objawy-leczenie',
+                                'skrecenie-stawu-skokowego-definicja-objawy-leczenie',
+                                'bol-achillesa-czym-dokladnie-jest-skad-sie-bierze-i-jakie-istnieja-mozliwosci-leczenia',
+                                'zapalenie-rozciegna-podeszwowego-stopy-przyczyny-objawy-i-leczenie',
+                                'usg-stawu-skokowego-i-stopy',
+                            ),
+                        ),
+                    ),
+                ),
+                'orto-kregoslup' => array(
+                    'live'    => true,
+                    'title'   => 'Baza wiedzy o kręgosłupie',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/ortopedia/' ),
+                    'cat'     => 'Kręgosłup',
+                    'groups'  => array(
+                        array(
+                            'label' => 'Schorzenia i dolegliwości',
+                            'slugs' => array(
+                                'bol-kregoslupa-kiedy-nalezy-wybrac-sie-do-lekarza',
+                                'dyskopatia-diagnoza-i-leczenie',
+                                'stenoza-kanalu-kregowego-przyczyny-objawy-i-leczenie',
+                                'korzonki-co-to-jest-i-jak-skutecznie-leczyc-bol-korzeni-nerwowych',
+                                'skolioza-objawy-diagnostyka-i-leczenie-od-a-do-z',
+                                'choroba-scheuermanna-objawy-i-leczenie-kregoslupa',
+                                'lordoza-szyjna-fizjologia-zaburzenia-sposoby-postepowania',
+                                'wdowi-garb-co-to-jest-i-jak-skutecznie-go-leczyc',
+                                'choroba-zwyrodnieniowa-stawow-kregoslupa-szyjnego',
+                            ),
+                        ),
+                        array(
+                            'label' => 'Leczenie i zabiegi',
+                            'slugs' => array(
+                                'rehabilitacja-kregoslupa-ledzwiowego-na-czym-polega-i-jakie-cwiczenia-obejmuje',
+                                'zabiegi-na-kregoslup-rodzaje-mozliwosci-i-wskazania',
+                                'blokada-do-kregoslupa',
+                                'chirurgia-kregoslupa',
+                                'cwiczenia-na-zdrowy-kregoslup',
+                                'masaz-i-rehabilitacja-kregoslupa-warszawa',
+                            ),
+                        ),
+                    ),
+                ),
+                'orto-reka' => array(
+                    'live'    => true,
+                    'title'   => 'Baza wiedzy: ręka i nadgarstek',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/ortopedia/' ),
+                    'cat'     => 'Ortopedia',
+                    'groups'  => array(
+                        array(
+                            'label' => '',
+                            'slugs' => array(
+                                'zespol-ciesni-nadgarstka',
+                                'choroba-duputryena-przykurcz-rozciegna-dloniowego',
+                                'palec-zatrzaskujacy-czym-jest-i-dlaczego-dochodzi-do-blokowania-palca',
+                                'usg-nadgarstka-i-reki',
+                            ),
+                        ),
+                    ),
+                ),
+                'orto-dzieciecy' => array(
+                    'live'    => true,
+                    'title'   => 'Baza wiedzy: ortopedia dziecięca',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/ortopedia/' ),
+                    'cat'     => 'Ortopedia dziecięca',
+                    'groups'  => array(
+                        array(
+                            'label' => '',
+                            'slugs' => array(
+                                'wady-postawy-u-dzieci',
+                                'badania-dzieci-w-kierunku-wad-postawy',
+                                'skolioza-objawy-diagnostyka-i-leczenie-od-a-do-z',
+                                'choroba-scheuermanna-objawy-i-leczenie-kregoslupa',
+                                'szpotawosc-kolan-przyczyny-objawy-i-skuteczne-metody-leczenia',
+                                'dobry-ortopeda-dzieciecy',
+                                'rehabilitacja-dzieci-w-warszawie',
                             ),
                         ),
                     ),
