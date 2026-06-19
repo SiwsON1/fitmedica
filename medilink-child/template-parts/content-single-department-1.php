@@ -261,7 +261,7 @@ if (in_array($key, $hidden_ids)) continue;
            ============================================================ */
         {
 
-            $fm_dep_id   = get_the_ID();
+            $fm_dep_id   = get_queried_object_id() ? get_queried_object_id() : get_the_ID(); // queried_object dziala tez poza petla (strony renderujace sidebar inaczej)
             $fm_dep_slug = get_post_field( 'post_name', $fm_dep_id );
 
             // slug poradni -> klucz zestawu kuracji
@@ -303,6 +303,14 @@ if (in_array($key, $hidden_ids)) continue;
                 'dobry-reumatolog-prywatnie'             => 'reumatologia',
                 'dobry-dietetyk-warszawa'                => 'dietetyka',
                 'poradnia-dermatologiczna'               => 'dermatologia',
+                // ALIASY: starsze strony maja post_name != URL slug (krotki/dziwny). Mapujemy po REALNYM post_name:
+                'ortopeda'    => 'ortopedia',     // /oferta/dobry-chirurg-ortopeda-warszawa/
+                'bialoleka'   => 'ortopedia',     // /oferta/ortopeda-bialoleka/
+                'ursus'       => 'ortopedia',     // /oferta/ortopeda-ursus/
+                'wesola'      => 'ortopedia',     // /oferta/ortopeda-wesola/
+                'kardiolog'   => 'kardiologia',   // /oferta/dobry-kardiolog-warszawa-prywatnie/
+                'reumatolog'  => 'reumatologia',  // /oferta/dobry-reumatolog-prywatnie/
+                'eye-care-21' => 'dietetyka',     // /oferta/dobry-dietetyk-warszawa/ (slug-pozostalosc po szablonie demo)
             );
             // zestaw kuracji: tytul + link "wszystkie" + plakietka + GRUPY (recznie dobrane slugi, kolejnosc = waznosc)
             $fm_sets = array(
