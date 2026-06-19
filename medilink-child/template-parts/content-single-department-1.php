@@ -327,6 +327,18 @@ if (in_array($key, $hidden_ids)) continue;
                 'fala-uderzeniowa-warszawa'                        => 'fizjoterapia',
                 'kinesiotaping-warszawa'                           => 'fizjoterapia',
                 'sonofeedback-warszawa'                            => 'fizjoterapia',
+                // medycyna sportowa (post_name=URL oprocz medycyna-sportowa-anin -> 'anin')
+                'medycyna-sportowa'                                => 'medycyna-sportowa',
+                'medycyna-sportowa-dla-dzieci'                     => 'medycyna-sportowa',
+                'anin'                                             => 'medycyna-sportowa', // /oferta/medycyna-sportowa-anin/
+                'medycyna-sportowa-wawer'                          => 'medycyna-sportowa',
+                'medycyna-sportowa-praga-poludnie'                 => 'medycyna-sportowa',
+                // USG / diagnostyka obrazowa
+                'usg'                                              => 'usg',
+                'usg-ortopedyczne-warszawa'                        => 'usg',
+                'usg-nadgarstka-i-dloni'                           => 'usg',
+                'usg-lokcia-warszawa-diagnostyka-stawu-lokciowego-w-fitmedica' => 'usg',
+                'usg-kolana-warszawa'                              => 'usg',
             );
             // zestaw kuracji: tytul + link "wszystkie" + plakietka + GRUPY (recznie dobrane slugi, kolejnosc = waznosc)
             $fm_sets = array(
@@ -514,6 +526,65 @@ if (in_array($key, $hidden_ids)) continue;
                                 'masaz-i-rehabilitacja-kregoslupa-warszawa',
                                 'rehabilitacja-dzieci-w-warszawie',
                                 'sezon-bez-kontuzji',
+                            ),
+                        ),
+                    ),
+                ),
+                'medycyna-sportowa' => array(
+                    'live'    => true,
+                    'title'   => 'Baza wiedzy sportowa',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/' ),
+                    'cat'     => 'Medycyna sportowa',
+                    'groups'  => array(
+                        array(
+                            'label' => 'Urazy i schorzenia sportowe',
+                            'slugs' => array(
+                                'uszkodzenie-wiezadla-krzyzowego-przedniego-wkp-acl-czyli-ze-sportem',
+                                'kolano-biegacza',
+                                'skrecenie-stawu-skokowego-definicja-objawy-leczenie',
+                                'lokiec-tenisisty-przyczyny-objawy-profilaktyka-i-mozliwosci-leczenia',
+                                'czym-jest-lokiec-golfisty-i-jak-go-leczyc',
+                                'bol-achillesa-czym-dokladnie-jest-skad-sie-bierze-i-jakie-istnieja-mozliwosci-leczenia',
+                                'zlamanie-kosci-srodstopia-definicja-objawy-leczenie',
+                            ),
+                        ),
+                        array(
+                            'label' => 'Diagnostyka i powrót do sportu',
+                            'slugs' => array(
+                                'badania-sportowe',
+                                'czynnosciowe-emg-funkcjonalne-emg-semg',
+                                'na-czym-polega-badanie-na-platformie-stabilograficznej',
+                                'rehabilitacja-po-artroskopii-stawu-kolanowego',
+                                'rekonstrukcja-wiezadla-krzyzowego-co-trzeba-wiedziec',
+                                'iniekcja-prp-osocze-bogatoplytkowe',
+                                'sezon-bez-kontuzji',
+                            ),
+                        ),
+                    ),
+                ),
+                'usg' => array(
+                    'live'    => true,
+                    'title'   => 'Rodzaje badań USG',
+                    'all'     => 'Zobacz wszystkie artykuły',
+                    'all_url' => home_url( '/blog/category/badania-usg/' ),
+                    'cat'     => 'USG',
+                    'groups'  => array(
+                        array(
+                            'label' => '',
+                            'slugs' => array(
+                                'badanie-usg-warszawa',
+                                'usg-stawu-skokowego-i-stopy',
+                                'usg-barku',
+                                'usg-lokcia',
+                                'usg-nadgarstka-i-reki',
+                                'usg-biodra',
+                                'usg-doppler',
+                                'usg-naczyniowe',
+                                'usg-jamy-brzusznej',
+                                'usg-tarczycy',
+                                'usg-ukladu-moczowego',
+                                'usg-wezlow-chlonnych',
                             ),
                         ),
                     ),
