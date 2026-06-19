@@ -254,14 +254,12 @@ if (in_array($key, $hidden_ids)) continue;
 
         <?php
         /* ============================================================
-           FITMEDICA: powiazane artykuly z bloga (budowa autorytetu)
-           PODGLAD ONLY - renderuje sie tylko z parametrem ?fmpodglad=1
-           Pilot: poradnie kardiologiczne -> kategoria bloga 'kardiologia'
-           Po akceptacji klienta: usunac warunek isset($_GET['fmpodglad'])
-           (zostawic samo if($fm_cat...)), redeploy + reset OPcache + purge WP Rocket.
-           Mapowanie kolejnych poradni: dopisac slug => kategoria w $fm_map.
+           FITMEDICA: powiazane artykuly z bloga (budowa autorytetu = hub poradni)
+           PUBLICZNE od 2026-06-19 (klientka zaakceptowala). Bramka podgladu zdjeta.
+           Renderuje sie na poradniach kardiologicznych (mapa $fm_map -> zestawy $fm_sets).
+           Mapowanie kolejnych poradni: dopisac slug => klucz w $fm_map oraz zestaw w $fm_sets.
            ============================================================ */
-        if ( isset( $_GET['fmpodglad'] ) ) {
+        {
 
             $fm_dep_id   = get_the_ID();
             $fm_dep_slug = get_post_field( 'post_name', $fm_dep_id );
