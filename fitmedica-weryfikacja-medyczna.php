@@ -2815,6 +2815,120 @@ add_action('init', function () {
 });
 
 /**
+ * v19 - poradniki bez FAQ, partia 2 (audyt bloga). Czyste dodanie. Research-driven + zweryfikowane zrodla.
+ * niewydolnosc-serca(909) komorki-macierzyste-serce(3563) niedoczynnosc-tarczycy-niemowlat(4898)
+ * wrastajace-paznokcie(3434) oparzenia-sloneczne(5156) dermatoskopia(8284)
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v19')) return;
+
+    $articles = [
+        'niewydolnosc-serca' => [
+            'faq' => [
+                ['question' => 'Czym jest niewydolność serca?', 'answer' => 'To stan, w którym serce nie pompuje krwi wystarczająco sprawnie, by pokryć potrzeby organizmu. Nie oznacza to, że serce nagle się zatrzymuje, lecz że pracuje mniej wydolnie. Najczęściej rozwija się stopniowo, jako następstwo innych chorób serca.'],
+                ['question' => 'Jakie są objawy niewydolności serca?', 'answer' => 'Najbardziej typowe są duszność (zwłaszcza przy wysiłku i w pozycji leżącej), męczliwość i gorsza tolerancja wysiłku oraz obrzęki nóg i kostek. Mogą dołączyć nocne oddawanie moczu, kaszel, przyrost masy ciała z zatrzymania płynów i kołatania serca. Nasilanie się tych objawów wymaga kontaktu z lekarzem.'],
+                ['question' => 'Co najczęściej powoduje niewydolność serca?', 'answer' => 'Najczęstsze przyczyny to choroba niedokrwienna serca i przebyty zawał, długotrwałe nieleczone nadciśnienie tętnicze, wady zastawek, kardiomiopatie oraz zaburzenia rytmu. Ryzyko zwiększają cukrzyca, otyłość, nadużywanie alkoholu i palenie. Często przyczyn jest kilka naraz.'],
+                ['question' => 'Czy niewydolność serca jest wyleczalna?', 'answer' => 'Najczęściej jest chorobą przewlekłą i postępującą, której zwykle nie da się całkowicie wyleczyć, ale można ją skutecznie kontrolować. Właściwe leczenie i leczenie przyczyny spowalniają postęp, łagodzą objawy i poprawiają rokowanie. Część odwracalnych przyczyn można usunąć, co istotnie poprawia pracę serca.'],
+                ['question' => 'Jak leczy się niewydolność serca?', 'answer' => 'Podstawą są leki poprawiające pracę serca i zmniejszające jego obciążenie oraz leczenie choroby, która ją wywołała. Ważne są też zmiany stylu życia: ograniczenie soli, kontrola masy ciała i płynów, aktywność dostosowana do możliwości i rzucenie palenia. W wybranych przypadkach stosuje się urządzenia wszczepialne lub zabiegi.'],
+                ['question' => 'Jak żyć z niewydolnością serca na co dzień?', 'answer' => 'Pomaga regularne przyjmowanie leków, codzienna kontrola masy ciała (nagły przyrost może oznaczać zatrzymanie płynów), ograniczenie soli i alkoholu oraz umiarkowana, regularna aktywność. Ważne są szczepienia, leczenie chorób towarzyszących i regularne wizyty kontrolne. Nagłe nasilenie duszności lub obrzęków wymaga pilnego kontaktu z lekarzem.'],
+            ],
+            'sources' => [
+                ['authors' => 'McDonagh T.A., Metra M., Adamo M. i wsp.', 'title' => '2021 ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure', 'publisher' => 'European Heart Journal', 'note' => '2021; 42(36): 3599-3726'],
+                ['authors' => '', 'title' => 'Niewydolność serca (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'czy-komorki-macierzyste-moga-naprawic-uszkodzony-miesien-serca' => [
+            'faq' => [
+                ['question' => 'Czy komórki macierzyste potrafią odbudować uszkodzony mięsień sercowy?', 'answer' => 'To wciąż obszar badań, a nie rutynowa metoda leczenia. Mięsień sercowy po zawale goi się blizną i ma bardzo ograniczoną zdolność regeneracji, dlatego terapie komórkowe budzą duże nadzieje. Dotychczasowe badania kliniczne dają jednak wyniki niejednoznaczne i nie potwierdziły spektakularnej odbudowy serca.'],
+                ['question' => 'Jak miałyby działać komórki macierzyste na serce?', 'answer' => 'Pierwotnie zakładano, że przekształcą się w nowe komórki mięśnia sercowego. Obecnie uważa się, że ich ewentualny korzystny wpływ wynika raczej z działania pośredniego: zmniejszania stanu zapalnego, poprawy ukrwienia i pobudzania mechanizmów naprawczych. Dokładny mechanizm wciąż jest badany.'],
+                ['question' => 'Czy ta terapia jest już dostępna dla pacjentów?', 'answer' => 'Nie jako standardowe leczenie. Terapie komórkowe serca pozostają przedmiotem badań klinicznych i nie są rekomendowane jako rutynowe postępowanie. Nie ma ustalonych standardów, jakie komórki, w jakiej liczbie i w jaki sposób podawać. Dlatego należy ostrożnie podchodzić do komercyjnych ofert obiecujących pewne wyleczenie.'],
+                ['question' => 'Co dziś realnie pomaga po zawale serca?', 'answer' => 'Podstawą są sprawdzone metody: szybkie udrożnienie zamkniętej tętnicy, leki chroniące serce, rehabilitacja kardiologiczna oraz zmiana stylu życia. To one realnie poprawiają rokowanie i ograniczają skutki zawału. Terapie eksperymentalne mogą je co najwyżej w przyszłości uzupełnić, a nie zastąpić.'],
+                ['question' => 'Czy warto brać udział w badaniach nad terapią komórkową?', 'answer' => 'Udział w rzetelnym badaniu klinicznym, prowadzonym w ośrodku naukowym, bywa wartościowy i jest bezpieczniej nadzorowany. Inaczej należy traktować płatne oferty komercyjne bez solidnych dowodów skuteczności. Decyzję zawsze warto skonsultować z kardiologiem prowadzącym.'],
+                ['question' => 'Jaka jest przyszłość regeneracji serca?', 'answer' => 'Badania trwają i obejmują różne rodzaje komórek oraz nowe podejścia, a część wyników jest obiecująca. Potrzeba jednak dalszych, dużych badań, by potwierdzić skuteczność i bezpieczeństwo oraz ustalić standardy. Na razie regeneracja uszkodzonego serca komórkami macierzystymi to nadzieja na przyszłość, nie gotowa terapia.'],
+            ],
+            'sources' => [
+                ['authors' => 'Banerjee M.N., Bolli R., Hare J.M.', 'title' => 'Clinical Studies of Cell Therapy in Cardiovascular Medicine: Recent Developments and Future Directions', 'publisher' => 'Circulation Research', 'note' => '2018; 123(2): 266-287'],
+                ['authors' => '', 'title' => 'Komórki macierzyste a regeneracja serca po zawale (artykuł przeglądowy)', 'publisher' => 'Kardiologia po Dyplomie (podyplomie.pl)', 'note' => ''],
+            ],
+        ],
+        'niedoczynnosc-tarczycy-u-niemowlat' => [
+            'faq' => [
+                ['question' => 'Czym jest wrodzona niedoczynność tarczycy u niemowląt?', 'answer' => 'To stan, w którym tarczyca dziecka od urodzenia produkuje za mało hormonów tarczycy, kluczowych dla rozwoju mózgu i wzrostu. Jest jedną z najczęstszych wrodzonych chorób hormonalnych. Wcześnie wykryta i leczona pozwala dziecku rozwijać się prawidłowo.'],
+                ['question' => 'Jakie są objawy u noworodka?', 'answer' => 'W pierwszych dniach objawy bywają subtelne lub nieobecne, bo dziecko jest częściowo chronione hormonami matki. Z czasem mogą pojawić się senność, niechęć do ssania, przedłużająca się żółtaczka, zaparcia, obniżone napięcie mięśniowe, sucha skóra, powiększony język i przepuklina pępkowa. Brak wyraźnych objawów nie wyklucza choroby.'],
+                ['question' => 'Na czym polega badanie przesiewowe noworodków?', 'answer' => 'To rutynowy test wykonywany w pierwszych dobach życia (zwykle w 3.-5. dobie), polegający na pobraniu kropli krwi z pięty na bibułę i oznaczeniu poziomu TSH. Pozwala wykryć chorobę, zanim pojawią się objawy. W Polsce badanie jest powszechne i obejmuje wszystkie noworodki.'],
+                ['question' => 'Jak leczy się wrodzoną niedoczynność tarczycy?', 'answer' => 'Leczenie polega na codziennym podawaniu brakującego hormonu w postaci lewotyroksyny, w dawce dobranej przez lekarza i korygowanej w miarę wzrostu dziecka. Konieczne są regularne kontrole poziomu hormonów. Leczenie zwykle trwa długo, często przez całe życie, w zależności od przyczyny.'],
+                ['question' => 'Czy dziecko będzie się prawidłowo rozwijać?', 'answer' => 'Tak, jeśli leczenie rozpocznie się wcześnie i jest prowadzone konsekwentnie. Większość dzieci leczonych od pierwszych tygodni życia rozwija się prawidłowo, także intelektualnie. Właśnie dlatego tak ważne są badanie przesiewowe i szybkie włączenie leku.'],
+                ['question' => 'Co grozi, jeśli choroba nie zostanie wykryta?', 'answer' => 'Nieleczona wrodzona niedoczynność tarczycy prowadzi do poważnego, często trwałego opóźnienia rozwoju umysłowego i zaburzeń wzrostu. Dzięki badaniom przesiewowym takie przypadki są dziś rzadkie, bo leczenie wdraża się, zanim dojdzie do nieodwracalnych zmian. To pokazuje, jak istotne jest przesiewowe oznaczenie TSH.'],
+            ],
+            'sources' => [
+                ['authors' => 'van Trotsenburg P., Stoupa A., Léger J. i wsp.', 'title' => 'Congenital Hypothyroidism: A 2020-2021 Consensus Guidelines Update', 'publisher' => 'Thyroid', 'note' => '2021; 31(3): 387-419'],
+                ['authors' => 'Instytut Matki i Dziecka', 'title' => 'Program badań przesiewowych noworodków - hipotyreoza', 'publisher' => 'przesiew.imid.med.pl', 'note' => 'Materiał dla pacjentów'],
+            ],
+        ],
+        'wrastanie-paznokci-wrastajace-paznokcie' => [
+            'faq' => [
+                ['question' => 'Dlaczego paznokieć wrasta?', 'answer' => 'Najczęstszą przyczyną jest nieprawidłowe obcinanie, zbyt krótkie i zaokrąglone na rogach, oraz noszenie ciasnego obuwia z wąskim noskiem. Sprzyjają temu też urazy palca, nadmierna potliwość, predyspozycje anatomiczne i grzybica paznokci. Brzeg płytki wbija się wtedy w otaczający wał, wywołując stan zapalny.'],
+                ['question' => 'Jakie są objawy wrastającego paznokcia?', 'answer' => 'Typowy jest ból, zaczerwienienie i obrzęk wału wokół paznokcia, najczęściej przy dużym palcu stopy. Z czasem może pojawić się wysięk, a nawet ropienie i nadmiarowa, krwawiąca tkanka (ziarnina). Dolegliwości nasilają się przy chodzeniu i ucisku obuwia.'],
+                ['question' => 'Co można zrobić domowymi sposobami?', 'answer' => 'We wczesnym, łagodnym stadium pomaga moczenie stopy w ciepłej wodzie kilka razy dziennie, dokładne osuszenie i delikatne podłożenie kawałka jałowej waty pod wrastający brzeg, by uniósł się ponad skórę. Ważne jest też obcinanie paznokcia na prosto i noszenie luźnego obuwia. Domowe metody traktuj jako uzupełnienie, nie zamiennik wizyty.'],
+                ['question' => 'Kiedy potrzebny jest zabieg?', 'answer' => 'Gdy pojawia się nasilony stan zapalny, ropienie, ziarnina lub gdy dolegliwości nawracają mimo leczenia domowego. Stosuje się wtedy metody unoszące płytkę (klamry, rurki) albo zabieg chirurgiczny w znieczuleniu miejscowym, polegający na usunięciu wrastającego fragmentu paznokcia. O wyborze decyduje specjalista (podolog lub chirurg).'],
+                ['question' => 'Kiedy pilnie zgłosić się do lekarza?', 'answer' => 'Pilnej oceny wymaga szybko narastający ból z ropieniem, gorączką lub rozszerzającym się zaczerwienieniem, bo to oznaki zakażenia. Szczególnej ostrożności wymagają osoby z cukrzycą i zaburzeniami krążenia, u których nawet niewielka zmiana na stopie może być groźna. Wtedy nie należy leczyć się samodzielnie.'],
+                ['question' => 'Jak zapobiegać wrastaniu paznokci?', 'answer' => 'Najważniejsze jest obcinanie paznokci na prosto, nie za krótko i bez zaokrąglania rogów, oraz noszenie wygodnego obuwia z szerokim noskiem. Pomaga też dbanie o higienę stóp i leczenie nadmiernej potliwości czy grzybicy. Te proste nawyki znacząco zmniejszają ryzyko nawrotów.'],
+            ],
+            'sources' => [
+                ['authors' => 'Mayeaux E.J. Jr, Carter C., Murphy T.E.', 'title' => 'Ingrown Toenail Management', 'publisher' => 'American Family Physician', 'note' => '2019; 100(3): 158-164'],
+                ['authors' => '', 'title' => 'Wrastający paznokieć - przyczyny, objawy, leczenie (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'oparzenia-sloneczne' => [
+            'faq' => [
+                ['question' => 'Co robić od razu po oparzeniu słonecznym?', 'answer' => 'Najpierw schłodź skórę: zejdź ze słońca i przez kilkanaście minut chłodź oparzone miejsca chłodną (nie lodowatą) wodą lub okładami. Pij dużo wody, bo oparzenie sprzyja odwodnieniu, i nakładaj preparaty łagodzące. Unikaj tłustych maści na świeże oparzenie i nie przekłuwaj pęcherzy.'],
+                ['question' => 'Jak długo goi się oparzenie słoneczne?', 'answer' => 'Łagodne oparzenie pierwszego stopnia (zaczerwienienie) ustępuje zwykle w ciągu kilku dni. Oparzenie z pęcherzami goi się dłużej, często od jednego do dwóch tygodni. Skóra w tym czasie może się łuszczyć, co jest normalnym etapem gojenia.'],
+                ['question' => 'Czym łagodzić objawy oparzenia?', 'answer' => 'Pomagają preparaty z pantenolem i alantoiną, chłodne okłady oraz nawilżanie skóry. Przy bólu i nasilonym stanie zapalnym można zastosować leki przeciwbólowe i przeciwzapalne (NLPZ), jak ibuprofen. Warto unikać dalszej ekspozycji na słońce, aż skóra się zagoi.'],
+                ['question' => 'Kiedy oparzenie słoneczne wymaga lekarza?', 'answer' => 'Do lekarza zgłoś się przy rozległych oparzeniach z licznymi pęcherzami, a także gdy pojawią się gorączka, dreszcze, silny ból głowy, nudności, wymioty czy zawroty głowy, bo mogą wskazywać na przegrzanie lub udar cieplny. Pilnej oceny wymagają oparzenia u małych dzieci oraz objawy zakażenia skóry.'],
+                ['question' => 'Czy oparzenia słoneczne są groźne na dłuższą metę?', 'answer' => 'Tak. Powtarzające się oparzenia, zwłaszcza w dzieciństwie, zwiększają ryzyko przedwczesnego starzenia skóry oraz nowotworów skóry, w tym czerniaka. Każde oparzenie to sygnał, że dawka promieniowania UV była za duża. Dlatego profilaktyka jest ważniejsza niż leczenie.'],
+                ['question' => 'Jak chronić się przed oparzeniem słonecznym?', 'answer' => 'Stosuj krem z wysokim filtrem UV i nakładaj go regularnie, unikaj słońca w godzinach największego nasłonecznienia (zwykle 11-15) i zakrywaj skórę: kapelusz, okulary, przewiewne ubrania. Szczególnej ochrony wymagają dzieci i osoby o jasnej karnacji. Filtr to uzupełnienie, a nie zamiennik unikania słońca.'],
+            ],
+            'sources' => [
+                ['authors' => 'American Academy of Dermatology', 'title' => 'Sunburn: how to treat and prevent', 'publisher' => 'AAD', 'note' => 'Materiał edukacyjny dla pacjentów'],
+                ['authors' => '', 'title' => 'Oparzenie słoneczne - leczenie i pierwsza pomoc (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'co-to-jest-dermatoskopia' => [
+            'faq' => [
+                ['question' => 'Na czym polega dermatoskopia?', 'answer' => 'To bezbolesne, nieinwazyjne badanie znamion i zmian skórnych za pomocą dermatoskopu, czyli podświetlanej lupy dającej zwykle około 10-krotne powiększenie. Pozwala zobaczyć struktury niewidoczne gołym okiem i ocenić, czy zmiana jest podejrzana. Badanie trwa od kilku do kilkunastu minut.'],
+                ['question' => 'Czym różni się wideodermatoskopia od zwykłej dermatoskopii?', 'answer' => 'Wideodermatoskopia wykorzystuje kamerę cyfrową i komputer, dzięki czemu daje znacznie większe powiększenie oraz możliwość zapisania zdjęć zmian. Pozwala to porównywać znamiona w czasie i wcześnie wychwycić zmiany. Klasyczna dermatoskopia to ocena ręcznym dermatoskopem na bieżąco.'],
+                ['question' => 'Czy dermatoskopia boli i jak się przygotować?', 'answer' => 'Badanie jest całkowicie bezbolesne i nie wymaga specjalnego przygotowania. Skóry w miejscu badania nie należy smarować kosmetykami ani makijażem, a z badanego paznokcia warto usunąć lakier. Dobrze jest też zwrócić uwagę lekarzowi na znamiona, które się zmieniły.'],
+                ['question' => 'Po co wykonuje się dermatoskopię?', 'answer' => 'Służy do oceny znamion i zmian skórnych pod kątem zmian nowotworowych, przede wszystkim wczesnego wykrywania czerniaka. Dodanie dermatoskopii do oceny gołym okiem zwiększa trafność rozpoznania w porównaniu z samymi oględzinami. Pomaga też uniknąć niepotrzebnego wycinania zmian łagodnych.'],
+                ['question' => 'Jak często badać znamiona?', 'answer' => 'Profilaktycznie warto kontrolować znamiona u dermatologa, a częstotliwość ustala się indywidualnie. Częstszej kontroli wymagają osoby z licznymi znamionami, jasną karnacją, po wielu oparzeniach słonecznych oraz z czerniakiem w rodzinie. Między wizytami pomaga samoobserwacja skóry.'],
+                ['question' => 'Kiedy zgłosić znamię do oceny dermatoskopowej?', 'answer' => 'Zgłoś się, gdy znamię się zmienia: rośnie, zmienia kształt, kolor lub brzegi, swędzi, piecze lub krwawi, a także gdy pojawia się nowe, nietypowe znamię u osoby dorosłej. Każda zmiana wyglądająca inaczej niż pozostałe zasługuje na ocenę. Lepiej sprawdzić zmianę niegroźną niż przeoczyć czerniaka.'],
+            ],
+            'sources' => [
+                ['authors' => 'Vestergaard M.E., Macaskill P., Holt P.E., Menzies S.W.', 'title' => 'Dermoscopy compared with naked eye examination for the diagnosis of primary melanoma: a meta-analysis', 'publisher' => 'British Journal of Dermatology', 'note' => '2008; 159(3): 669-676'],
+                ['authors' => '', 'title' => 'Dermatoskopia - badanie znamion (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v19', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {

@@ -106,7 +106,17 @@ research-driven FAQ + zweryfikowane zrodla, wpisy nie mialy FAQ (samo wpiecie):
 - zapalenie-gesiej-stopy (3356) - AAOS OrthoInfo, StatPearls
 - czym-jest-nerwica-zoladka (14019) - Ford Functional dyspepsia Lancet 2020, mp.pl
 
-### POZOSTALE poradniki bez FAQ (partie 2+, do zrobienia tym samym trybem)
+### ZROBIONE 2026-06-29 - blok v19 (poradniki bez FAQ, partia 2)
+- niewydolnosc-serca (909) - McDonagh ESC HF 2021, mp.pl. UWAGA: drugi artykul o niewydolnosci (niewydolnosc-serca-przyczyny-objawy-leczenie) tez ma FAQ - Marcin: oba sensowne, NIE kanibalizacja
+- czy-komorki-macierzyste-serce (3563) - Banerjee Circ Res 2018, Kardiologia po Dyplomie. FAQ ostrozny (terapia eksperymentalna)
+- niedoczynnosc-tarczycy-u-niemowlat (4898) - van Trotsenburg Thyroid 2021, IMiD przesiew
+- wrastajace-paznokcie (3434) - Mayeaux AAFP 2019, mp.pl
+- oparzenia-sloneczne (5156) - AAD, mp.pl
+- co-to-jest-dermatoskopia (8284) - Vestergaard Br J Dermatol 2008, mp.pl
+
+ZASADA Marcina 2026-06-29: KAZDY wpis blogowy dostaje FAQ (opr. czystych ogloszen typu "Wesolych Swiat"). Stron ofertowych /oferta/ (CPT) nie ruszac - maja FAQ osobno.
+
+### POZOSTALE poradniki bez FAQ (partie 3+, do zrobienia tym samym trybem)
 niewydolnosc-serca(909, UWAGA duplikat tematu z niewydolnoscia juz w pluginie - sprawdzic), czy-komorki-macierzyste-serce(3563), niedoczynnosc-tarczycy-u-niemowlat(4898), wrastanie-paznokci(3434), oparzenia-sloneczne(5156), co-to-jest-dermatoskopia(8284), psychoterapia-rodzaje(12942), testy-na-nietolerancje(8348), wady-postawy-u-dzieci(3398), badania-dzieci-wady-postawy(3344), dolegliwosci-miesni-u-starszych(3369), gips-czy-orteza(12373), barefooting(16187), artroskopia(2500), rehabilitacja-po-artroskopii-kolana(10410), cwiczenia-na-kregoslup(8352), dziecko-z-niedoborem-masy(3291), sezon-bez-kontuzji(8342). Borderline-lifestyle (do decyzji): spacer(11659), dieta-a-sport(11650), biegasz-na-zdrowie(5756).
 
 ## STATUS KONCOWY (2026-06-29): wszystkie 15 wpisow z listy FAQ ogarniete
