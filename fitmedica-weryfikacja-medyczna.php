@@ -3200,6 +3200,48 @@ add_action('init', function () {
 });
 
 /**
+ * v23 - poradniki bez FAQ, POJEDYNCZO. blokada-do-kregoslupa (8267). Czyste dodanie.
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v23')) return;
+
+    $articles = [
+        'blokada-do-kregoslupa' => [
+            'faq' => [
+                ['question' => 'Co to jest blokada kręgosłupa (zastrzyk nadtwardówkowy)?', 'answer' => 'To małoinwazyjny zabieg polegający na podaniu leku przeciwzapalnego (najczęściej sterydu), często ze środkiem znieczulającym, do przestrzeni nadtwardówkowej w pobliżu podrażnionych korzeni nerwowych. Celem jest zmniejszenie stanu zapalnego i obrzęku wokół nerwu, co łagodzi ból. To metoda leczenia bólu, a nie operacja.'],
+                ['question' => 'Przy jakich dolegliwościach stosuje się blokadę kręgosłupa?', 'answer' => 'Najczęściej przy bólu korzeniowym, czyli promieniującym do kończyny, jak rwa kulszowa czy udowa, wywołanym uciskiem na korzeń nerwowy, na przykład przez dyskopatię lub stenozę kanału. Nie każdy ból pleców jest wskazaniem do takiego zastrzyku. O kwalifikacji decyduje lekarz na podstawie objawów i badań obrazowych.'],
+                ['question' => 'Czy zabieg boli?', 'answer' => 'Wykonuje się go ambulatoryjnie, po znieczuleniu miejscowym, i trwa krótko. Pacjent może odczuć ukłucie i chwilowe rozpieranie, ale zabieg jest zwykle dobrze tolerowany. Często wykonuje się go pod kontrolą obrazową dla większej precyzji i bezpieczeństwa.'],
+                ['question' => 'Jak szybko i jak długo działa blokada?', 'answer' => 'Ulga po środku znieczulającym bywa odczuwalna w ciągu godzin, a właściwe działanie przeciwzapalne zwykle po 1-3 dobach, czasem do 1-2 tygodni. Efekt jest zmienny i utrzymuje się od kilku tygodni do kilku miesięcy, a u części osób bywa ograniczony. Najlepsze rezultaty daje połączenie zabiegu z rehabilitacją.'],
+                ['question' => 'Ile razy można powtarzać i jakie są przeciwwskazania?', 'answer' => 'Zabieg można powtarzać, ale w określonych odstępach i po ocenie korzyści oraz ryzyka, zwykle ograniczając liczbę zastrzyków w danym okresie. Przeciwwskazaniem są między innymi aktywne zakażenie, zaburzenia krzepnięcia, uczulenie na stosowane leki czy ciąża. Decyzję podejmuje lekarz indywidualnie.'],
+                ['question' => 'Czy blokada może zastąpić operację kręgosłupa?', 'answer' => 'U części pacjentów z bólem korzeniowym blokada przynosi istotną ulgę i pozwala uniknąć lub odłożyć operację, dając czas na wygojenie i rehabilitację. Nie usuwa jednak przyczyny ucisku i nie u każdego działa. Gdy objawy są ciężkie, postępujące lub utrzymują się mimo leczenia, lekarz może zalecić inne metody, w tym leczenie operacyjne.'],
+            ],
+            'sources' => [
+                ['authors' => 'Cohen S.P., Bicket M.C., Jamison D., Wilkinson I., Rathmell J.P.', 'title' => 'Epidural steroids: a comprehensive, evidence-based review', 'publisher' => 'Regional Anesthesia and Pain Medicine', 'note' => '2013; 38(3): 175-200'],
+                ['authors' => '', 'title' => 'Blokada kręgosłupa - czym jest, jak przebiega, kiedy jest wskazana (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v23', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {
