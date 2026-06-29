@@ -2701,6 +2701,120 @@ add_action('init', function () {
 });
 
 /**
+ * v18 - poradniki bez zadnego FAQ (audyt calego bloga 2026-06-29). Czyste dodanie FAQ
+ * przez plugin (nie mialy FAQ, nic nie usuwamy). FAQ research-driven (SERP/PAA) + zweryfikowane zrodla.
+ * bole-glowy(2943) bol-kregoslupa(2935) szmery-w-sercu(10207) reaktywne-zs(3316) gesia-stopka(3356) nerwica-zoladka(14019)
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v18')) return;
+
+    $articles = [
+        'bole-glowy' => [
+            'faq' => [
+                ['question' => 'Jakie są najczęstsze rodzaje bólu głowy?', 'answer' => 'Najczęstszy jest napięciowy ból głowy oraz migrena. Rzadziej występuje klasterowy ból głowy. Osobną grupą są wtórne bóle głowy, będące objawem innej choroby. Rozróżnienie typu bólu jest ważne, bo decyduje o sposobie leczenia.'],
+                ['question' => 'Czym różni się migrena od napięciowego bólu głowy?', 'answer' => 'Napięciowy ból jest zwykle obustronny, uciskowy, o umiarkowanym natężeniu i bez dodatkowych objawów. Migrena to napadowy, często jednostronny i pulsujący ból o większym natężeniu, któremu towarzyszą nudności oraz nadwrażliwość na światło i dźwięki. U części osób migrenę poprzedza aura, czyli przemijające zaburzenia widzenia lub czucia.'],
+                ['question' => 'Co najczęściej wywołuje ból głowy?', 'answer' => 'Napięciowe bóle głowy często wiążą się ze stresem, napięciem mięśni karku, zmęczeniem, niewyspaniem i długą pracą przy ekranie. Migrenę mogą wyzwalać między innymi zmiany hormonalne, niektóre pokarmy, alkohol, odwodnienie, brak snu i silny stres. Pomocne bywa prowadzenie dzienniczka bólów głowy, by rozpoznać własne czynniki.'],
+                ['question' => 'Kiedy ból głowy wymaga pilnej konsultacji z lekarzem?', 'answer' => 'Niepokojący jest ból głowy nagły i bardzo silny, jak uderzenie, ból z gorączką i sztywnością karku, z zaburzeniami mowy, widzenia, osłabieniem jednej strony ciała lub po urazie głowy. Pilnej oceny wymaga też ból, który zmienia swój dotychczasowy charakter lub szybko narasta. W takich sytuacjach nie należy zwlekać.'],
+                ['question' => 'Jak leczy się ból głowy?', 'answer' => 'W bólu napięciowym i migrenie doraźnie stosuje się leki przeciwbólowe bez recepty, na przykład paracetamol lub leki z grupy NLPZ. W migrenie, gdy to nie wystarcza, lekarz może przepisać tryptany, a przy częstych napadach włączyć leczenie zapobiegawcze. Ważne są też higiena snu, nawodnienie i ograniczanie czynników wyzwalających.'],
+                ['question' => 'Czy częste branie tabletek przeciwbólowych może szkodzić?', 'answer' => 'Tak. Zbyt częste przyjmowanie leków przeciwbólowych, zwykle przez wiele dni w tygodniu, może prowadzić do polekowego bólu głowy, czyli błędnego koła, w którym leki same podtrzymują dolegliwości. Dlatego przy częstych bólach głowy lepiej skonsultować się z lekarzem niż zwiększać dawki na własną rękę.'],
+            ],
+            'sources' => [
+                ['authors' => 'Headache Classification Committee of the International Headache Society (IHS)', 'title' => 'The International Classification of Headache Disorders, 3rd edition (ICHD-3)', 'publisher' => 'Cephalalgia', 'note' => '2018; 38(1): 1-211'],
+                ['authors' => '', 'title' => 'Bóle głowy - migrena i napięciowy ból głowy (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'bol-kregoslupa-kiedy-nalezy-wybrac-sie-do-lekarza' => [
+            'faq' => [
+                ['question' => 'Czy ból kręgosłupa zwykle oznacza poważną chorobę?', 'answer' => 'Najczęściej nie. Ogromna większość bólów krzyża to ból niespecyficzny, bez groźnej przyczyny, który ustępuje samoistnie, choć bywa nawrotowy. Tylko niewielki odsetek przypadków wynika z poważnej choroby. Dlatego rutynowe prześwietlenia nie zawsze są potrzebne, a kluczowa jest ocena objawów alarmowych.'],
+                ['question' => 'Jakie objawy alarmowe przy bólu kręgosłupa wymagają pilnej pomocy?', 'answer' => 'Pilnej pomocy wymagają: zaburzenia oddawania moczu lub stolca, drętwienie okolicy krocza, postępujące osłabienie lub drętwienie nóg, a także ból po poważnym urazie. Niepokojące są też gorączka, niewyjaśniony spadek masy ciała i ból budzący w nocy. Takie objawy mogą wskazywać na poważną przyczynę i nie wolno ich lekceważyć.'],
+                ['question' => 'Co robić przy nagłym ataku bólu krzyża?', 'answer' => 'W ostrej fazie pomaga ograniczenie najbardziej bolesnych ruchów, ale niezalecane jest leżenie w łóżku przez wiele dni, bo opóźnia powrót do sprawności. Doraźnie stosuje się leki przeciwbólowe bez recepty i utrzymuje łagodną aktywność w granicach tolerancji bólu. Większość epizodów wyraźnie łagodnieje w ciągu kilku tygodni.'],
+                ['question' => 'Kiedy zgłosić się do lekarza, jeśli plecy bolą dłużej?', 'answer' => 'Do lekarza warto się zgłosić, gdy ból nie zmniejsza się mimo kilku tygodni leczenia domowego, nawraca lub utrudnia codzienne funkcjonowanie. Konsultacja jest też wskazana, gdy bólowi towarzyszy drętwienie albo osłabienie nogi. Lekarz oceni przyczynę i dobierze postępowanie, w tym rehabilitację.'],
+                ['question' => 'Jak leczy się przewlekły ból kręgosłupa?', 'answer' => 'Podstawą jest ruch i fizjoterapia: ćwiczenia wzmacniające mięśnie brzucha i grzbietu oraz poprawiające stabilizację, uzupełnione aktywnością taką jak spacery czy pływanie. Pomocne bywają terapia manualna i leki przeciwbólowe w okresach zaostrzeń. Operację rozważa się rzadko, w wybranych przypadkach z uciskiem na nerwy.'],
+                ['question' => 'Jak zapobiegać nawrotom bólu pleców?', 'answer' => 'Najwięcej daje regularna aktywność fizyczna i wzmacnianie mięśni tułowia, bo to one stabilizują kręgosłup. Warto dbać o ergonomię pracy, unikać długiego siedzenia bez przerw, prawidłowo podnosić ciężary i utrzymywać prawidłową masę ciała. Ruch jest skuteczniejszą profilaktyką niż oszczędzanie się.'],
+            ],
+            'sources' => [
+                ['authors' => 'Maher C., Underwood M., Buchbinder R.', 'title' => 'Non-specific low back pain', 'publisher' => 'The Lancet', 'note' => '2017; 389(10070): 736-747'],
+                ['authors' => '', 'title' => 'Ból krzyża - przyczyny, objawy i leczenie (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'szmery-w-sercu-u-dzieci-i-doroslych-przyczyny-i-objawy' => [
+            'faq' => [
+                ['question' => 'Co to są szmery w sercu?', 'answer' => 'To dodatkowe dźwięki słyszalne przez stetoskop, powstające przy turbulentnym przepływie krwi przez serce i naczynia. Szmer sam w sobie nie jest chorobą, lecz objawem, który wymaga oceny. Może być całkowicie niewinny albo wskazywać na wadę serca.'],
+                ['question' => 'Czy szmer w sercu zawsze oznacza wadę serca?', 'answer' => 'Nie. U dzieci bardzo częste są szmery niewinne (czynnościowe), które występują w zdrowym sercu i nie wymagają leczenia. Szmery organiczne, wynikające z wad zastawek lub struktury serca, są rzadsze, ale wymagają diagnostyki. O tym, który to rodzaj, decyduje lekarz po badaniu.'],
+                ['question' => 'Jak rozpoznać, czy szmer jest groźny?', 'answer' => 'Sam dźwięk nie wystarcza, dlatego lekarz ocenia go razem z objawami i wywiadem. Niepokojące są szmery z dusznością, gorszą tolerancją wysiłku, omdleniami, sinieniem czy obrzękami, a u dzieci także gorsze przybieranie na wadze. Takie sygnały zwiększają prawdopodobieństwo przyczyny wymagającej leczenia.'],
+                ['question' => 'Jakie badanie potwierdza przyczynę szmeru?', 'answer' => 'Najważniejsze jest badanie echokardiograficzne (echo serca, USG serca), które obrazuje budowę serca, zastawki i przepływ krwi. Pomocne bywają też EKG i ocena kliniczna. Echo pozwala odróżnić szmer niewinny od wady serca i zaplanować dalsze postępowanie.'],
+                ['question' => 'Czy szmer niewinny u dziecka wymaga leczenia lub ograniczeń?', 'answer' => 'Nie. Szmer niewinny nie wymaga leczenia, leków ani specjalnej diety, a dziecko może normalnie się rozwijać i uprawiać sport. Często z czasem zanika. Zwykle wystarcza obserwacja i kontrola zalecona przez lekarza.'],
+                ['question' => 'Kiedy ze szmerem w sercu zgłosić się do kardiologa?', 'answer' => 'Do kardiologa warto się zgłosić, gdy szmerowi towarzyszą duszność, ból w klatce piersiowej, omdlenia, kołatania serca, obrzęki lub gorsza tolerancja wysiłku. U dzieci niepokoi też męczenie się przy karmieniu i słaby przyrost masy. Wtedy potrzebna jest ocena echokardiograficzna.'],
+            ],
+            'sources' => [
+                ['authors' => 'Frank J.E., Jacobe K.M.', 'title' => 'Evaluation and Management of Heart Murmurs in Children', 'publisher' => 'American Family Physician', 'note' => '2011; 84(7): 793-800'],
+                ['authors' => '', 'title' => 'Szmery czynnościowe (niewinne) u dzieci (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'reaktywne-zapalenie-stawow' => [
+            'faq' => [
+                ['question' => 'Czym jest reaktywne zapalenie stawów?', 'answer' => 'To zapalenie stawów, które pojawia się jako reakcja organizmu na wcześniejszą infekcję, najczęściej układu pokarmowego lub moczowo-płciowego. Dawniej nazywano je zespołem Reitera. Zajmuje zwykle stawy kończyn dolnych i często ma przebieg samoograniczający się.'],
+                ['question' => 'Jakie są objawy reaktywnego zapalenia stawów?', 'answer' => 'Typowy jest ból i obrzęk stawów pojawiający się zwykle kilka tygodni po infekcji, najczęściej w kolanach, stawach skokowych lub stopach. Mogą dołączyć zapalenie przyczepów ścięgien, zmiany skórne oraz objawy ze strony oczu (zapalenie spojówek) i układu moczowego. Objawy bywają asymetryczne.'],
+                ['question' => 'Co wywołuje reaktywne zapalenie stawów?', 'answer' => 'To nieprawidłowa reakcja układu odpornościowego po przebytym zakażeniu, najczęściej bakteryjnym zapaleniu jelit lub zakażeniu układu moczowo-płciowego. Sam staw zwykle nie jest zakażony, reaguje na pozostałości infekcji. Ryzyko wystąpienia bywa większe u osób z genetyczną predyspozycją (antygen HLA-B27).'],
+                ['question' => 'Jak rozpoznaje się reaktywne zapalenie stawów?', 'answer' => 'Rozpoznanie opiera się na obrazie klinicznym i powiązaniu objawów z niedawną infekcją. Lekarz zleca badania krwi (wskaźniki zapalenia), czasem badania w kierunku przebytego zakażenia i antygenu HLA-B27, a w razie potrzeby badanie płynu stawowego, by wykluczyć inne przyczyny, w tym zakażenie stawu.'],
+                ['question' => 'Czy reaktywne zapalenie stawów jest wyleczalne?', 'answer' => 'U większości chorych tak. Objawy zwykle ustępują w ciągu kilku miesięcy, a podstawą leczenia są niesteroidowe leki przeciwzapalne łagodzące ból i zapalenie. U części osób choroba może się przedłużać lub nawracać i wtedy wymaga leczenia pod opieką reumatologa.'],
+                ['question' => 'Kiedy zgłosić się do lekarza?', 'answer' => 'Do lekarza warto się zgłosić, gdy po niedawnej infekcji pojawia się ból i obrzęk stawów, zwłaszcza z towarzyszącym zapaleniem oczu lub objawami ze strony układu moczowego. Pilnej oceny wymaga silnie obrzęknięty, gorący staw z gorączką, bo trzeba wykluczyć zakażenie stawu.'],
+            ],
+            'sources' => [
+                ['authors' => 'Selmi C., Gershwin M.E.', 'title' => 'Diagnosis and classification of reactive arthritis', 'publisher' => 'Autoimmunity Reviews', 'note' => '2014; 13(4-5): 546-549'],
+                ['authors' => '', 'title' => 'Reaktywne zapalenie stawów (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'zapalenie-gesiej-stopy' => [
+            'faq' => [
+                ['question' => 'Co to jest gęsia stopka i jej zapalenie?', 'answer' => 'Gęsia stopka to wspólny przyczep trzech ścięgien (mięśnia krawieckiego, smukłego i półścięgnistego) do kości piszczelowej, po wewnętrznej stronie kolana, tuż poniżej stawu. Jej zapalenie to przeciążeniowy stan zapalny tej okolicy, czasem obejmujący znajdującą się tam kaletkę. Daje ból po przyśrodkowej stronie kolana.'],
+                ['question' => 'Jak boli zapalenie gęsiej stopki i jak je odróżnić?', 'answer' => 'Ból umiejscawia się po wewnętrznej stronie kolana, około kilka centymetrów poniżej szpary stawu, i nasila się przy wchodzeniu i schodzeniu po schodach, wstawaniu z krzesła czy wysiadaniu z auta. Charakterystyczna bywa tkliwość przy ucisku tego miejsca oraz sztywność po nocy. To pomaga odróżnić ją od bólu z wnętrza stawu.'],
+                ['question' => 'Co powoduje zapalenie gęsiej stopki?', 'answer' => 'Najczęściej przeciążenie, na przykład przy bieganiu, częstym wchodzeniu po schodach czy nagłym zwiększeniu aktywności. Sprzyjają mu osłabienie i napięcie mięśni uda, koślawość kolan, nadwaga oraz współistniejąca choroba zwyrodnieniowa kolana. Częściej dotyczy kobiet i osób z nadwagą.'],
+                ['question' => 'Jak leczy się zapalenie gęsiej stopki?', 'answer' => 'Podstawą jest odciążenie i czasowe ograniczenie aktywności prowokującej ból, chłodzenie bolesnego miejsca oraz leki przeciwbólowe i przeciwzapalne. Następnie wprowadza się fizjoterapię: rozluźnianie i rozciąganie mięśni oraz wzmacnianie przywodzicieli i mięśnia czworogłowego. Pomaga też poduszka między kolanami w nocy.'],
+                ['question' => 'Ile trwa powrót do sprawności?', 'answer' => 'Przy wcześnie wdrożonym leczeniu objawy mogą ustąpić w ciągu kilku tygodni, a w bardziej nasilonych przypadkach powrót do sprawności zajmuje zwykle około 2-4 miesięcy. Kluczowe jest stopniowe wracanie do obciążeń i niewracanie do pełnego treningu zbyt szybko, bo grozi to nawrotem.'],
+                ['question' => 'Jak zapobiegać nawrotom?', 'answer' => 'Najwięcej daje stopniowe zwiększanie obciążeń treningowych, solidna rozgrzewka i rozciąganie oraz wzmacnianie mięśni uda stabilizujących kolano. Warto zadbać o prawidłową masę ciała, technikę biegu i dobór obuwia. Utrzymanie ćwiczeń po ustąpieniu bólu to najlepsza profilaktyka.'],
+            ],
+            'sources' => [
+                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Pes Anserine (Knee Tendon) Bursitis', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
+                ['authors' => '', 'title' => 'Pes Anserine Bursitis', 'publisher' => 'StatPearls (NCBI)', 'note' => '2024'],
+            ],
+        ],
+        'czym-jest-nerwica-zoladka-i-co-trzeba-wiedziec-na-ten-temat' => [
+            'faq' => [
+                ['question' => 'Czym jest nerwica żołądka?', 'answer' => 'To potoczna nazwa dolegliwości żołądkowo-jelitowych, które nasilają się pod wpływem stresu i emocji, a nie wynikają z uszkodzenia narządu. Medycznie najbliżej jej do dyspepsji czynnościowej. Objawy są realne i uciążliwe, mimo że badania nie wykazują choroby organicznej.'],
+                ['question' => 'Jakie są objawy nerwicy żołądka?', 'answer' => 'Najczęściej to ból lub pieczenie w nadbrzuszu, uczucie pełności i szybkiego nasycenia, wzdęcia, odbijanie, nudności oraz uczucie ściskania czy ssania w żołądku. Częste jest nasilanie się dolegliwości w sytuacjach stresowych. Objawom mogą towarzyszyć niepokój, kołatanie serca i napięcie.'],
+                ['question' => 'Jak odróżnić nerwicę żołądka od choroby żołądka?', 'answer' => 'Nerwicę żołądka rozpoznaje się po wykluczeniu przyczyn organicznych, dlatego najpierw wyklucza się między innymi chorobę wrzodową czy infekcję Helicobacter pylori. Wskazówką bywa silny związek objawów ze stresem oraz prawidłowe wyniki badań. Bóle nawracające, nasilone, nocne lub z objawami alarmowymi wymagają jednak diagnostyki.'],
+                ['question' => 'Czy nerwica żołądka jest groźna?', 'answer' => 'Sama w sobie nie zagraża życiu i nie uszkadza żołądka, ale potrafi znacząco obniżać komfort życia i utrzymywać się długo, jeśli pozostaje nieleczona. Niepokojące objawy, takie jak spadek masy ciała, krew w stolcu, wymioty, niedokrwistość czy trudności w połykaniu, nie są typowe dla nerwicy i wymagają pilnej oceny lekarza.'],
+                ['question' => 'Jak leczy się nerwicę żołądka?', 'answer' => 'Leczenie łączy oddziaływanie na psychikę i na objawy. Pomocna jest psychoterapia, zwłaszcza poznawczo-behawioralna, oraz nauka radzenia sobie ze stresem, a w razie potrzeby leki, w tym preparaty zmniejszające dolegliwości żołądkowe i niekiedy leki przeciwdepresyjne. Ważne są też regularne posiłki i ograniczenie używek.'],
+                ['question' => 'Co mogę zrobić sam, by złagodzić objawy?', 'answer' => 'Pomaga regularny tryb dnia, jedzenie mniejszych posiłków bez pośpiechu, ograniczenie kawy, alkoholu i papierosów oraz techniki redukcji stresu, jak aktywność fizyczna, sen i ćwiczenia oddechowe. Jeśli mimo to objawy się utrzymują lub nawracają, warto skonsultować się z lekarzem, by wykluczyć inne przyczyny i dobrać leczenie.'],
+            ],
+            'sources' => [
+                ['authors' => 'Ford A.C., Mahadeva S., Carbone M.F. i wsp.', 'title' => 'Functional dyspepsia', 'publisher' => 'The Lancet', 'note' => '2020; 396(10263): 1689-1702'],
+                ['authors' => '', 'title' => 'Nerwica żołądka / dyspepsja czynnościowa (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v18', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {

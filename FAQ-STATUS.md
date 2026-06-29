@@ -93,6 +93,22 @@ Nowy idealny FAQ z PAA/SERP, stare widgety FAQ usuniete (backup `_elementor_data
 - rekonstrukcja-wiezadla-krzyzowego (14127) - CLASSIC editor. FAQ siedzial w post_content jako blok wp:html (naglowek + faq-container microdata + osobny skrypt ld+json = 2x FAQPage). Wyciety z post_content (backup w meta `_post_content_bak_faqmig17`), plugin przejal FAQ (6) + zrodla (3: Filbay/Grindem 2019, Musahl/Karlsson NEJM 2019, AAOS ACL). FAQPage teraz 1.
   - FLAGA: w body zostala STARA bibliografia (Acta Clinica 1/2002, Zabek A. itd.) - wspolistnieje z nowa sekcja Zrodla z pluginu (2 listy zrodel). Do decyzji czy usunac stara bibliografie.
 
+## AUDYT CALEGO BLOGA 2026-06-29 (155 wpisow)
+- z FAQ w pluginie: 60 | z FAQ w body/elementor: 13 | BEZ FAQ: 82
+- z 82 bez FAQ: ~28 realnych poradnikow (reszta = strony ofertowe/USG/newsy - NIE ruszac, decyzja Marcina)
+
+### ZROBIONE 2026-06-29 - blok v18 (poradniki bez FAQ, partia 1, czyste dodanie)
+research-driven FAQ + zweryfikowane zrodla, wpisy nie mialy FAQ (samo wpiecie):
+- bole-glowy (2943) - ICHD-3 Cephalalgia 2018, mp.pl
+- bol-kregoslupa-kiedy-do-lekarza (2935) - Maher LBP Lancet 2017, mp.pl
+- szmery-w-sercu (10207) - Frank Am Fam Physician 2011, mp.pl
+- reaktywne-zapalenie-stawow (3316) - Selmi Autoimmun Rev 2014, mp.pl
+- zapalenie-gesiej-stopy (3356) - AAOS OrthoInfo, StatPearls
+- czym-jest-nerwica-zoladka (14019) - Ford Functional dyspepsia Lancet 2020, mp.pl
+
+### POZOSTALE poradniki bez FAQ (partie 2+, do zrobienia tym samym trybem)
+niewydolnosc-serca(909, UWAGA duplikat tematu z niewydolnoscia juz w pluginie - sprawdzic), czy-komorki-macierzyste-serce(3563), niedoczynnosc-tarczycy-u-niemowlat(4898), wrastanie-paznokci(3434), oparzenia-sloneczne(5156), co-to-jest-dermatoskopia(8284), psychoterapia-rodzaje(12942), testy-na-nietolerancje(8348), wady-postawy-u-dzieci(3398), badania-dzieci-wady-postawy(3344), dolegliwosci-miesni-u-starszych(3369), gips-czy-orteza(12373), barefooting(16187), artroskopia(2500), rehabilitacja-po-artroskopii-kolana(10410), cwiczenia-na-kregoslup(8352), dziecko-z-niedoborem-masy(3291), sezon-bez-kontuzji(8342). Borderline-lifestyle (do decyzji): spacer(11659), dieta-a-sport(11650), biegasz-na-zdrowie(5756).
+
 ## STATUS KONCOWY (2026-06-29): wszystkie 15 wpisow z listy FAQ ogarniete
 - 4 byly juz w pluginie (lokiec-tenisisty, lokiec-golfisty, szpotawosc-kolan, torbiel-nad-kolanem)
 - 11 zmigrowanych/napisanych dzis: kolano(v12), ciesn(v13), bark(v14, byl bledny FAQ), czerniak(v15, od zera), dna+RZS+lordoza+krecz+biodra+srodstopie(v16), ACL(v17)
