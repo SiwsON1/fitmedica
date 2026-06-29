@@ -3043,6 +3043,120 @@ add_action('init', function () {
 });
 
 /**
+ * v21 - poradniki bez FAQ, partia 4 (audyt bloga). Czyste dodanie. Research-driven + zweryfikowane zrodla.
+ * sezon-bez-kontuzji(8342) cwiczenia-na-kregoslup(8352) dziecko-niedobor-masy(3291)
+ * badania-dzieci-wady-postawy(3344) testy-na-nietolerancje(8348) psychoterapia(12942)
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v21')) return;
+
+    $articles = [
+        'sezon-bez-kontuzji' => [
+            'faq' => [
+                ['question' => 'Jak przygotować się do sezonu, żeby uniknąć kontuzji?', 'answer' => 'Najważniejsze jest stopniowe zwiększanie obciążeń treningowych, zamiast skoku formy na ostatnią chwilę. Warto wcześniej zbudować ogólną sprawność, siłę i wytrzymałość, a dopiero potem wchodzić w specjalistyczny trening. Okres przygotowawczy to też dobry moment na korektę techniki i słabych ogniw.'],
+                ['question' => 'Czy rozgrzewka naprawdę zmniejsza ryzyko urazu?', 'answer' => 'Tak, to jeden z najprostszych i najskuteczniejszych sposobów. Dobra rozgrzewka trwa kilkanaście minut i opiera się na ćwiczeniach dynamicznych, które podnoszą temperaturę mięśni i przygotowują stawy do wysiłku. Pomijanie rozgrzewki wyraźnie zwiększa ryzyko kontuzji.'],
+                ['question' => 'Jakie ćwiczenia najlepiej chronią przed kontuzjami?', 'answer' => 'Najmocniejsze dowody mają ćwiczenia siłowe oraz trening czucia głębokiego (propriocepcji) i stabilizacji. Badania pokazują, że dobrze prowadzony trening siłowy potrafi znacząco zmniejszyć liczbę urazów, w tym przeciążeniowych. Samo rozciąganie statyczne przed wysiłkiem nie chroni przed kontuzjami tak skutecznie.'],
+                ['question' => 'Czy regeneracja ma znaczenie w profilaktyce urazów?', 'answer' => 'Bardzo duże. Zmęczone, niedoregenerowane mięśnie łatwiej ulegają przeciążeniu i urazom. Dlatego ważne są sen, dni odpoczynku, nawodnienie i odpowiednie odżywianie. Planowanie regeneracji jest częścią treningu, a nie jego przeciwieństwem.'],
+                ['question' => 'Jak rozpoznać, że to już przeciążenie, a nie zwykłe zmęczenie?', 'answer' => 'Sygnałem ostrzegawczym jest ból, który nie ustępuje po odpoczynku, nawraca przy każdej aktywności albo zmusza do zmiany techniki. Niepokojące są też obrzęk, sztywność i spadek wydolności mimo treningu. Wczesna reakcja i odciążenie zapobiegają poważniejszej kontuzji.'],
+                ['question' => 'Co zrobić, gdy mimo wszystko dojdzie do kontuzji?', 'answer' => 'W pierwszej fazie pomaga odciążenie, chłodzenie i ograniczenie aktywności prowokującej ból. Jeśli ból jest silny, nie ustępuje lub uniemożliwia obciążanie kończyny, warto skonsultować się z lekarzem lub fizjoterapeutą. Powrót do sportu powinien być stopniowy i poprzedzony pełną rehabilitacją, by uniknąć nawrotu.'],
+            ],
+            'sources' => [
+                ['authors' => 'Lauersen J.B., Bertelsen D.M., Andersen L.B.', 'title' => 'The effectiveness of exercise interventions to prevent sports injuries: a systematic review and meta-analysis', 'publisher' => 'British Journal of Sports Medicine', 'note' => '2014; 48(11): 871-877'],
+                ['authors' => '', 'title' => 'Profilaktyka urazów sportowych (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'cwiczenia-na-zdrowy-kregoslup' => [
+            'faq' => [
+                ['question' => 'Czy ćwiczenia naprawdę pomagają na zdrowy kręgosłup?', 'answer' => 'Tak, regularny ruch to najskuteczniejsza profilaktyka i element leczenia bólu pleców. Silne mięśnie brzucha, grzbietu i pośladków działają jak gorset stabilizujący kręgosłup i odciążają go w codziennych czynnościach. Profilaktyka ćwiczeniami jest łatwiejsza i szybsza niż leczenie już powstałego bólu.'],
+                ['question' => 'Jakie ćwiczenia są najlepsze dla kręgosłupa?', 'answer' => 'Najwięcej daje wzmacnianie mięśni głębokich tułowia (core), na przykład deska, oraz ćwiczenia wzmacniające pośladki i grzbiet, uzupełnione delikatnym rozciąganiem. Pomocne są też aktywności o niskim obciążeniu, jak pływanie, spacery czy nordic walking. Ważniejsza od pojedynczego ćwiczenia jest regularność i prawidłowa technika.'],
+                ['question' => 'Jak często ćwiczyć, żeby były efekty?', 'answer' => 'Zwykle zaleca się ćwiczenia kilka razy w tygodniu, na przykład 3-4 razy po około 20-30 minut, dostosowane do możliwości. Lepiej ćwiczyć krócej, ale regularnie, niż intensywnie raz na jakiś czas. Stałość nawyku przynosi większy efekt niż pojedyncze, długie sesje.'],
+                ['question' => 'Czy mogę ćwiczyć, gdy boli mnie kręgosłup?', 'answer' => 'Łagodna aktywność zwykle pomaga i nie warto całkowicie się unieruchamiać, ale ćwiczenia mają przynosić ulgę, a nie nasilać ból. Ostry, kłujący lub promieniujący do nogi ból to sygnał, by przerwać i skonsultować się ze specjalistą. W ostrej fazie i przy nasilonych objawach plan ćwiczeń lepiej dobrać z fizjoterapeutą.'],
+                ['question' => 'Jakich błędów unikać przy ćwiczeniach na plecy?', 'answer' => 'Najczęstsze błędy to forsowanie przez ból, gwałtowne skłony i skręty z obciążeniem, zła technika oraz zbyt szybkie zwiększanie intensywności. Warto unikać też nadmiernego obciążania kręgosłupa przy dźwiganiu. Lepiej zacząć od podstaw i stopniowo zwiększać trudność, niż ryzykować przeciążenie.'],
+                ['question' => 'Jak dbać o kręgosłup poza ćwiczeniami?', 'answer' => 'Pomaga ograniczanie długiego siedzenia i robienie przerw na ruch, ergonomiczne stanowisko pracy, prawidłowe podnoszenie ciężarów (z nóg, nie z pleców) oraz utrzymanie prawidłowej masy ciała. Ważny jest też sen na wygodnym podłożu. To codzienne nawyki, nie tylko trening, decydują o kondycji kręgosłupa.'],
+            ],
+            'sources' => [
+                ['authors' => 'Maher C., Underwood M., Buchbinder R.', 'title' => 'Non-specific low back pain', 'publisher' => 'The Lancet', 'note' => '2017; 389(10070): 736-747'],
+                ['authors' => '', 'title' => 'Ćwiczenia na kręgosłup - przykładowe zestawy (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'dziecko-z-niedoborem-masy-ciala' => [
+            'faq' => [
+                ['question' => 'Kiedy mówimy, że dziecko ma niedowagę?', 'answer' => 'O niedowadze mówimy, gdy masa ciała dziecka jest zbyt niska w stosunku do wieku, wzrostu i płci, co ocenia się na siatkach centylowych. Liczy się nie pojedynczy pomiar, lecz trend wzrastania w czasie. Samo szczupłe dziecko, które rośnie i rozwija się prawidłowo, nie musi mieć problemu.'],
+                ['question' => 'Jakie są najczęstsze przyczyny niedowagi u dziecka?', 'answer' => 'Najczęściej jest to zbyt mała podaż kalorii i składników odżywczych, ale przyczyną bywają też choroby, na przykład celiakia, alergie, infekcje, zaburzenia wchłaniania czy choroby tarczycy. Wpływ mają również geny, apetyt i czynniki psychiczne. Ustalenie przyczyny jest podstawą dalszego postępowania.'],
+                ['question' => 'Kiedy niedowaga dziecka powinna niepokoić?', 'answer' => 'Niepokojące jest, gdy dziecko nie przybiera na wadze, chudnie, spada na siatkach centylowych albo gdy niedowadze towarzyszą inne objawy: biegunki, bóle brzucha, częste infekcje, osłabienie czy gorszy rozwój. Wtedy warto zgłosić się do pediatry. Stały spadek pozycji centylowej to ważny sygnał.'],
+                ['question' => 'Jakie badania wykonuje się przy niedowadze?', 'answer' => 'Lekarz zaczyna od oceny wzrastania i wywiadu, a w razie potrzeby zleca badania, na przykład morfologię, poziom żelaza i ferrytyny, próby wątrobowe i nerkowe, TSH oraz badania w kierunku celiakii czy zakażeń. Zakres badań dobiera się indywidualnie do objawów. Celem jest wykluczenie choroby, która utrudnia przybieranie na wadze.'],
+                ['question' => 'Jak pomóc dziecku zdrowo przybrać na wadze?', 'answer' => 'Podstawą jest wartościowa, urozmaicona dieta o odpowiedniej kaloryczności, regularne posiłki i spokojna atmosfera przy jedzeniu, bez przymuszania. Pomocna bywa współpraca z dietetykiem, a przy chorobie podstawowej jej leczenie. Chodzi o zdrowy przyrost, a nie dokarmianie wysokokalorycznymi, ubogimi odżywczo produktami.'],
+                ['question' => 'Czy niedowaga u dziecka jest groźna?', 'answer' => 'Długotrwały niedobór masy ciała i niedożywienie mogą zaburzać wzrost, rozwój, odporność i koncentrację. Dlatego nie warto bagatelizować problemu, zwłaszcza gdy się utrzymuje lub pogłębia. Wcześnie rozpoznana przyczyna i odpowiednie postępowanie zwykle pozwalają dziecku wrócić na właściwą ścieżkę rozwoju.'],
+            ],
+            'sources' => [
+                ['authors' => 'Homan G.J.', 'title' => 'Failure to Thrive: A Practical Guide', 'publisher' => 'American Family Physician', 'note' => '2016; 94(4): 295-299'],
+                ['authors' => '', 'title' => 'Jak stwierdzić, czy dziecko ma niedowagę (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'badania-dzieci-w-kierunku-wad-postawy' => [
+            'faq' => [
+                ['question' => 'Po co bada się dzieci w kierunku wad postawy?', 'answer' => 'Bo wiele wad rozwija się w okresach szybkiego wzrostu i początkowo nie boli, więc łatwo je przeoczyć. Wczesne wykrycie pozwala wdrożyć ćwiczenia i korekcję, zanim wada się utrwali. Badania przesiewowe pomagają wyłapać dzieci, które wymagają dokładniejszej oceny.'],
+                ['question' => 'Kiedy warto wykonać pierwsze badanie postawy?', 'answer' => 'Pierwszą ocenę warto zrobić już w wieku przedszkolnym, gdy dziecko intensywnie rozwija sprawność ruchową, a potem kontrolować postawę okresowo, zwłaszcza w okresie skoku wzrostowego. Skoliozę szczególnie obserwuje się w okolicach 10-14 roku życia. Częstotliwość warto ustalić z lekarzem lub fizjoterapeutą.'],
+                ['question' => 'Jak przebiega badanie postawy u dziecka?', 'answer' => 'Specjalista ogląda sylwetkę dziecka z przodu, z tyłu i z boku w swobodnej pozycji stojącej, oceniając symetrię barków, łopatek, bioder oraz ustawienie kolan i stóp. W kierunku skoliozy wykonuje się test skłonu (test Adamsa), często z pomiarem skoliometrem. Badanie jest bezbolesne i nieinwazyjne.'],
+                ['question' => 'Co dzieje się, gdy badanie wykryje nieprawidłowość?', 'answer' => 'Jeśli badanie przesiewowe wzbudzi podejrzenie, dziecko kieruje się na dokładniejszą ocenę, a w razie potrzeby na badania obrazowe, na przykład RTG. Na tej podstawie ustala się, czy wystarczą ćwiczenia korekcyjne, czy potrzebne jest dalsze leczenie. Wczesne rozpoznanie zwykle oznacza prostszą korekcję.'],
+                ['question' => 'Czy każda wykryta wada wymaga leczenia?', 'answer' => 'Nie każda. Część odchyleń to warianty rozwojowe, które wymagają jedynie obserwacji i prawidłowych nawyków ruchowych. Inne wymagają ćwiczeń korekcyjnych, a tylko niektóre dalszego, specjalistycznego leczenia. O postępowaniu decyduje specjalista po dokładnej ocenie.'],
+                ['question' => 'Jak rodzic może wspierać prawidłową postawę dziecka?', 'answer' => 'Najwięcej daje codzienna aktywność fizyczna, ograniczenie długiego siedzenia i czasu przed ekranem oraz dbanie o ergonomię nauki i dobrze dobrany plecak. Warto obserwować sylwetkę dziecka i reagować na niepokojące zmiany. Regularny ruch i dobre nawyki to najlepsza profilaktyka wad postawy.'],
+            ],
+            'sources' => [
+                ['authors' => 'Negrini S., Donzelli S., Aulisa A.G. i wsp.', 'title' => '2016 SOSORT guidelines: orthopaedic and rehabilitation treatment of idiopathic scoliosis during growth', 'publisher' => 'Scoliosis and Spinal Disorders', 'note' => '2018; 13: 3'],
+                ['authors' => '', 'title' => 'Badania przesiewowe i wady postawy u dzieci (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'testy-na-nietolerancje-pokarmowa' => [
+            'faq' => [
+                ['question' => 'Czym różni się nietolerancja pokarmowa od alergii?', 'answer' => 'Alergia pokarmowa to reakcja układu odpornościowego na pokarm, która może być gwałtowna i groźna. Nietolerancja pokarmowa najczęściej dotyczy układu pokarmowego i wynika na przykład z niedoboru enzymu (jak w nietolerancji laktozy), a nie z reakcji immunologicznej. To dwie różne sytuacje, które inaczej się diagnozuje i leczy.'],
+                ['question' => 'Czy testy IgG na nietolerancje pokarmowe są wiarygodne?', 'answer' => 'Nie. Towarzystwa naukowe, w tym europejskie i amerykańskie, jednoznacznie odradzają testy IgG/IgG4 jako narzędzie diagnozowania nietolerancji czy alergii pokarmowej. Obecność przeciwciał IgG świadczy o kontakcie z danym pokarmem i jest reakcją fizjologiczną, a nie dowodem choroby. Takie testy mogą prowadzić do niepotrzebnego eliminowania produktów.'],
+                ['question' => 'Dlaczego dodatni wynik testu IgG nie oznacza nietolerancji?', 'answer' => 'Bo przeciwciała IgG wobec pokarmu pojawiają się normalnie po jego spożywaniu i raczej wskazują na tolerancję niż na chorobę. Nie korelują z objawami, dlatego na ich podstawie nie da się wskazać, co komu szkodzi. Eliminowanie wielu produktów na podstawie takiego wyniku grozi niedoborami.'],
+                ['question' => 'Jak naprawdę rozpoznaje się nietolerancje pokarmowe?', 'answer' => 'Punktem wyjścia jest dokładny wywiad i obserwacja objawów w powiązaniu z posiłkami, często z pomocą dzienniczka żywieniowego. W zależności od podejrzenia stosuje się konkretne, sprawdzone badania, na przykład wodorowy test oddechowy w nietolerancji laktozy, a w kierunku celiakii odpowiednią diagnostykę. Najlepiej prowadzić ją z lekarzem lub dietetykiem.'],
+                ['question' => 'Czy alergię pokarmową bada się inaczej?', 'answer' => 'Tak. W diagnostyce alergii pokarmowej wykorzystuje się między innymi oznaczanie swoistych przeciwciał IgE, testy skórne, a w razie potrzeby próby prowokacji pod nadzorem. To badania o ugruntowanej wartości, w odróżnieniu od testów IgG. Dobiera je i interpretuje lekarz, najczęściej alergolog.'],
+                ['question' => 'Co zrobić, jeśli podejrzewam, że jakiś pokarm mi szkodzi?', 'answer' => 'Zamiast kupować testy IgG, warto obserwować objawy, prowadzić dzienniczek posiłków i skonsultować się z lekarzem lub dietetykiem. Samodzielne, szerokie eliminowanie produktów bez diagnozy może prowadzić do niedoborów i nie rozwiązuje problemu. Rzetelna diagnostyka pozwala ustalić rzeczywistą przyczynę dolegliwości.'],
+            ],
+            'sources' => [
+                ['authors' => 'Stapel S.O., Asero R., Ballmer-Weber B.K. i wsp. (EAACI Task Force)', 'title' => 'Testing for IgG4 against foods is not recommended as a diagnostic tool: EAACI Task Force Report', 'publisher' => 'Allergy', 'note' => '2008; 63(7): 793-796'],
+                ['authors' => 'American Academy of Allergy, Asthma & Immunology (AAAAI)', 'title' => 'Stanowisko w sprawie testów IgG na nietolerancje pokarmowe', 'publisher' => 'AAAAI', 'note' => 'Materiał dla pacjentów'],
+            ],
+        ],
+        'co-warto-wiedziec-o-psychoterapii-i-jej-rodzajach' => [
+            'faq' => [
+                ['question' => 'Czym jest psychoterapia i komu może pomóc?', 'answer' => 'To metoda leczenia oparta na rozmowie i ustrukturyzowanej pracy z terapeutą, która pomaga radzić sobie z trudnościami emocjonalnymi, zaburzeniami nastroju i lęku oraz problemami w relacjach i sytuacjach kryzysowych. Korzystają z niej nie tylko osoby z rozpoznaną chorobą, ale też ludzie w trudnym momencie życia. Celem jest trwała zmiana, a nie tylko doraźna ulga.'],
+                ['question' => 'Jakie są główne nurty psychoterapii?', 'answer' => 'Do najczęstszych należą terapia poznawczo-behawioralna (CBT), psychodynamiczna, humanistyczna, systemowa oraz podejście integracyjne łączące różne metody. W ramach CBT rozwinęła się też tak zwana trzecia fala, na przykład terapia schematów, ACT czy terapia oparta na uważności. Różne nurty bywają skuteczne, a wybór zależy od problemu i pacjenta.'],
+                ['question' => 'Na czym polega terapia poznawczo-behawioralna (CBT)?', 'answer' => 'CBT opiera się na związku między myślami, emocjami i zachowaniem: zmiana sposobu myślenia i reagowania pozwala wpływać na samopoczucie. Jest dobrze przebadana i uznawana za skuteczną zwłaszcza w zaburzeniach lękowych i depresji. Ma zwykle charakter konkretny, zadaniowy i nastawiony na cel.'],
+                ['question' => 'Ile trwa psychoterapia?', 'answer' => 'To zależy od nurtu i problemu. Terapia poznawczo-behawioralna bywa stosunkowo krótka, często od kilkunastu do kilkudziesięciu spotkań, zwykle przez kilka miesięcy, choć w niektórych przypadkach trwa dłużej. Terapie pracujące nad głębszymi wzorcami mogą trwać dłużej. Czas i cele zwykle ustala się wspólnie z terapeutą.'],
+                ['question' => 'Jak wygląda pierwsza wizyta i jak wybrać terapeutę?', 'answer' => 'Pierwsze spotkania to konsultacja: wzajemne poznanie, omówienie trudności i ustalenie celów oraz planu pracy. Warto zwrócić uwagę, w jakim nurcie pracuje terapeuta i czy czujesz się przy nim bezpiecznie. Można pytać o metodę, planowaną długość terapii i sposób oceniania postępów.'],
+                ['question' => 'Czy korzystanie z psychoterapii to powód do wstydu?', 'answer' => 'Nie. Sięganie po pomoc to oznaka dbania o siebie, podobnie jak leczenie dolegliwości fizycznych. Psychoterapia jest uznaną, opartą na dowodach formą leczenia wielu problemów psychicznych. Im wcześniej po nią sięgniesz, tym zwykle łatwiej o poprawę.'],
+            ],
+            'sources' => [
+                ['authors' => 'David D., Cristea I., Hofmann S.G.', 'title' => 'Why Cognitive Behavioral Therapy Is the Current Gold Standard of Psychotherapy', 'publisher' => 'Frontiers in Psychiatry', 'note' => '2018; 9: 4'],
+                ['authors' => '', 'title' => 'Psychoterapia - rodzaje i zastosowanie (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v21', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {

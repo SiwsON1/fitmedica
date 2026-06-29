@@ -124,7 +124,15 @@ ZASADA Marcina 2026-06-29: KAZDY wpis blogowy dostaje FAQ (opr. czystych oglosze
 - dolegliwosci-miesni-i-stawow-u-starszych (3369) - Kolasinski ACR OA 2019, mp.pl
 - barefooting (16187) - Ridge MSSE 2019, Scientific Reports 2021
 
-### POZOSTALE poradniki bez FAQ (partie 4+, do zrobienia tym samym trybem)
+### ZROBIONE 2026-06-29 - blok v21 (poradniki bez FAQ, partia 4)
+- sezon-bez-kontuzji (8342) - Lauersen BJSM 2014, mp.pl
+- cwiczenia-na-zdrowy-kregoslup (8352) - Maher LBP Lancet 2017, mp.pl
+- dziecko-z-niedoborem-masy-ciala (3291) - Homan FTT AAFP 2016, mp.pl
+- badania-dzieci-w-kierunku-wad-postawy (3344) - Negrini SOSORT 2018, mp.pl
+- testy-na-nietolerancje-pokarmowa (8348) - Stapel/EAACI Allergy 2008, AAAAI (testy IgG NIE zalecane)
+- co-warto-wiedziec-o-psychoterapii (12942) - David CBT gold standard Front Psychiatry 2018, mp.pl
+
+### POZOSTALE poradniki bez FAQ (partie 5+, do zrobienia tym samym trybem)
 niewydolnosc-serca(909, UWAGA duplikat tematu z niewydolnoscia juz w pluginie - sprawdzic), czy-komorki-macierzyste-serce(3563), niedoczynnosc-tarczycy-u-niemowlat(4898), wrastanie-paznokci(3434), oparzenia-sloneczne(5156), co-to-jest-dermatoskopia(8284), psychoterapia-rodzaje(12942), testy-na-nietolerancje(8348), wady-postawy-u-dzieci(3398), badania-dzieci-wady-postawy(3344), dolegliwosci-miesni-u-starszych(3369), gips-czy-orteza(12373), barefooting(16187), artroskopia(2500), rehabilitacja-po-artroskopii-kolana(10410), cwiczenia-na-kregoslup(8352), dziecko-z-niedoborem-masy(3291), sezon-bez-kontuzji(8342). Borderline-lifestyle (do decyzji): spacer(11659), dieta-a-sport(11650), biegasz-na-zdrowie(5756).
 
 ## STATUS KONCOWY (2026-06-29): wszystkie 15 wpisow z listy FAQ ogarniete
