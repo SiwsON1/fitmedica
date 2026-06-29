@@ -2299,6 +2299,91 @@ add_action('init', function () {
 });
 
 /**
+ * v13 - migracja FAQ wklejonego recznie w Elementor do pluginu.
+ * zespol-ciesni-nadgarstka (4902): FAQ siedzial jako 1 widget HTML (719e990)
+ * w sekcji z tekstem artykulu (nagl + faq-container netim + microdata + ld+json).
+ * Widget usuwany osobnym skryptem, plugin przejmuje FAQ + zrodla naukowe.
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v13')) return;
+
+    $articles = [
+        'zespol-ciesni-nadgarstka' => [
+            'faq' => [
+                [
+                    'question' => 'Jak rozpoznać zespół cieśni nadgarstka?',
+                    'answer'   => 'Typowe jest mrowienie i drętwienie kciuka, palca wskazującego, środkowego oraz połowy serdecznego, czyli obszaru unerwianego przez nerw pośrodkowy. Z czasem dochodzi osłabienie siły chwytu i wypadanie przedmiotów z ręki. Na początku objawy bywają przemijające i pojawiają się przy trzymaniu telefonu, kierownicy czy książki.',
+                ],
+                [
+                    'question' => 'Dlaczego objawy cieśni nadgarstka nasilają się w nocy?',
+                    'answer'   => 'W czasie snu nadgarstek często układa się w zgięciu, co dodatkowo zmniejsza przestrzeń w kanale nadgarstka i nasila ucisk na nerw. Dlatego charakterystyczne jest wybudzanie się z mrowieniem i bólem ręki oraz potrzeba jej rozruszania albo potrząsania, żeby objawy ustąpiły. Z tego powodu jednym z pierwszych zaleceń jest noszenie szyny na noc.',
+                ],
+                [
+                    'question' => 'Jakie badanie potwierdza zespół cieśni nadgarstka?',
+                    'answer'   => 'Rozpoznanie opiera się na wywiadzie i badaniu, w tym testach prowokacyjnych (test Tinela i test Phalena). Badaniem potwierdzającym stopień uszkodzenia nerwu jest badanie przewodnictwa nerwowego (EMG/NCV), uznawane za standard. Pomocne bywa USG nadgarstka, które ocenia nerw pośrodkowy i okoliczne tkanki.',
+                ],
+                [
+                    'question' => 'Czy zespół cieśni nadgarstka można wyleczyć bez operacji?',
+                    'answer'   => 'We wczesnym i umiarkowanym nasileniu często tak. Stosuje się usztywnienie nadgarstka (zwłaszcza na noc), iniekcje kortykosteroidów zmniejszające obrzęk i stan zapalny oraz fizjoterapię. Leczenie zachowawcze działa najlepiej, gdy objawy trwają krótko i da się ograniczyć przeciążenia. Przy nasilonym lub długotrwałym ucisku z osłabieniem ręki skuteczniejsze bywa leczenie operacyjne.',
+                ],
+                [
+                    'question' => 'Ile trwa powrót do sprawności po operacji cieśni nadgarstka?',
+                    'answer'   => 'Zabieg polega na przecięciu więzadła uciskającego nerw i wykonuje się go metodą klasyczną lub endoskopową. Do lekkiej pracy wraca się zwykle po około 2-4 tygodniach po metodzie endoskopowej i po około 4-6 tygodniach po klasycznej, a pełna sprawność wraca po około 2-3 miesiącach. Część dolegliwości może utrzymywać się jeszcze przez kilka tygodni po operacji.',
+                ],
+                [
+                    'question' => 'Czy objawy cieśni nadgarstka mogą wrócić po leczeniu?',
+                    'answer'   => 'Nawrót jest możliwy, zwłaszcza gdy nie usunięto czynników przeciążających nadgarstek. Dlatego ważna jest ergonomia pracy i przerwy przy czynnościach obciążających rękę. Nieleczony, długotrwały ucisk nerwu prowadzi do postępującego i czasem trwałego uszkodzenia czucia oraz osłabienia dłoni, dlatego objawów nie warto bagatelizować.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Padua L., Coraci D., Erra C. i wsp.',
+                    'title'     => 'Carpal tunnel syndrome: clinical features, diagnosis, and management',
+                    'publisher' => 'The Lancet Neurology',
+                    'note'      => '2016; 15(12): 1273-1284',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Management of Carpal Tunnel Syndrome: Evidence-Based Clinical Practice Guideline',
+                    'publisher' => 'AAOS',
+                    'note'      => '2016',
+                ],
+                [
+                    'authors'   => 'Wu Y.T., Ke M.J., Chou Y.C. i wsp.',
+                    'title'     => 'Effect of radial shock wave therapy for carpal tunnel syndrome: a prospective randomized, double-blind, placebo-controlled trial',
+                    'publisher' => 'Journal of Orthopaedic Research',
+                    'note'      => '2016; 34(6): 977-984',
+                ],
+                [
+                    'authors'   => 'American Academy of Orthopaedic Surgeons',
+                    'title'     => 'Carpal Tunnel Syndrome',
+                    'publisher' => 'OrthoInfo (AAOS)',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v13', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {

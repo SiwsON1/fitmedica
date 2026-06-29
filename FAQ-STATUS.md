@@ -58,11 +58,14 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 | otylosc-u-dzieci | tak (6) | tak (2) | brak | PROD (2026-06-08) |
 | nietolerancja-pokarmowa-przyczyny-objawy-i-leczenie | tak (6) | tak (1) | brak | PROD (2026-06-08) |
 | kolano-biegacza | tak (6) | tak (4) | brak | PROD (2026-06-29, v12 - migracja z Elementora) |
+| zespol-ciesni-nadgarstka | tak (6) | tak (4) | brak | PROD (2026-06-29, v13 - migracja z Elementora) |
 
 ### Maja FAQ wklejony w tresc (Elementor HTML widget) - NIE nasz plugin
-Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna schema FAQPage. NIE dodawac pluginem (byl duplikat 2026-06-05, usuniety przez delete_post_meta). Do ewentualnej migracji do pluginu trzeba najpierw usunac widget z tresci.
-- ~~kolano-biegacza (ID 3349)~~ -> ZMIGROWANE do pluginu 2026-06-29 (blok v12). FAQ siedzial jako 2 widgety HTML w _elementor_data (sekcja id d044621: nag d9ad28d + faq-container 6c23b82, microdata FAQPage). Usunieto cala sekcje skryptem, backup w post_meta `_elementor_data_bak_faqmig12`. Plugin przejal FAQ (6) + dolozyl zrodla (4). UWAGA: FAQ+zrodla renderuja sie teraz pod blokiem "Dowiedz sie wiecej" (the_content docina na koncu).
-- zespol-ciesni-nadgarstka (ID 4902) - FAQ w body, 1 schema (Elementor HTML widget - jeszcze nie migrowane; analogicznie do kolana)
+~~Te artykuly mialy FAQ jako widget Elementora.~~ OBA zmigrowane 2026-06-29:
+- ~~kolano-biegacza (ID 3349)~~ -> ZMIGROWANE (blok v12). FAQ jako 2 widgety HTML (sekcja id d044621: nag d9ad28d + faq-container 6c23b82). Usunieto cala sekcje, backup `_elementor_data_bak_faqmig12`.
+- ~~zespol-ciesni-nadgarstka (ID 4902)~~ -> ZMIGROWANE (blok v13). FAQ jako 1 widget HTML (719e990) w sekcji z tekstem artykulu (nagl + faq-container + microdata + ld+json w jednym widgecie). Usunieto sam widget, backup `_elementor_data_bak_faqmig13`. Plugin przejal FAQ (6) + zrodla (4).
+
+UWAGA wspolna: FAQ+zrodla z pluginu renderuja sie pod blokiem "Dowiedz sie wiecej" (the_content docina na koncu).
 
 ## MAJA FAQ W STARYM WYGLADZIE - DO PRZEROBIENIA (jeszcze nie zrobione)
 - lokiec-tenisisty-przyczyny-objawy-profilaktyka-i-mozliwosci-leczenia (FAQ 6 + schema + zrodla w body)
