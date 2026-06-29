@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Fitmedica - Weryfikacja Medyczna
- * Description: Badge "Zweryfikowano medycznie", FAQ accordion i źródła pod artykułami blogowymi.
+ * Description: Badge "Zweryfikowano medycznie", FAQ accordion i zrodla pod artykulami blogowymi.
  * Version: 2.0
  * Author: NETIM
  */
@@ -182,55 +182,6 @@ add_action('init', function () {
     }
 
     update_option('fitmedica_faq_setup_v2', true);
-});
-
-/* -----------------------------------------------
-   AUTO-FIX FAQ PL znaki - bol Achillesa
------------------------------------------------ */
-add_action('init', function() {
-    if (get_option('fitmedica_fix_achilles_faq_pl_chars_v1')) {
-        return;
-    }
-
-    $q = new WP_Query([
-        'name'           => 'bol-achillesa-czym-dokladnie-jest-skad-sie-bierze-i-jakie-istnieja-mozliwosci-leczenia',
-        'post_type'      => 'post',
-        'posts_per_page' => 1,
-        'fields'         => 'ids',
-        'no_found_rows'  => true,
-    ]);
-
-    if (!empty($q->posts)) {
-        update_post_meta($q->posts[0], '_fitmedica_faq', [
-            [
-                'question' => 'Ile trwa leczenie tendinopatii ścięgna Achillesa?',
-                'answer'   => 'Zwykle od 3 do 6 miesięcy konsekwentnej rehabilitacji. Podstawą jest około 12-tygodniowy program ćwiczeń, ale przy przewlekłych dolegliwościach poprawa bywa wolniejsza. Ścięgno adaptuje się powoli, bo jest słabo ukrwione, dlatego liczy się regularność i cierpliwość, a nie sam odpoczynek.',
-            ],
-            [
-                'question' => 'Czy mogę biegać i trenować podczas leczenia bólu Achillesa?',
-                'answer'   => 'Często można, ale tylko po zmniejszeniu obciążenia i jeśli ból nie narasta w trakcie ani następnego dnia. Całkowity bezruch nie jest zalecany, bo ścięgno potrzebuje kontrolowanego obciążenia, żeby się regenerować. Na czas leczenia warto ograniczyć bieganie i skoki, a kondycję utrzymać mniej obciążającymi formami: pływaniem, rowerem, wioślarstwem. Reakcja ścięgna dzień po wysiłku to lepszy wyznacznik niż sam ból podczas treningu.',
-            ],
-            [
-                'question' => 'Na czym polegają ćwiczenia ekscentryczne i jak długo je wykonywać?',
-                'answer'   => 'To kontrolowane opuszczanie pięty, które wzmacnia ścięgno pod obciążeniem. Klasyczny protokół zakłada trzy serie po 15 powtórzeń, dwa razy dziennie, przez około 12 tygodni, z nogą wyprostowaną i ugiętą w kolanie. To jeden ze sprawdzonych sposobów, ale obecnie stosuje się też inne formy stopniowego obciążania ścięgna, dobierane do bólu i etapu leczenia. Plan powinien ułożyć fizjoterapeuta, bo zbyt wczesna intensywność potrafi nasilić ból.',
-            ],
-            [
-                'question' => 'Czy fala uderzeniowa i osocze bogatopłytkowe (PRP) pomagają na ból Achillesa?',
-                'answer'   => 'Mogą być dodatkiem do ćwiczeń u części pacjentów z przewlekłym bólem, ale efekt nie jest gwarantowany. Fala uderzeniowa bywa łączona z rehabilitacją, gdy sama terapia ruchem nie wystarcza. PRP nie ma mocnych dowodów jako rutynowe leczenie tendinopatii Achillesa, dlatego o jego zastosowaniu decyduje się indywidualnie po badaniu. Fundamentem leczenia pozostają ćwiczenia, a zabiegi je uzupełniają, nie zastępują.',
-            ],
-            [
-                'question' => 'Jak odróżnić tendinopatię od zerwania ścięgna Achillesa?',
-                'answer'   => 'Tendinopatia narasta stopniowo: ból i sztywność pojawiają się przy starcie aktywności i nasilają z czasem. Zerwanie to nagły uraz, często z uczuciem uderzenia lub "strzału" w łydkę, osłabieniem odbicia i trudnością ze stanięciem na palcach. Ból bywa silny na początku, ale potrafi szybko zelżeć, co nie znaczy, że uraz jest błahy. Zerwanie wymaga pilnej konsultacji, bo decyzja o leczeniu zapada w pierwszych dniach.',
-            ],
-            [
-                'question' => 'Czy ból ścięgna Achillesa może wrócić i jak temu zapobiec?',
-                'answer'   => 'Tak, nawroty są częste, jeśli wróci się do pełnych obciążeń zbyt szybko. Ryzyko zmniejsza stopniowe zwiększanie kilometrażu, rozgrzewka, dobre obuwie, praca nad ruchomością stawu skokowego i siłą łydki. Utrzymanie ćwiczeń wzmacniających po ustąpieniu bólu to najlepsza profilaktyka.',
-            ],
-        ]);
-    }
-    wp_reset_postdata();
-
-    update_option('fitmedica_fix_achilles_faq_pl_chars_v1', true);
 });
 
 /* -----------------------------------------------
@@ -2214,254 +2165,6 @@ add_action('init', function () {
 });
 
 /**
- * v12 - migracja FAQ wklejonego recznie w Elementor do pluginu.
- * kolano-biegacza (3349): FAQ siedzial jako 2 widgety HTML w _elementor_data
- * (faq-container netim + microdata FAQPage). Widgety usuwane osobnym skryptem,
- * tutaj plugin przejmuje FAQ + dokłada zrodla naukowe (ld+json zamiast microdata).
- */
-add_action('init', function () {
-    if (get_option('fitmedica_faq_setup_v12')) return;
-
-    $articles = [
-        'kolano-biegacza' => [
-            'faq' => [
-                [
-                    'question' => 'Czym jest kolano biegacza?',
-                    'answer'   => 'To zespół pasma biodrowo-piszczelowego, czyli przeciążeniowy ból po zewnętrznej stronie kolana. Powstaje, gdy pasmo biegnące wzdłuż uda drażni tkanki w okolicy bocznego kłykcia kości udowej przy powtarzalnym zginaniu i prostowaniu kolana. Najczęściej dotyka biegaczy i kolarzy, ale pojawia się u każdego, kto zbyt szybko zwiększa obciążenia treningowe.',
-                ],
-                [
-                    'question' => 'Po czym poznać kolano biegacza, a nie inny ból kolana?',
-                    'answer'   => 'Charakterystyczny jest ostry lub piekący ból po zewnętrznej stronie kolana, który narasta w trakcie biegu i często zmusza do przerwania treningu. Dolegliwości nasilają się zwłaszcza przy zbieganiu z górki i schodzeniu po schodach. Ból zwykle ustępuje w spoczynku, by wrócić przy kolejnej aktywności. To odróżnia go od bólu z przodu kolana, który daje inny wzorzec.',
-                ],
-                [
-                    'question' => 'Czy mogę dalej biegać z kolanem biegacza?',
-                    'answer'   => 'Zwykle trzeba czasowo zmniejszyć obciążenie, a nie kategorycznie odstawić ruch. W ostrej fazie ogranicza się bieganie i zbieganie z górki, bo to najmocniej drażni pasmo. Kondycję można utrzymać formami mniej obciążającymi bok kolana, na przykład pływaniem. Powrót do biegania wprowadza się stopniowo, gdy ból ustępuje, najlepiej z korektą techniki i objętości treningu.',
-                ],
-                [
-                    'question' => 'Ile trwa leczenie kolana biegacza?',
-                    'answer'   => 'Najczęściej od kilku tygodni do kilku miesięcy, zależnie od czasu trwania objawów i konsekwencji w rehabilitacji. Krótko trwające dolegliwości zwykle ustępują szybciej, a przewlekłe wymagają cierpliwości. Kluczowe jest nie tylko wyciszenie bólu, ale wzmocnienie mięśni biodra i pośladka oraz poprawa techniki, bo to zmniejsza ryzyko nawrotu.',
-                ],
-                [
-                    'question' => 'Jak leczy się kolano biegacza i czy potrzebna jest operacja?',
-                    'answer'   => 'Podstawą jest leczenie zachowawcze: czasowe odciążenie, fizjoterapia (terapia manualna, zabiegi fizykalne) oraz ćwiczenia wzmacniające mięśnie pośladków i stabilizujące biodro. Pomocne bywają korekta techniki biegu oraz dobór obuwia lub wkładek. Operację rozważa się rzadko, dopiero gdy długie i konsekwentne leczenie zachowawcze nie przynosi poprawy.',
-                ],
-                [
-                    'question' => 'Jak zapobiegać nawrotom kolana biegacza?',
-                    'answer'   => 'Najwięcej daje stopniowe zwiększanie kilometrażu i intensywności, bez gwałtownych skoków objętości. Warto wzmacniać mięśnie pośladków i biodra, dbać o rozgrzewkę oraz technikę biegu, a także unikać długiego biegania po pochyłym, jednostronnym podłożu. Utrzymanie ćwiczeń wzmacniających po ustąpieniu bólu to najlepsza profilaktyka.',
-                ],
-            ],
-            'sources' => [
-                [
-                    'authors'   => 'Strauss E.J., Kim S., Calcei J.G., Park D.',
-                    'title'     => 'Iliotibial Band Syndrome: Evaluation and Management',
-                    'publisher' => 'Journal of the American Academy of Orthopaedic Surgeons',
-                    'note'      => '2011; 19(12): 728-736',
-                ],
-                [
-                    'authors'   => 'Fairclough J., Hayashi K., Toumi H. i wsp.',
-                    'title'     => 'The functional anatomy of the iliotibial band during flexion and extension of the knee: implications for understanding iliotibial band syndrome',
-                    'publisher' => 'Journal of Anatomy',
-                    'note'      => '2006; 208(3): 309-316',
-                ],
-                [
-                    'authors'   => 'Aderem J., Louw Q.A.',
-                    'title'     => 'Biomechanical risk factors associated with iliotibial band syndrome in runners: a systematic review',
-                    'publisher' => 'BMC Musculoskeletal Disorders',
-                    'note'      => '2015; 16: 356',
-                ],
-                [
-                    'authors'   => 'American Academy of Orthopaedic Surgeons',
-                    'title'     => 'Iliotibial Band (IT Band) Syndrome',
-                    'publisher' => 'OrthoInfo (AAOS)',
-                    'note'      => 'Materiał edukacyjny dla pacjentów',
-                ],
-            ],
-        ],
-    ];
-
-    foreach ($articles as $post_slug => $data) {
-        $q = new WP_Query([
-            'name'           => $post_slug,
-            'post_type'      => 'post',
-            'posts_per_page' => 1,
-            'fields'         => 'ids',
-            'no_found_rows'  => true,
-        ]);
-        if (!empty($q->posts)) {
-            $pid = $q->posts[0];
-            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
-            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
-        }
-        wp_reset_postdata();
-    }
-
-    update_option('fitmedica_faq_setup_v12', true);
-});
-
-/**
- * v13 - migracja FAQ wklejonego recznie w Elementor do pluginu.
- * zespol-ciesni-nadgarstka (4902): FAQ siedzial jako 1 widget HTML (719e990)
- * w sekcji z tekstem artykulu (nagl + faq-container netim + microdata + ld+json).
- * Widget usuwany osobnym skryptem, plugin przejmuje FAQ + zrodla naukowe.
- */
-add_action('init', function () {
-    if (get_option('fitmedica_faq_setup_v13')) return;
-
-    $articles = [
-        'zespol-ciesni-nadgarstka' => [
-            'faq' => [
-                [
-                    'question' => 'Jak rozpoznać zespół cieśni nadgarstka?',
-                    'answer'   => 'Typowe jest mrowienie i drętwienie kciuka, palca wskazującego, środkowego oraz połowy serdecznego, czyli obszaru unerwianego przez nerw pośrodkowy. Z czasem dochodzi osłabienie siły chwytu i wypadanie przedmiotów z ręki. Na początku objawy bywają przemijające i pojawiają się przy trzymaniu telefonu, kierownicy czy książki.',
-                ],
-                [
-                    'question' => 'Dlaczego objawy cieśni nadgarstka nasilają się w nocy?',
-                    'answer'   => 'W czasie snu nadgarstek często układa się w zgięciu, co dodatkowo zmniejsza przestrzeń w kanale nadgarstka i nasila ucisk na nerw. Dlatego charakterystyczne jest wybudzanie się z mrowieniem i bólem ręki oraz potrzeba jej rozruszania albo potrząsania, żeby objawy ustąpiły. Z tego powodu jednym z pierwszych zaleceń jest noszenie szyny na noc.',
-                ],
-                [
-                    'question' => 'Jakie badanie potwierdza zespół cieśni nadgarstka?',
-                    'answer'   => 'Rozpoznanie opiera się na wywiadzie i badaniu, w tym testach prowokacyjnych (test Tinela i test Phalena). Badaniem potwierdzającym stopień uszkodzenia nerwu jest badanie przewodnictwa nerwowego (EMG/NCV), uznawane za standard. Pomocne bywa USG nadgarstka, które ocenia nerw pośrodkowy i okoliczne tkanki.',
-                ],
-                [
-                    'question' => 'Czy zespół cieśni nadgarstka można wyleczyć bez operacji?',
-                    'answer'   => 'We wczesnym i umiarkowanym nasileniu często tak. Stosuje się usztywnienie nadgarstka (zwłaszcza na noc), iniekcje kortykosteroidów zmniejszające obrzęk i stan zapalny oraz fizjoterapię. Leczenie zachowawcze działa najlepiej, gdy objawy trwają krótko i da się ograniczyć przeciążenia. Przy nasilonym lub długotrwałym ucisku z osłabieniem ręki skuteczniejsze bywa leczenie operacyjne.',
-                ],
-                [
-                    'question' => 'Ile trwa powrót do sprawności po operacji cieśni nadgarstka?',
-                    'answer'   => 'Zabieg polega na przecięciu więzadła uciskającego nerw i wykonuje się go metodą klasyczną lub endoskopową. Do lekkiej pracy wraca się zwykle po około 2-4 tygodniach po metodzie endoskopowej i po około 4-6 tygodniach po klasycznej, a pełna sprawność wraca po około 2-3 miesiącach. Część dolegliwości może utrzymywać się jeszcze przez kilka tygodni po operacji.',
-                ],
-                [
-                    'question' => 'Czy objawy cieśni nadgarstka mogą wrócić po leczeniu?',
-                    'answer'   => 'Nawrót jest możliwy, zwłaszcza gdy nie usunięto czynników przeciążających nadgarstek. Dlatego ważna jest ergonomia pracy i przerwy przy czynnościach obciążających rękę. Nieleczony, długotrwały ucisk nerwu prowadzi do postępującego i czasem trwałego uszkodzenia czucia oraz osłabienia dłoni, dlatego objawów nie warto bagatelizować.',
-                ],
-            ],
-            'sources' => [
-                [
-                    'authors'   => 'Padua L., Coraci D., Erra C. i wsp.',
-                    'title'     => 'Carpal tunnel syndrome: clinical features, diagnosis, and management',
-                    'publisher' => 'The Lancet Neurology',
-                    'note'      => '2016; 15(12): 1273-1284',
-                ],
-                [
-                    'authors'   => 'American Academy of Orthopaedic Surgeons',
-                    'title'     => 'Management of Carpal Tunnel Syndrome: Evidence-Based Clinical Practice Guideline',
-                    'publisher' => 'AAOS',
-                    'note'      => '2016',
-                ],
-                [
-                    'authors'   => 'Wu Y.T., Ke M.J., Chou Y.C. i wsp.',
-                    'title'     => 'Effect of radial shock wave therapy for carpal tunnel syndrome: a prospective randomized, double-blind, placebo-controlled trial',
-                    'publisher' => 'Journal of Orthopaedic Research',
-                    'note'      => '2016; 34(6): 977-984',
-                ],
-                [
-                    'authors'   => 'American Academy of Orthopaedic Surgeons',
-                    'title'     => 'Carpal Tunnel Syndrome',
-                    'publisher' => 'OrthoInfo (AAOS)',
-                    'note'      => 'Materiał edukacyjny dla pacjentów',
-                ],
-            ],
-        ],
-    ];
-
-    foreach ($articles as $post_slug => $data) {
-        $q = new WP_Query([
-            'name'           => $post_slug,
-            'post_type'      => 'post',
-            'posts_per_page' => 1,
-            'fields'         => 'ids',
-            'no_found_rows'  => true,
-        ]);
-        if (!empty($q->posts)) {
-            $pid = $q->posts[0];
-            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
-            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
-        }
-        wp_reset_postdata();
-    }
-
-    update_option('fitmedica_faq_setup_v13', true);
-});
-
-/**
- * v14 - zespol-zamrozonego-barku (4896): na zywej stronie byl BLEDNY FAQ (o zlamaniach!),
- * wklejony jako widget Elementor. Widget usuwany osobnym skryptem, plugin wpina nowy,
- * poprawny FAQ napisany na bazie researchu SERP/PAA + zweryfikowane zrodla.
- */
-add_action('init', function () {
-    if (get_option('fitmedica_faq_setup_v14')) return;
-
-    $articles = [
-        'zespol-zamrozonego-barku' => [
-            'faq' => [
-                [
-                    'question' => 'Czym jest zamrożony bark (zespół zamrożonego barku)?',
-                    'answer'   => 'To zarostowe zapalenie torebki stawowej, czyli stopniowe usztywnienie i ból stawu ramiennego wskutek włóknienia i obkurczania torebki. Ruch w barku staje się coraz bardziej ograniczony, zarówno czynny, jak i bierny. Częściej dotyczy osób między 40. a 60. rokiem życia, kobiet oraz chorych na cukrzycę i choroby tarczycy.',
-                ],
-                [
-                    'question' => 'Ile trwa zamrożony bark i czy przejdzie sam?',
-                    'answer'   => 'Zwykle od kilkunastu miesięcy do około dwóch lat, a u większości osób ustępuje samoistnie. Choroba przechodzi trzy fazy: zamrażania (ból narasta, od kilku tygodni do 2-3 miesięcy), zamrożenia (ból słabnie, dominuje sztywność, 3-9 miesięcy) i odmrażania (ruch wraca, do około roku). Leczenie nie tyle wyłącza chorobę, co skraca cierpienie i przyspiesza powrót ruchu.',
-                ],
-                [
-                    'question' => 'Dlaczego bark boli najbardziej w nocy i jak spać?',
-                    'answer'   => 'Ból nocny to znak rozpoznawczy zamrożonego barku. W spoczynku i przy zmianie pozycji torebka stawowa jest drażniona, a ucisk na bark nasila dolegliwości. Najlepiej spać na zdrowym boku, obejmując chorą ręką poduszkę, żeby ramię nie opadało i nie rotowało się. Pozycja na plecach z ręką podpartą poduszką też bywa ulgą.',
-                ],
-                [
-                    'question' => 'Czy zamrożony bark można wyleczyć bez operacji?',
-                    'answer'   => 'W większości przypadków tak. Podstawą jest leczenie zachowawcze: fizjoterapia (ćwiczenia zakresu ruchu i mobilizacja stawu), leki przeciwbólowe i przeciwzapalne (NLPZ) oraz iniekcje kortykosteroidów zmniejszające ból i stan zapalny. Zabiegi takie jak manipulacja w znieczuleniu czy uwolnienie torebki rozważa się rzadko, gdy długie leczenie zachowawcze nie pomaga.',
-                ],
-                [
-                    'question' => 'Jakie ćwiczenia pomagają na zamrożony bark?',
-                    'answer'   => 'Najważniejsze są łagodne ćwiczenia zwiększające zakres ruchu: wahadełka, wspinaczka palcami po ścianie, rozciąganie z pomocą drugiej ręki oraz mobilizacja z laską gimnastyczną. Z czasem dokłada się wzmacnianie mięśni stożka rotatorów i stabilizację łopatki. Ćwiczenia powinien dobrać fizjoterapeuta, a wykonuje się je bez forsowania przez ból, bo zbyt agresywne rozciąganie nasila stan zapalny.',
-                ],
-                [
-                    'question' => 'Co zwiększa ryzyko zamrożonego barku?',
-                    'answer'   => 'Najsilniejszym czynnikiem jest cukrzyca, a także choroby tarczycy i dłuższe unieruchomienie ręki, na przykład po urazie, operacji czy w temblaku. Po okresie noszenia ręki w unieruchomieniu warto wcześnie wracać do delikatnego ruchu, żeby nie dopuścić do usztywnienia.',
-                ],
-            ],
-            'sources' => [
-                [
-                    'authors'   => 'Neviaser A.S., Hannafin J.A.',
-                    'title'     => 'Adhesive capsulitis: a review of current treatment',
-                    'publisher' => 'American Journal of Sports Medicine',
-                    'note'      => '2010; 38(11): 2346-2356',
-                ],
-                [
-                    'authors'   => 'Le H.V., Lee S.J., Nazarian A., Rodriguez E.K.',
-                    'title'     => 'Adhesive capsulitis of the shoulder: review of pathophysiology and current clinical treatments',
-                    'publisher' => 'Shoulder & Elbow',
-                    'note'      => '2017; 9(2): 75-84',
-                ],
-                [
-                    'authors'   => 'American Academy of Orthopaedic Surgeons',
-                    'title'     => 'Frozen Shoulder (Adhesive Capsulitis)',
-                    'publisher' => 'OrthoInfo (AAOS)',
-                    'note'      => 'Materiał edukacyjny dla pacjentów',
-                ],
-            ],
-        ],
-    ];
-
-    foreach ($articles as $post_slug => $data) {
-        $q = new WP_Query([
-            'name'           => $post_slug,
-            'post_type'      => 'post',
-            'posts_per_page' => 1,
-            'fields'         => 'ids',
-            'no_found_rows'  => true,
-        ]);
-        if (!empty($q->posts)) {
-            $pid = $q->posts[0];
-            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
-            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
-        }
-        wp_reset_postdata();
-    }
-
-    update_option('fitmedica_faq_setup_v14', true);
-});
-
-/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {
@@ -2507,7 +2210,7 @@ function fitmedica_get_doctors() {
             'specialty' => 'Ortopedia i traumatologia',
             'photo'     => '/wp-content/uploads/2020/05/lek-maciej-langner-230-230.jpg',
             'profile'   => '/zespol/dr-maciej-langner/',
-            'bio'       => 'Jeden z pionierów chirurgii artroskopowej w Polsce. Konsultant w Klinice Chirurgii Urazowej i Ortopedycznej CMKP w Otwocku. Specjalizuje się w leczeniu operacyjnym stawu kolanowego.',
+            'bio'       => 'Jeden z pionierow chirurgii artroskopowej w Polsce. Konsultant w Klinice Chirurgii Urazowej i Ortopedii CMKP w Otwocku. Specjalizuje sie w leczeniu stawu kolanowego.',
         ],
         'michal-lenkiewicz' => [
             'name'      => 'lek. Michal Lenkiewicz',
@@ -2565,7 +2268,7 @@ function fitmedica_get_doctors() {
         ],
         'joanna-friedman-gruszczynska' => [
             'name'      => 'dr n. med. Joanna Friedman-Gruszczynska',
-            'specialty' => 'Kardiologia dziecięca',
+            'specialty' => 'Kardiologia dziecieca',
             'photo'     => '/wp-content/uploads/2020/03/dr-n-med-joanna-friedman-gruszczynska-230-230.jpg',
             'profile'   => '/zespol/dr-n-med-joanna-friedman-gruszczynska/',
         ],
@@ -2652,7 +2355,6 @@ function fitmedica_get_doctors() {
             'specialty' => 'Fizjoterapia',
             'photo'     => '/wp-content/uploads/2025/12/freepik-20260105101003JPam.jpeg',
             'profile'   => '/zespol/mgr-jakub-sorn/',
-            'bio'       => 'Fizjoterapeuta, absolwent Warszawskiego Uniwersytetu Medycznego. Pracuje z pacjentami z chorobami narządu ruchu, po urazach i operacjach ortopedycznych. Zajmuje się fizjoterapią sportową, terapią manualną, terapią ruchem, masażem tkanek głębokich, tapingiem elastycznym i suchym igłowaniem.',
         ],
         'artur-peplonski' => [
             'name'      => 'dr n. med. Artur Peplonski',
@@ -2698,24 +2400,24 @@ function fitmedica_get_doctors() {
         ],
         'karolina-lisiecka' => [
             'name'      => 'lek. Karolina Lisiecka',
-            'specialty' => 'Ortopedia dziecięca',
+            'specialty' => 'Ortopedia dziecieca',
             'photo'     => '/wp-content/uploads/2025/03/specialistka-23-230.jpg',
             'profile'   => '/zespol/lek-karolina-lisiecka/',
         ],
         'magdalena-uszynska-jast' => [
-            'name'      => 'lek. Magdalena Uszyńska-Jast',
+            'name'      => 'lek. Magdalena Uszynska-Jast',
             'specialty' => 'Dermatologia',
             'photo'     => '/wp-content/uploads/2025/03/lek-magdalena-uszynska-jast-230-230.jpg',
             'profile'   => '/zespol/lek-magdalena-uszynska-jast/',
         ],
         'anna-chodzinska' => [
-            'name'      => 'mgr Anna Chodzińska',
+            'name'      => 'mgr Anna Chodzinska',
             'specialty' => 'Psychologia',
             'photo'     => '/wp-content/uploads/2026/04/2026_03_31_Przerobienie-zdjecie-lekarza_230x230.jpg',
             'profile'   => '/zespol/mgr-anna-chodzinska/',
         ],
         'anna-mierzynska' => [
-            'name'      => 'dr n. med. i n. o zdr. Anna Mierzyńska',
+            'name'      => 'dr n. med. i n. o zdr. Anna Mierzynska',
             'specialty' => 'Psychologia',
             'photo'     => '/wp-content/uploads/2024/12/dr-n-med-i-n-o-zdr-anna-mierzynnska-230-230.jpg',
             'profile'   => '/zespol/dr-n-med-i-n-o-zdr-anna-mierzynska/',
@@ -2725,7 +2427,7 @@ function fitmedica_get_doctors() {
             'specialty' => 'Fizjoterapia',
             'photo'     => '/wp-content/uploads/2025/01/230-jan-sala.jpeg',
             'profile'   => '/zespol/mgr-jan-sala/',
-            'bio'       => 'Fizjoterapeuta, absolwent Warszawskiego Uniwersytetu Medycznego. Pracuje z pacjentami z chorobami narządu ruchu, po urazach i operacjach ortopedycznych. Łączy terapię manualną, terapię ruchem i plastrowanie, kładąc nacisk na edukację pacjenta.',
+            'bio'       => 'Fizjoterapeuta, absolwent Warszawskiego Uniwersytetu Medycznego. Pracuje z pacjentami z chorobami narzadu ruchu, po urazach i operacjach ortopedycznych. Laczy terapie manualna, terapie ruchem i plastrowanie, kladac nacisk na edukacje pacjenta.',
         ],
         'bruno-krauze' => [
             'name'      => 'mgr Bruno Krauze',
@@ -2734,7 +2436,7 @@ function fitmedica_get_doctors() {
             'profile'   => '/zespol/bruno-krauze/',
         ],
         'jaroslaw-zoladek' => [
-            'name'      => 'mgr Jarosław Żołądek',
+            'name'      => 'mgr Jaroslaw Zoladek',
             'specialty' => 'Fizjoterapia',
             'photo'     => '/wp-content/uploads/2020/03/mgr-jaroslaw-zoladek-230-230.jpg',
             'profile'   => '/zespol/jaroslaw-zoladek/',
@@ -2763,7 +2465,7 @@ add_action('add_meta_boxes', function () {
     );
     add_meta_box(
         'fitmedica_faq',
-        'FAQ - Najczęściej zadawane pytania',
+        'FAQ - Najczesciej zadawane pytania',
         'fitmedica_faq_meta_box_html',
         'post',
         'normal',
@@ -2771,7 +2473,7 @@ add_action('add_meta_boxes', function () {
     );
     add_meta_box(
         'fitmedica_sources',
-        'Źródła naukowe',
+        'Zrodla naukowe',
         'fitmedica_sources_meta_box_html',
         'post',
         'normal',
@@ -2786,7 +2488,7 @@ function fitmedica_reviewer_meta_box_html($post) {
     $current_date = get_post_meta($post->ID, '_medical_review_date', true);
     $doctors      = fitmedica_get_doctors();
 
-    echo '<p><label for="medical_reviewer"><strong>Lekarz weryfikujący:</strong></label></p>';
+    echo '<p><label for="medical_reviewer"><strong>Lekarz weryfikujacy:</strong></label></p>';
     echo '<select id="medical_reviewer" name="medical_reviewer" style="width:100%">';
     echo '<option value="">- brak -</option>';
     foreach ($doctors as $slug => $doc) {
@@ -2814,9 +2516,9 @@ function fitmedica_faq_meta_box_html($post) {
             <div class="fitmedica-faq-row" style="border:1px solid #ddd;padding:10px;margin-bottom:8px;background:#f9f9f9;border-radius:4px">
                 <p style="margin:0 0 6px"><strong>Pytanie:</strong></p>
                 <input type="text" name="fitmedica_faq[<?php echo $i; ?>][question]" value="<?php echo esc_attr($item['question'] ?? ''); ?>" style="width:100%;margin-bottom:8px" />
-                <p style="margin:0 0 6px"><strong>Odpowiedź:</strong></p>
+                <p style="margin:0 0 6px"><strong>Odpowiedz:</strong></p>
                 <textarea name="fitmedica_faq[<?php echo $i; ?>][answer]" rows="3" style="width:100%"><?php echo esc_textarea($item['answer'] ?? ''); ?></textarea>
-                <button type="button" class="button fitmedica-remove-row" style="margin-top:6px;color:#a00">Usuń</button>
+                <button type="button" class="button fitmedica-remove-row" style="margin-top:6px;color:#a00">Usun</button>
             </div>
             <?php endforeach; ?>
         </div>
@@ -2833,9 +2535,9 @@ function fitmedica_faq_meta_box_html($post) {
             row.style.cssText = 'border:1px solid #ddd;padding:10px;margin-bottom:8px;background:#f9f9f9;border-radius:4px';
             row.innerHTML = '<p style="margin:0 0 6px"><strong>Pytanie:</strong></p>'
                 + '<input type="text" name="fitmedica_faq['+idx+'][question]" style="width:100%;margin-bottom:8px" />'
-                + '<p style="margin:0 0 6px"><strong>Odpowiedź:</strong></p>'
+                + '<p style="margin:0 0 6px"><strong>Odpowiedz:</strong></p>'
                 + '<textarea name="fitmedica_faq['+idx+'][answer]" rows="3" style="width:100%"></textarea>'
-                + '<button type="button" class="button fitmedica-remove-row" style="margin-top:6px;color:#a00">Usuń</button>';
+                + '<button type="button" class="button fitmedica-remove-row" style="margin-top:6px;color:#a00">Usun</button>';
             container.appendChild(row);
             idx++;
         });
@@ -2851,7 +2553,7 @@ function fitmedica_faq_meta_box_html($post) {
 }
 
 /* -----------------------------------------------
-   META BOX - Źródła repeater
+   META BOX - Zrodla repeater
    ----------------------------------------------- */
 
 function fitmedica_sources_meta_box_html($post) {
@@ -2859,19 +2561,19 @@ function fitmedica_sources_meta_box_html($post) {
     if (!is_array($sources)) $sources = [];
     ?>
     <div id="fitmedica-sources-repeater">
-        <p style="color:#666;margin-top:0">Format: Autorzy, Tytuł, Wydawnictwo/Czasopismo, Notatka (np. rok, DOI)</p>
+        <p style="color:#666;margin-top:0">Format: Autorzy, Tytul, Wydawnictwo/Czasopismo, Notatka (np. rok, DOI)</p>
         <div id="fitmedica-sources-items">
             <?php foreach ($sources as $i => $item): ?>
             <div class="fitmedica-source-row" style="border:1px solid #ddd;padding:10px;margin-bottom:8px;background:#f9f9f9;border-radius:4px;display:grid;grid-template-columns:1fr 1fr;gap:6px">
                 <input type="text" name="fitmedica_sources[<?php echo $i; ?>][authors]" value="<?php echo esc_attr($item['authors'] ?? ''); ?>" placeholder="Autorzy" style="width:100%" />
-                <input type="text" name="fitmedica_sources[<?php echo $i; ?>][title]" value="<?php echo esc_attr($item['title'] ?? ''); ?>" placeholder="Tytuł publikacji" style="width:100%" />
+                <input type="text" name="fitmedica_sources[<?php echo $i; ?>][title]" value="<?php echo esc_attr($item['title'] ?? ''); ?>" placeholder="Tytul publikacji" style="width:100%" />
                 <input type="text" name="fitmedica_sources[<?php echo $i; ?>][publisher]" value="<?php echo esc_attr($item['publisher'] ?? ''); ?>" placeholder="Wydawnictwo / Czasopismo" style="width:100%" />
                 <input type="text" name="fitmedica_sources[<?php echo $i; ?>][note]" value="<?php echo esc_attr($item['note'] ?? ''); ?>" placeholder="Rok, DOI, uwagi" style="width:100%" />
-                <button type="button" class="button fitmedica-remove-source" style="color:#a00;grid-column:span 2;width:fit-content">Usuń</button>
+                <button type="button" class="button fitmedica-remove-source" style="color:#a00;grid-column:span 2;width:fit-content">Usun</button>
             </div>
             <?php endforeach; ?>
         </div>
-        <button type="button" class="button button-primary" id="fitmedica-add-source">+ Dodaj źródło</button>
+        <button type="button" class="button button-primary" id="fitmedica-add-source">+ Dodaj zrodlo</button>
     </div>
     <script>
     (function(){
@@ -2883,10 +2585,10 @@ function fitmedica_sources_meta_box_html($post) {
             row.className = 'fitmedica-source-row';
             row.style.cssText = 'border:1px solid #ddd;padding:10px;margin-bottom:8px;background:#f9f9f9;border-radius:4px;display:grid;grid-template-columns:1fr 1fr;gap:6px';
             row.innerHTML = '<input type="text" name="fitmedica_sources['+idx+'][authors]" placeholder="Autorzy" style="width:100%" />'
-                + '<input type="text" name="fitmedica_sources['+idx+'][title]" placeholder="Tytuł publikacji" style="width:100%" />'
+                + '<input type="text" name="fitmedica_sources['+idx+'][title]" placeholder="Tytul publikacji" style="width:100%" />'
                 + '<input type="text" name="fitmedica_sources['+idx+'][publisher]" placeholder="Wydawnictwo / Czasopismo" style="width:100%" />'
                 + '<input type="text" name="fitmedica_sources['+idx+'][note]" placeholder="Rok, DOI, uwagi" style="width:100%" />'
-                + '<button type="button" class="button fitmedica-remove-source" style="color:#a00;grid-column:span 2;width:fit-content">Usuń</button>';
+                + '<button type="button" class="button fitmedica-remove-source" style="color:#a00;grid-column:span 2;width:fit-content">Usun</button>';
             container.appendChild(row);
             idx++;
         });
@@ -2949,7 +2651,7 @@ add_action('save_post', function ($post_id) {
 });
 
 /* -----------------------------------------------
-   FRONT - FAQ + Źródła + Badge pod treścią
+   FRONT - FAQ + Zrodla + Badge pod trescia
    ----------------------------------------------- */
 
 add_filter('the_content', function ($content) {
@@ -2959,13 +2661,13 @@ add_filter('the_content', function ($content) {
 
     $post_id = get_the_ID();
 
-    // --- Źródła (PRZED FAQ - zachowanie kolejności z istniejących artykułów) ---
+    // --- Zrodla (PRZED FAQ - zachowanie kolejnosci z istniejacych artykulow) ---
     $sources = get_post_meta($post_id, '_fitmedica_sources', true);
     if (is_array($sources) && !empty($sources)) {
         $count = count($sources);
         $src_html = '<div class="sources-container netim">';
         $src_html .= '<div class="sources-header">';
-        $src_html .= '<span class="sources-label">Źródła</span>';
+        $src_html .= '<span class="sources-label">Zrodla</span>';
         $src_html .= '<span class="sources-count">' . $count . ' ' . ($count === 1 ? 'pozycja' : ($count < 5 ? 'pozycje' : 'pozycji')) . '</span>';
         $src_html .= '</div>';
         $src_html .= '<ol class="sources-list">';
@@ -3052,7 +2754,7 @@ add_action('wp_footer', function () {
     if (!is_singular('post')) return;
     ?>
 <style>
-/* --- Źródła --- */
+/* --- Zrodla --- */
 .sources-container.netim{margin:32px 0;padding:20px 24px;background:#f8fafc;border-radius:10px;border-left:3px solid #2563eb}
 .sources-container.netim .sources-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #e2e8f0}
 .sources-container.netim .sources-label{font-size:15px;font-weight:700;color:#1e3a8a;letter-spacing:.04em;text-transform:uppercase}
@@ -3130,7 +2832,7 @@ add_action('wp_footer', function () {
 });
 
 /* -----------------------------------------------
-   REST API - zapis FAQ i źródeł programowo
+   REST API - zapis FAQ i zrodel programowo
    ----------------------------------------------- */
 
 add_action('rest_api_init', function () {

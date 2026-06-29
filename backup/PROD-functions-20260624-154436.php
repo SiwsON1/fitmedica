@@ -307,3 +307,55 @@ function netim_ai_traffic_tracker() {
     </script>
     <?php
 }
+
+/* ============================================================
+   FITMEDICA: link zwrotny artykul -> poradnia (domkniecie clustera SEO)
+   Neutralny CTA konsultacji na koncu wpisu. Cel = ogolna poradnia per specjalizacja,
+   dobierana po kategorii wpisu (kolejnosc $fm_cta_map = priorytet gdy wpis ma kilka kategorii).
+   ============================================================ */
+add_filter( 'the_content', function ( $content ) {
+    if ( ! is_singular( 'post' ) || ! in_the_loop() || ! is_main_query() ) {
+        return $content;
+    }
+
+    // slug kategorii bloga -> [nazwa poradni w CTA, sciezka poradni]
+    $fm_cta_map = array(
+        'kardiologia'               => array( 'Poradni Kardiologicznej',  '/oferta/dobry-kardiolog-warszawa-prywatnie/' ),
+        'nadcisnienie'              => array( 'Poradni Kardiologicznej',  '/oferta/dobry-kardiolog-warszawa-prywatnie/' ),
+        'ortopedia'                 => array( 'Poradni Ortopedycznej',    '/oferta/dobry-chirurg-ortopeda-warszawa/' ),
+        'neurologia'                => array( 'Poradni Neurologicznej',   '/oferta/dobry-neurolog/' ),
+        'reumatologia'              => array( 'Poradni Reumatologicznej', '/oferta/dobry-reumatolog-prywatnie/' ),
+        'fizjoterapia'              => array( 'Poradni Rehabilitacji',    '/oferta/dobry-fizjoterapeuta-warszawa/' ),
+        'dietetyka'                 => array( 'Poradni Dietetycznej',     '/oferta/dobry-dietetyk-warszawa/' ),
+        'dermatologia'              => array( 'Poradni Dermatologicznej', '/oferta/poradnia-dermatologiczna/' ),
+        'psychologia-i-psychiatria' => array( 'Poradni Psychologicznej',  '/oferta/poradnia-psychologiczna/' ),
+        'badania-usg'               => array( 'Pracowni USG',            '/oferta/usg/' ),
+    );
+
+    $post_cats = wp_list_pluck( get_the_category(), 'slug' );
+    $fm_cta    = null;
+    foreach ( $fm_cta_map as $slug => $data ) {
+        if ( in_array( $slug, $post_cats, true ) ) { $fm_cta = $data; break; }
+    }
+    if ( ! $fm_cta ) {
+        return $content; // brak pasujacej specjalizacji -> bez CTA
+    }
+
+    $name = esc_html( $fm_cta[0] );
+    $url  = esc_url( home_url( $fm_cta[1] ) );
+
+    $cta  = '<style>.fm-cta{margin:36px 0 8px;padding:24px 26px;background:#f4f7fe;border-radius:12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;}'
+          . '.fm-cta-txt{flex:1 1 240px;}'
+          . '.fm-cta-txt b{display:block;font-family:Raleway,sans-serif;font-weight:700;font-size:18px;line-height:1.3;color:#16181d;margin-bottom:5px;}'
+          . '.fm-cta-txt span{font-family:Roboto,sans-serif;font-size:14px;line-height:1.5;color:#5b6472;}'
+          . '.fm-cta a.fm-cta-btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;background:#396cf0;color:#fff;font-family:Roboto,sans-serif;font-weight:600;font-size:14px;text-decoration:none;padding:13px 22px;border-radius:8px;transition:background-color .2s ease,transform .15s ease;}'
+          . '.fm-cta a.fm-cta-btn svg{width:16px;height:16px;}'
+          . '@media(hover:hover) and (pointer:fine){.fm-cta a.fm-cta-btn:hover{background:#2b56c8;}}'
+          . '.fm-cta a.fm-cta-btn:active{transform:scale(.97);}</style>';
+    $cta .= '<div class="fm-cta"><span class="fm-cta-txt"><b>Potrzebujesz konsultacji?</b>'
+          . '<span>Umów wizytę w ' . $name . ' Fitmedica i skonsultuj swój przypadek z lekarzem.</span></span>'
+          . '<a class="fm-cta-btn" href="' . $url . '">Umów wizytę '
+          . '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>';
+
+    return $content . $cta;
+}, 99 );

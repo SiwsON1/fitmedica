@@ -67,20 +67,28 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 
 UWAGA wspolna: FAQ+zrodla z pluginu renderuja sie pod blokiem "Dowiedz sie wiecej" (the_content docina na koncu).
 
-## MAJA FAQ W STARYM WYGLADZIE - DO PRZEROBIENIA (jeszcze nie zrobione)
-- lokiec-tenisisty-przyczyny-objawy-profilaktyka-i-mozliwosci-leczenia (FAQ 6 + schema + zrodla w body)
-- czym-jest-lokiec-golfisty-i-jak-go-leczyc (schema FAQPage obecna)
-- zespol-zamrozonego-barku (schema FAQPage obecna)
-- dna-moczanowa (faq-container + schema w body)
-- reumatoidalne-zapalenie-stawow (faq-container + schema w body)
-- lordoza-szyjna-fizjologia-zaburzenia-sposoby-postepowania (faq + schema w body)
-- krecz-szyi-przyczyny-objawy-i-leczenie (faq + schema w body)
-- szpotawosc-kolan-przyczyny-objawy-i-skuteczne-metody-leczenia (faq + schema w body)
-- bole-bioder-przyczyny-objawy-i-profilaktyka (faq + schema w body)
-- zlamanie-kosci-srodstopia-definicja-objawy-leczenie (faq + schema w body)
-- torbiel-nad-kolanem-jak-powstaje-i-kiedy-udac-sie-do-lekarza (faq + schema w body)
-- rekonstrukcja-wiezadla-krzyzowego-co-trzeba-wiedziec (faq + schema w body)
-- jak-wyglada-czerniak-... (ma FAQ jako prozę w body, bez naszego markup/schemy - do konwersji recznie)
+## DO PRZEROBIENIA - stan po AUDYCIE 2026-06-29 (stara lista byla nieaktualna!)
+Audyt bazy (body vs plugin vs editor) pokazal realny stan. NOWA ZASADA (Marcin 2026-06-29): nie migrowac FAQ 1:1 - do KAZDEGO robic research SERP/People Also Ask i pisac IDEALNY FAQ + zweryfikowane zrodla. Patrz memory [[feedback-faq-research-driven]].
+
+### Juz w pluginie, body czyste, zero duplikatu - NIE DOTYKAC (audyt potwierdzil)
+- lokiec-tenisisty (16224) - plugin 6+4
+- czym-jest-lokiec-golfisty (16320) - plugin 6+4
+- szpotawosc-kolan (15725) - plugin 6+4
+- torbiel-nad-kolanem (16323) - plugin 6+4
+
+### ZROBIONE 2026-06-29 (research-driven, nowy FAQ)
+- zespol-zamrozonego-barku (4896) -> v14. UWAGA: na zywej stronie byl BLEDNY FAQ (o ZLAMANIACH!), usuniety widget 4e015e11, backup `_elementor_data_bak_faqmig14`. Napisany nowy FAQ barkowy (6) + 3 zrodla (Neviaser/Hannafin 2010, Le 2017, AAOS).
+
+### DO ZROBIENIA - research-driven FAQ + zrodla, potem plugin + usun widget
+Wszystkie Elementor (builder), FAQ w widgecie, NIE w pluginie. Trzeba napisac idealny FAQ z researchu (stary bywa slaby), zweryfikowac zrodla, wpiac plugin, usunac widget:
+- dna-moczanowa (4903) - stary FAQ 8 pyt, brak zrodel
+- reumatoidalne-zapalenie-stawow (3323) - stary FAQ 12 pyt, brak zrodel
+- lordoza-szyjna (4244) - stary FAQ 11 pyt, brak zrodel
+- krecz-szyi (4476) - stary FAQ 10 pyt, brak zrodel
+- bole-bioder (10367) - stary FAQ 9 pyt, brak zrodel
+- zlamanie-kosci-srodstopia (4270) - stary FAQ 8 pyt, brak zrodel
+- jak-wyglada-czerniak (13730) - BRAK markup FAQ w ogole, FAQ od zera
+- rekonstrukcja-wiezadla-krzyzowego (14127) - CLASSIC editor, FAQ w post_content, 2x FAQPage (mozliwy podwojny schema) - przy migracji wyciac FAQ z body
 
 ## Zrodla - zasada
 Kazde zrodlo naukowe zweryfikowane (PubMed/PMID/DOI) przed wpisaniem. Zero zmyslonych cytowan.
