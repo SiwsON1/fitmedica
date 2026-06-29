@@ -3157,6 +3157,49 @@ add_action('init', function () {
 });
 
 /**
+ * v22 - poradniki bez FAQ, POJEDYNCZO (prosba Marcina 2026-06-29). Czyste dodanie.
+ * blokada-sterydowa-do-stawow-obwodowych-i-tkanek-miekkich (8264)
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v22')) return;
+
+    $articles = [
+        'blokada-sterydowa-do-stawow-obwodowych-i-tkanek-miekkich' => [
+            'faq' => [
+                ['question' => 'Co to jest blokada sterydowa?', 'answer' => 'To zabieg polegający na podaniu zastrzyku z kortykosteroidu (leku przeciwzapalnego), często w połączeniu ze środkiem znieczulającym, bezpośrednio w okolicę objętą bólem: do stawu, kaletki lub przyczepu ścięgna. Działa miejscowo, silnie zmniejszając stan zapalny i ból. Stosuje się ją, gdy inne metody nie przynoszą wystarczającej ulgi.'],
+                ['question' => 'Jak działa blokada i kiedy odczuwa się efekt?', 'answer' => 'Środek znieczulający działa niemal od razu, dlatego ulga bywa odczuwalna zaraz po zastrzyku. Właściwe, przeciwzapalne działanie sterydu pojawia się zwykle po 1-2 dobach i może utrzymywać się od kilku tygodni do kilku miesięcy. Czas działania zależy od preparatu i leczonego schorzenia.'],
+                ['question' => 'Czy blokada sterydowa boli?', 'answer' => 'Sam zastrzyk wiąże się z niewielkim bólem przy ukłuciu i krótkim uczuciem rozpierania w trakcie podawania leku. Dzięki dodatkowi środka znieczulającego dyskomfort szybko mija. Zabieg jest krótki i zwykle dobrze tolerowany.'],
+                ['question' => 'Ile razy można powtarzać blokadę?', 'answer' => 'Zwykle zaleca się maksymalnie około 3-4 zastrzyki w to samo miejsce w ciągu roku. Zbyt częste powtarzanie może osłabiać tkanki, ścięgna i chrząstkę. Dlatego blokada jest elementem szerszego leczenia (z fizjoterapią), a nie metodą stosowaną w nieskończoność.'],
+                ['question' => 'Jakie są skutki uboczne i przeciwwskazania?', 'answer' => 'Po zabiegu możliwe są przejściowy wzrost bólu, zaczerwienienie czy chwilowe podniesienie poziomu cukru we krwi, dlatego osoby z cukrzycą powinny przez kilka dni częściej kontrolować glikemię. Rzadziej zdarzają się zaniki tkanek, osłabienie ścięgien czy infekcja stawu. Przeciwwskazania, na przykład aktywne zakażenie, ocenia lekarz przed zabiegiem.'],
+                ['question' => 'Czy blokada leczy przyczynę, czy tylko ból?', 'answer' => 'Blokada przede wszystkim wycisza ból i stan zapalny, co daje ulgę i okno na skuteczniejszą rehabilitację, ale zwykle nie usuwa przyczyny dolegliwości. Najlepsze efekty daje połączenie jej z fizjoterapią i modyfikacją obciążeń. W części schorzeń, na przykład w cieśni nadgarstka, może pomóc odłożyć lub uniknąć operacji.'],
+            ],
+            'sources' => [
+                ['authors' => 'Foster Z.J., Voss T.T., Hatch J., Frimodig A.', 'title' => 'Corticosteroid Injections for Common Musculoskeletal Conditions', 'publisher' => 'American Family Physician', 'note' => '2015; 92(8): 694-699'],
+                ['authors' => '', 'title' => 'Blokada sterydowa - wskazania i przebieg (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v22', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {
