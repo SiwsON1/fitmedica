@@ -2929,6 +2929,120 @@ add_action('init', function () {
 });
 
 /**
+ * v20 - poradniki bez FAQ, partia 3 (audyt bloga). Czyste dodanie. Research-driven + zweryfikowane zrodla.
+ * artroskopia(2500) rehab-po-artroskopii(10410) gips-czy-orteza(12373) wady-postawy-dzieci(3398)
+ * dolegliwosci-miesni-starszych(3369) barefooting(16187)
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v20')) return;
+
+    $articles = [
+        'artroskopia' => [
+            'faq' => [
+                ['question' => 'Co to jest artroskopia?', 'answer' => 'To małoinwazyjny zabieg, w którym przez kilka niewielkich nacięć wprowadza się do stawu kamerę (artroskop) i cienkie narzędzia. Pozwala obejrzeć wnętrze stawu i jednocześnie naprawić uszkodzenia bez dużego cięcia. Najczęściej wykonuje się ją w obrębie kolana, ale też barku, biodra czy stawu skokowego.'],
+                ['question' => 'Kiedy wykonuje się artroskopię kolana?', 'answer' => 'Najczęściej przy uszkodzeniach łąkotki, ciałach wolnych w stawie, uszkodzeniach chrząstki, problemach z błoną maziową oraz przy rekonstrukcji więzadeł. Sprawdza się tam, gdzie jest wyraźna, mechaniczna przyczyna dolegliwości. W czysto zwyrodnieniowym, zużytym stawie korzyści z artroskopii bywają ograniczone i wtedy preferuje się leczenie zachowawcze.'],
+                ['question' => 'Jak przebiega zabieg i ile trwa?', 'answer' => 'Zabieg wykonuje się w znieczuleniu, a trwa zwykle od kilkunastu minut do około dwóch godzin, zależnie od zakresu naprawy. Najczęściej wiąże się z krótkim pobytem w szpitalu, niekiedy w trybie jednego dnia. Po zabiegu zostają tylko niewielkie blizny po nacięciach.'],
+                ['question' => 'Jak wygląda powrót do sprawności po artroskopii?', 'answer' => 'To zależy od tego, co naprawiano. Po prostych zabiegach, na przykład usunięciu ciała wolnego czy częściowej resekcji łąkotki, powrót zajmuje zwykle kilka tygodni, a po rekonstrukcji więzadeł wiele miesięcy. Kluczowa jest rehabilitacja prowadzona według zaleceń, bo to ona decyduje o końcowym efekcie.'],
+                ['question' => 'Jakie są możliwe powikłania artroskopii?', 'answer' => 'Artroskopia jest małoinwazyjna, więc ryzyko jest niskie, ale jak przy każdym zabiegu możliwe są obrzęk, ból, krwiak, rzadziej infekcja czy zakrzepica. Większość dolegliwości po zabiegu ustępuje w trakcie gojenia. Niepokojące objawy, jak narastający ból, gorączka czy zaczerwienienie, należy zgłosić lekarzowi.'],
+                ['question' => 'Czym artroskopia różni się od operacji otwartej?', 'answer' => 'W artroskopii operuje się przez kilka małych nacięć pod kontrolą kamery, a w operacji otwartej przez większe cięcie dające bezpośredni dostęp do stawu. Artroskopia oznacza zwykle mniejszy uraz tkanek, mniejszy ból, szybszy powrót i mniejsze blizny. Nie każdy problem da się jednak rozwiązać artroskopowo i czasem konieczna jest operacja otwarta.'],
+            ],
+            'sources' => [
+                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Knee Arthroscopy', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
+                ['authors' => 'Thorlund J.B., Juhl C.B., Roos E.M., Lohmander L.S.', 'title' => 'Arthroscopic surgery for degenerative knee: systematic review and meta-analysis of benefits and harms', 'publisher' => 'BMJ', 'note' => '2015; 350: h2747'],
+            ],
+        ],
+        'rehabilitacja-po-artroskopii-stawu-kolanowego' => [
+            'faq' => [
+                ['question' => 'Kiedy zaczyna się rehabilitacja po artroskopii kolana?', 'answer' => 'Zwykle bardzo wcześnie, już w pierwszych dobach po zabiegu, od ćwiczeń zmniejszających obrzęk i utrzymujących ruchomość oraz napięcie mięśni. Wczesne, kontrolowane usprawnianie przyspiesza powrót i zapobiega zrostom. Plan zawsze dobiera fizjoterapeuta do rodzaju wykonanego zabiegu.'],
+                ['question' => 'Ile trwa rehabilitacja po artroskopii kolana?', 'answer' => 'To zależy od zakresu zabiegu. Po prostych procedurach powrót zajmuje zwykle od kilku do kilkunastu tygodni, a po rekonstrukcji więzadeł od kilku do nawet dziewięciu miesięcy. Czas zależy też od wieku, aktywności i systematyczności ćwiczeń. Pośpiech zwiększa ryzyko nawrotu lub powikłań.'],
+                ['question' => 'Kiedy można chodzić i odstawić kule?', 'answer' => 'Po wielu zabiegach częściowe obciążanie jest możliwe już w pierwszych dniach, a kule odstawia się zwykle po 2-3 tygodniach, gdy wraca stabilność, pełny wyprost i chód bez bólu. Przy rozleglejszych naprawach, na przykład więzadeł czy chrząstki, schemat obciążania jest ostrożniejszy. Decyduje operator i fizjoterapeuta.'],
+                ['question' => 'Jakie ćwiczenia wykonuje się po artroskopii?', 'answer' => 'Na początku celem jest zmniejszenie obrzęku, odzyskanie pełnego zakresu ruchu i aktywacja mięśnia czworogłowego. Później dokłada się ćwiczenia wzmacniające mięśnie uda i pośladków, poprawę stabilizacji i równowagi, a na końcu ćwiczenia funkcjonalne i sportowe. Progresję ustala fizjoterapeuta na podstawie postępów.'],
+                ['question' => 'Kiedy można wrócić do biegania i sportu?', 'answer' => 'Rower stacjonarny wprowadza się zwykle po kilku tygodniach, trening siłowy około szóstego tygodnia, a bieganie zwykle nie wcześniej niż po 2-3 miesiącach. Sporty ze skokami i zmianami kierunku wymagają więcej czasu, często od 3 do 6 miesięcy, a po rekonstrukcji więzadeł dłużej. Powrót powinny potwierdzić testy funkcjonalne, nie tylko kalendarz.'],
+                ['question' => 'Co przyspiesza, a co opóźnia powrót do sprawności?', 'answer' => 'Powrót przyspiesza systematyczna rehabilitacja, wczesne uruchamianie według zaleceń, prawidłowa masa ciała i unikanie przeciążeń. Opóźniają go zaniedbanie ćwiczeń, zbyt wczesny powrót do obciążeń, utrzymujący się obrzęk i choroby współistniejące. Najlepsze efekty daje współpraca z fizjoterapeutą i cierpliwość.'],
+            ],
+            'sources' => [
+                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Knee Arthroscopy', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
+                ['authors' => '', 'title' => 'Artroskopia kolana - przygotowanie, powikłania, rehabilitacja (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'gips-czy-orteza' => [
+            'faq' => [
+                ['question' => 'Czym różni się gips od ortezy?', 'answer' => 'Gips daje sztywne, pełne unieruchomienie, jest ciężki i nie przepuszcza powietrza. Orteza to lżejszy, regulowany stabilizator, który można zdejmować, co ułatwia higienę i wczesną rehabilitację. Gips unieruchamia na stałe, orteza pozwala na kontrolowany, dozowany ruch.'],
+                ['question' => 'Kiedy lepszy jest gips, a kiedy orteza?', 'answer' => 'Gips sprawdza się przy niestabilnych złamaniach, złamaniach z przemieszczeniem oraz cięższych urazach wymagających pełnego unieruchomienia. Ortezę stosuje się przy skręceniach, stabilnych złamaniach i w okresie rehabilitacji, gdy ważne jest zachowanie częściowej ruchomości. O wyborze decyduje rodzaj urazu, nie preferencja pacjenta.'],
+                ['question' => 'Kto decyduje o wyborze unieruchomienia?', 'answer' => 'Decyzję podejmuje lekarz, najczęściej ortopeda, na podstawie badania i diagnostyki obrazowej (RTG). To rodzaj i stabilność uszkodzenia decydują, czy potrzebne jest sztywne unieruchomienie, czy wystarczy orteza. Samodzielna zamiana gipsu na ortezę bez konsultacji może zaszkodzić gojeniu.'],
+                ['question' => 'Jakie są zalety ortezy zamiast gipsu?', 'answer' => 'Orteza jest lżejsza, przewiewna i można ją zdejmować, co ułatwia mycie, kontrolę skóry i wczesne ćwiczenia. Zmniejsza ryzyko otarć, zaników mięśni i sztywności stawów związanych z długim unieruchomieniem. Nie zawsze jednak zapewnia wystarczającą stabilizację, dlatego nie zastąpi gipsu w każdym przypadku.'],
+                ['question' => 'Czy w gipsie albo ortezie można obciążać kończynę?', 'answer' => 'To zależy od urazu i zaleceń lekarza. Czasem konieczne jest pełne odciążenie i poruszanie się o kulach, a czasem dozwolone jest stopniowe obciążanie. Zarówno przy gipsie, jak i ortezie należy trzymać się indywidualnych wskazówek, bo przedwczesne obciążenie może zaburzyć gojenie.'],
+                ['question' => 'Na co uważać podczas noszenia gipsu lub ortezy?', 'answer' => 'Niepokojące są narastający ból, silny obrzęk, drętwienie, mrowienie, zasinienie lub zblednięcie palców oraz nieprzyjemny zapach spod opatrunku, bo mogą oznaczać za ciasne unieruchomienie lub powikłanie. W takich sytuacjach należy szybko skontaktować się z lekarzem. Gipsu nie wolno moczyć, a ortezę zakłada się zgodnie z instrukcją.'],
+            ],
+            'sources' => [
+                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Care of Casts and Splints', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
+                ['authors' => '', 'title' => 'Unieruchomienie po urazach - gips i ortezy (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'wady-postawy-u-dzieci' => [
+            'faq' => [
+                ['question' => 'Jakie są najczęstsze wady postawy u dzieci?', 'answer' => 'Do najczęstszych należą skolioza (boczne skrzywienie kręgosłupa), pogłębiona kifoza piersiowa (okrągłe plecy), a także wady kończyn dolnych i stóp, jak płaskostopie oraz koślawość lub szpotawość kolan. Wiele z nich rozwija się w okresach szybkiego wzrostu. Wczesne wykrycie ułatwia korekcję.'],
+                ['question' => 'Co sprzyja powstawaniu wad postawy?', 'answer' => 'Najczęściej siedzący tryb życia, mało ruchu, długie godziny przy biurku i telefonie oraz nadwaga. Znaczenie mają też utrwalone złe nawyki postawy, a część wad ma podłoże wrodzone lub chorobowe. Dlatego ważne są aktywność fizyczna i ergonomia nauki.'],
+                ['question' => 'Jak rozpoznać wadę postawy u dziecka?', 'answer' => 'Niepokoić powinny asymetria barków lub łopatek, wystający jeden bark, garbienie się, odstające łopatki, koślawienie kolan czy zapadnięte łuki stóp. Pomocna jest obserwacja sylwetki od tyłu i przy pochyleniu do przodu. W razie wątpliwości warto zgłosić się do lekarza lub fizjoterapeuty na ocenę.'],
+                ['question' => 'Jak koryguje się wady postawy?', 'answer' => 'Podstawą jest fizjoterapia: indywidualnie dobrane ćwiczenia rozluźniające mięśnie nadmiernie napięte i wzmacniające osłabione oraz nauka prawidłowej postawy. W skoliozie, zależnie od stopnia, stosuje się ćwiczenia specjalistyczne, a czasem gorset, rzadziej leczenie operacyjne. Plan zawsze dobiera się do rodzaju i nasilenia wady.'],
+                ['question' => 'Czy wada postawy sama minie, jeśli dziecko z niej wyrośnie?', 'answer' => 'Nie należy na to liczyć. Nieskorygowane wady mogą się utrwalać i pogłębiać w okresie szybkiego wzrostu, prowadząc do bólu i ograniczeń w przyszłości. Wczesna interwencja daje najlepsze efekty, dlatego lepiej skonsultować niepokojące zmiany, niż czekać. Regularna kontrola jest szczególnie ważna w okresie dojrzewania.'],
+                ['question' => 'Jak zapobiegać wadom postawy u dzieci?', 'answer' => 'Najwięcej daje codzienna aktywność fizyczna, ograniczenie siedzenia i czasu przed ekranem oraz dbanie o ergonomię miejsca do nauki i dobrze dobrany plecak. Pomaga też utrzymanie prawidłowej masy ciała i wygodne, dobrze dopasowane obuwie. Ruch i prawidłowe nawyki to najlepsza profilaktyka.'],
+            ],
+            'sources' => [
+                ['authors' => 'Negrini S., Donzelli S., Aulisa A.G. i wsp.', 'title' => '2016 SOSORT guidelines: orthopaedic and rehabilitation treatment of idiopathic scoliosis during growth', 'publisher' => 'Scoliosis and Spinal Disorders', 'note' => '2018; 13: 3'],
+                ['authors' => '', 'title' => 'Wady postawy u dzieci (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'dolegliwosci-miesni-i-stawow-u-ludzi-starszych' => [
+            'faq' => [
+                ['question' => 'Dlaczego z wiekiem częściej bolą mięśnie i stawy?', 'answer' => 'Z wiekiem chrząstka stawowa się zużywa, zmniejsza się masa i siła mięśni, a tkanki wolniej się regenerują. Najczęstszą przyczyną przewlekłego bólu stawów u seniorów jest choroba zwyrodnieniowa. Sprzyjają jej także nadwaga i wieloletnie przeciążenia.'],
+                ['question' => 'Jakie są typowe objawy choroby zwyrodnieniowej stawów?', 'answer' => 'Charakterystyczny jest ból nasilający się przy ruchu i obciążeniu, a w zaawansowanej postaci również w spoczynku i w nocy. Dołączają sztywność (zwłaszcza po dłuższym bezruchu), ograniczenie ruchomości i czasem trzeszczenie w stawie. Z czasem może dojść do osłabienia mięśni wokół stawu.'],
+                ['question' => 'Czy ból stawów u seniora to powód, by ograniczyć ruch?', 'answer' => 'Wręcz przeciwnie, bezruch zwykle pogarsza sprawność i nasila ból. Regularna, dostosowana aktywność (spacery, nordic walking, pływanie, ćwiczenia wzmacniające) odżywia stawy i wzmacnia mięśnie, które je stabilizują. Ruch trzeba dawkować rozsądnie, bez forsowania przez ostry ból.'],
+                ['question' => 'Jak łagodzić ból mięśni i stawów na co dzień?', 'answer' => 'Pomagają utrzymanie prawidłowej masy ciała, regularne ćwiczenia, ciepłe okłady na sztywność i zimne na ostry ból z obrzękiem oraz fizykoterapia. Doraźnie stosuje się leki przeciwbólowe, ale ich dłuższe używanie warto uzgodnić z lekarzem. Ważna jest też ergonomia codziennych czynności.'],
+                ['question' => 'Kiedy ból stawów u osoby starszej wymaga lekarza?', 'answer' => 'Do lekarza warto się zgłosić, gdy ból jest silny, utrzymuje się mimo leczenia domowego, ogranicza codzienne funkcjonowanie lub szybko się nasila. Niepokojące są obrzęk, zaczerwienienie i ocieplenie stawu, gorączka oraz ból po upadku, bo mogą wskazywać na inną przyczynę. Wtedy potrzebna jest diagnostyka.'],
+                ['question' => 'Czy chorobę zwyrodnieniową da się wyleczyć?', 'answer' => 'Zmian zwyrodnieniowych nie da się cofnąć, ale można skutecznie kontrolować objawy i spowalniać postęp. Podstawą jest leczenie zachowawcze: ruch, wzmacnianie mięśni, redukcja masy ciała i fizjoterapia. W zaawansowanych przypadkach z dużym bólem rozważa się leczenie operacyjne, na przykład endoprotezę.'],
+            ],
+            'sources' => [
+                ['authors' => 'Kolasinski S.L., Neogi T., Hochberg M.C. i wsp.', 'title' => '2019 American College of Rheumatology/Arthritis Foundation Guideline for the Management of Osteoarthritis of the Hand, Hip, and Knee', 'publisher' => 'Arthritis & Rheumatology', 'note' => '2020; 72(2): 220-233'],
+                ['authors' => '', 'title' => 'Choroba zwyrodnieniowa stawów (materiały dla pacjentów)', 'publisher' => 'Medycyna Praktyczna (mp.pl)', 'note' => ''],
+            ],
+        ],
+        'barefooting-sztuka-chodzenia-boso-i-jej-wplyw-na-zdrowie-stop' => [
+            'faq' => [
+                ['question' => 'Czym jest barefooting?', 'answer' => 'To chodzenie boso lub w obuwiu minimalistycznym (barefoot), które ma cienką, elastyczną podeszwę i szeroki przód, naśladując naturalny ruch stopy. Chodzi o to, by stopa pracowała swobodnie, bez sztywnego usztywnienia typowego dla klasycznych butów. To styl ruchu, a nie jednorazowy zabieg.'],
+                ['question' => 'Czy chodzenie boso jest zdrowe dla stóp?', 'answer' => 'Może być korzystne. Angażuje drobne mięśnie stopy, które w sztywnych butach pracują mniej, co z czasem wzmacnia stopę i może poprawiać czucie podłoża oraz równowagę. Badania pokazują, że regularne chodzenie w obuwiu minimalistycznym wzmacnia mięśnie stopy podobnie jak ćwiczenia wzmacniające. Korzyść zależy jednak od stopniowego, rozsądnego wdrażania.'],
+                ['question' => 'Jak bezpiecznie zacząć przygodę z barefootingiem?', 'answer' => 'Najważniejsza jest stopniowość, bo stopy i ścięgna potrzebują czasu na adaptację. Zaczyna się od krótkich spacerów boso po bezpiecznym podłożu lub od noszenia butów minimalistycznych przez część dnia, powoli wydłużając czas. Zbyt szybkie przejście zwiększa ryzyko przeciążeń i urazów.'],
+                ['question' => 'Jakie są korzyści butów minimalistycznych?', 'answer' => 'Chronią stopę przed urazami, a jednocześnie nie ograniczają jej naturalnej biomechaniki, dzięki czemu mięśnie stopy pracują aktywniej. Z czasem może to zwiększyć siłę stopy i poprawić stabilność. Buty barefoot to jednak narzędzie, które wymaga okresu przyzwyczajania, a nie gwarancja zdrowia z dnia na dzień.'],
+                ['question' => 'Dla kogo barefooting może być niewskazany?', 'answer' => 'Ostrożność powinny zachować osoby z istniejącymi problemami stóp, na przykład zaawansowanym płaskostopiem, paluchem koślawym, neuropatią czy cukrzycą, a także po urazach. U nich nagła zmiana obuwia może nasilić dolegliwości. Takie osoby powinny skonsultować się z fizjoterapeutą lub podologiem przed zmianą.'],
+                ['question' => 'Czy boso można chodzić wszędzie?', 'answer' => 'Nie zawsze warto. Na nierównym, twardym lub zanieczyszczonym podłożu rośnie ryzyko skaleczeń i urazów, dlatego rozsądny jest wybór bezpiecznego terenu lub butów minimalistycznych. Barefooting to proces adaptacji wymagający uwagi, a nie chodzenie boso na siłę w każdych warunkach.'],
+            ],
+            'sources' => [
+                ['authors' => 'Ridge S.T., Olsen M.T., Bruening D.A. i wsp.', 'title' => 'Walking in Minimalist Shoes Is Effective for Strengthening Foot Muscles', 'publisher' => 'Medicine & Science in Sports & Exercise', 'note' => '2019; 51(1): 104-113'],
+                ['authors' => '', 'title' => 'Daily activity in minimal footwear increases foot strength', 'publisher' => 'Scientific Reports', 'note' => '2021'],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v20', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {
