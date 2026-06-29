@@ -2655,6 +2655,52 @@ add_action('init', function () {
 });
 
 /**
+ * v17 - rekonstrukcja-wiezadla-krzyzowego (14127): CLASSIC editor, FAQ w post_content
+ * jako blok wp:html (naglowek + faq-container microdata + osobny skrypt ld+json = 2x FAQPage).
+ * FAQ blok wycinany z post_content osobnym skryptem. FAQ napisany od nowa (research SERP/PAA)
+ * + zweryfikowane zrodla. UWAGA: w body zostaje stara bibliografia (Acta Clinica 2002 itd.).
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v17')) return;
+
+    $articles = [
+        'rekonstrukcja-wiezadla-krzyzowego-co-trzeba-wiedziec' => [
+            'faq' => [
+                ['question' => 'Czym jest rekonstrukcja więzadła krzyżowego przedniego (ACL)?', 'answer' => 'To zabieg odtworzenia zerwanego więzadła krzyżowego przedniego za pomocą przeszczepu, najczęściej z własnych ścięgien pacjenta. Wykonuje się go artroskopowo, przez niewielkie nacięcia. Celem jest przywrócenie stabilności kolana, bo zerwane ACL nie zrasta się samoistnie.'],
+                ['question' => 'Kiedy konieczna jest operacja, a kiedy wystarczy rehabilitacja?', 'answer' => 'Decyzję podejmuje ortopeda na podstawie stopnia niestabilności, wieku, aktywności i towarzyszących uszkodzeń, na przykład łąkotek. Rekonstrukcję zaleca się zwłaszcza osobom aktywnym i uprawiającym sport ze skrętami kolana oraz przy uczuciu uciekania kolana. Część pacjentów mniej obciążających kolano może leczyć się zachowawczo, intensywną rehabilitacją.'],
+                ['question' => 'Jak wygląda zabieg i ile trwa pobyt w szpitalu?', 'answer' => 'Operację przeprowadza się artroskopowo, zwykle trwa od około półtorej do dwóch godzin. Najczęściej wiąże się z krótką hospitalizacją, często jedną dobą. Po zabiegu przez kilka tygodni chodzi się o kulach, stopniowo zwiększając obciążanie nogi według zaleceń.'],
+                ['question' => 'Ile trwa rehabilitacja po rekonstrukcji ACL?', 'answer' => 'Rehabilitacja zaczyna się już w pierwszych dobach po operacji i trwa wiele miesięcy. Powrót do codziennej sprawności zajmuje zwykle około 10-12 tygodni, a pełny powrót do sportu od 9 do 12 miesięcy. Tempo zależy od rodzaju przeszczepu, dyscypliny i konsekwencji w ćwiczeniach.'],
+                ['question' => 'Kiedy można wrócić do sportu po rekonstrukcji więzadła?', 'answer' => 'Powrót do pełnej aktywności sportowej jest możliwy najczęściej nie wcześniej niż po 9-12 miesiącach i powinien zależeć od wyników testów funkcjonalnych, a nie tylko od upływu czasu. Zbyt wczesny powrót zwiększa ryzyko ponownego zerwania przeszczepu. Trening siłowy i wytrzymałościowy wprowadza się zwykle wcześniej, około 6-8 miesiąca.'],
+                ['question' => 'Jakie są możliwe powikłania po rekonstrukcji ACL?', 'answer' => 'Większość operacji przebiega bez poważnych problemów, ale jak po każdym zabiegu możliwe są ograniczenie ruchu, obrzęk, ból w miejscu pobrania przeszczepu, rzadziej infekcja, zakrzepica czy niewydolność przeszczepu. Ryzyko zmniejsza prawidłowa rehabilitacja i przestrzeganie zaleceń. Niepokojące objawy warto szybko zgłosić lekarzowi.'],
+            ],
+            'sources' => [
+                ['authors' => 'Filbay S.R., Grindem H.', 'title' => 'Evidence-based recommendations for the management of anterior cruciate ligament (ACL) rupture', 'publisher' => 'Best Practice & Research Clinical Rheumatology', 'note' => '2019; 33(1): 33-47'],
+                ['authors' => 'Musahl V., Karlsson J.', 'title' => 'Anterior Cruciate Ligament Tear', 'publisher' => 'New England Journal of Medicine', 'note' => '2019; 380(24): 2341-2348'],
+                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Anterior Cruciate Ligament (ACL) Injuries', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v17', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {

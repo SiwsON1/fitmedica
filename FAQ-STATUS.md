@@ -89,8 +89,13 @@ Nowy idealny FAQ z PAA/SERP, stare widgety FAQ usuniete (backup `_elementor_data
 - bole-bioder (10367) - widget a0b39d3. Zrodla: Kolasinski ACR OA 2019/2020, AAOS Osteoarthritis of the Hip
 - zlamanie-kosci-srodstopia (4270) - widget cb8f1e5. Zrodla: AAOS Metatarsal Fractures, EFORT Open Reviews 2022
 
-### DO ZROBIENIA (ostatni)
-- rekonstrukcja-wiezadla-krzyzowego (14127) - CLASSIC editor, FAQ w post_content, 2x FAQPage (mozliwy podwojny schema) - przy migracji wyciac FAQ z body + plugin (research-driven)
+### ZROBIONE 2026-06-29 - blok v17 (ostatni z listy)
+- rekonstrukcja-wiezadla-krzyzowego (14127) - CLASSIC editor. FAQ siedzial w post_content jako blok wp:html (naglowek + faq-container microdata + osobny skrypt ld+json = 2x FAQPage). Wyciety z post_content (backup w meta `_post_content_bak_faqmig17`), plugin przejal FAQ (6) + zrodla (3: Filbay/Grindem 2019, Musahl/Karlsson NEJM 2019, AAOS ACL). FAQPage teraz 1.
+  - FLAGA: w body zostala STARA bibliografia (Acta Clinica 1/2002, Zabek A. itd.) - wspolistnieje z nowa sekcja Zrodla z pluginu (2 listy zrodel). Do decyzji czy usunac stara bibliografie.
+
+## STATUS KONCOWY (2026-06-29): wszystkie 15 wpisow z listy FAQ ogarniete
+- 4 byly juz w pluginie (lokiec-tenisisty, lokiec-golfisty, szpotawosc-kolan, torbiel-nad-kolanem)
+- 11 zmigrowanych/napisanych dzis: kolano(v12), ciesn(v13), bark(v14, byl bledny FAQ), czerniak(v15, od zera), dna+RZS+lordoza+krecz+biodra+srodstopie(v16), ACL(v17)
 
 ## Zrodla - zasada
 Kazde zrodlo naukowe zweryfikowane (PubMed/PMID/DOI) przed wpisaniem. Zero zmyslonych cytowan.
