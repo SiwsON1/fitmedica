@@ -80,16 +80,17 @@ Audyt bazy (body vs plugin vs editor) pokazal realny stan. NOWA ZASADA (Marcin 2
 - zespol-zamrozonego-barku (4896) -> v14. UWAGA: na zywej stronie byl BLEDNY FAQ (o ZLAMANIACH!), usuniety widget 4e015e11, backup `_elementor_data_bak_faqmig14`. Napisany nowy FAQ barkowy (6) + 3 zrodla (Neviaser/Hannafin 2010, Le 2017, AAOS).
 - jak-wyglada-czerniak (13730) -> v15. Nie mial FAQ, napisany od zera (6) + 3 zrodla (Schadendorf Lancet 2018, wytyczne PTOK Rutkowski, AAD). Builder bez widgetu, samo wpiecie pluginem.
 
-### DO ZROBIENIA - research-driven FAQ + zrodla, potem plugin + usun widget
-Wszystkie Elementor (builder), FAQ w widgecie, NIE w pluginie. Trzeba napisac idealny FAQ z researchu (stary bywa slaby), zweryfikowac zrodla, wpiac plugin, usunac widget:
-- dna-moczanowa (4903) - stary FAQ 8 pyt, brak zrodel
-- reumatoidalne-zapalenie-stawow (3323) - stary FAQ 12 pyt, brak zrodel
-- lordoza-szyjna (4244) - stary FAQ 11 pyt, brak zrodel
-- krecz-szyi (4476) - stary FAQ 10 pyt, brak zrodel
-- bole-bioder (10367) - stary FAQ 9 pyt, brak zrodel
-- zlamanie-kosci-srodstopia (4270) - stary FAQ 8 pyt, brak zrodel
-- jak-wyglada-czerniak (13730) - BRAK markup FAQ w ogole, FAQ od zera
-- rekonstrukcja-wiezadla-krzyzowego (14127) - CLASSIC editor, FAQ w post_content, 2x FAQPage (mozliwy podwojny schema) - przy migracji wyciac FAQ z body
+### ZROBIONE 2026-06-29 - blok v16 (research-driven, 6 wpisow, zweryfikowane zrodla)
+Nowy idealny FAQ z PAA/SERP, stare widgety FAQ usuniete (backup `_elementor_data_bak_faqmig16`), plugin przejal 6 pyt + 2 zrodla kazdy:
+- dna-moczanowa (4903) - widget 1b30d7f. Zrodla: EULAR/Richette 2017, Dalbeth Gout Lancet 2016
+- reumatoidalne-zapalenie-stawow (3323) - widget 992e5cd. Zrodla: Smolen RA Lancet 2016, ACR
+- lordoza-szyjna (4244) - widget 4967ac8. Zrodla: Scheer J Neurosurg Spine 2013, AAOS Neck Pain
+- krecz-szyi (4476) - widget f04f525. Zrodla: Kaplan CMT CPG 2018, AAOS Congenital Muscular Torticollis
+- bole-bioder (10367) - widget a0b39d3. Zrodla: Kolasinski ACR OA 2019/2020, AAOS Osteoarthritis of the Hip
+- zlamanie-kosci-srodstopia (4270) - widget cb8f1e5. Zrodla: AAOS Metatarsal Fractures, EFORT Open Reviews 2022
+
+### DO ZROBIENIA (ostatni)
+- rekonstrukcja-wiezadla-krzyzowego (14127) - CLASSIC editor, FAQ w post_content, 2x FAQPage (mozliwy podwojny schema) - przy migracji wyciac FAQ z body + plugin (research-driven)
 
 ## Zrodla - zasada
 Kazde zrodlo naukowe zweryfikowane (PubMed/PMID/DOI) przed wpisaniem. Zero zmyslonych cytowan.

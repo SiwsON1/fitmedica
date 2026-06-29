@@ -2540,6 +2540,121 @@ add_action('init', function () {
 });
 
 /**
+ * v16 - migracja 6 wpisow Elementor (FAQ w widgecie, bez zrodel) do pluginu.
+ * FAQ napisane od nowa na bazie researchu SERP/People Also Ask (stare bywaly slabe),
+ * kazdy ze zweryfikowanymi zrodlami. Widgety FAQ usuwane osobnym skryptem.
+ * dna-moczanowa(4903) RZS(3323) lordoza-szyjna(4244) krecz-szyi(4476) bole-bioder(10367) zlamanie-srodstopia(4270)
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v16')) return;
+
+    $articles = [
+        'dna-moczanowa' => [
+            'faq' => [
+                ['question' => 'Czym jest dna moczanowa i skąd się bierze?', 'answer' => 'To zapalna choroba stawów wywołana odkładaniem się kryształów kwasu moczowego w stawach, gdy jego stężenie we krwi jest długo zbyt wysokie. Sprzyjają temu predyspozycje genetyczne, dieta bogata w puryny, alkohol, otyłość i niektóre leki. Pierwszy atak najczęściej dotyczy stawu u nasady dużego palca stopy.'],
+                ['question' => 'Jak wygląda atak dny moczanowej?', 'answer' => 'Atak zaczyna się nagle, często w nocy, gwałtownym bólem jednego stawu, który w ciągu kilkunastu godzin staje się trudny do zniesienia. Staw puchnie, skóra nad nim jest napięta, zaczerwieniona i gorąca, a czasem pojawia się gorączka. Nieleczony napad zwykle ustępuje po około dwóch tygodniach, ale to nie znaczy, że choroba minęła.'],
+                ['question' => 'Czy dnę moczanową można wyleczyć?', 'answer' => 'Dna jest chorobą przewlekłą, więc nie da się jej wyleczyć raz na zawsze, ale można ją w pełni kontrolować. Leczenie obniżające kwas moczowy (na przykład allopurinol), prowadzone do osiągnięcia docelowego stężenia, pozwala rozpuścić złogi i zapobiec kolejnym atakom. U wielu chorych przy konsekwentnym leczeniu objawy nie wracają.'],
+                ['question' => 'Co jeść, a czego unikać przy dnie moczanowej?', 'answer' => 'Warto ograniczyć produkty bogate w puryny: podroby, czerwone mięso, część owoców morza oraz alkohol, zwłaszcza piwo i mocne trunki. Niekorzystne są też napoje słodzone fruktozą. Pomaga picie dużej ilości wody, utrzymanie prawidłowej masy ciała i dieta oparta na warzywach oraz nabiale o niskiej zawartości tłuszczu. Dieta wspiera leczenie, ale go nie zastępuje.'],
+                ['question' => 'Jakie badania potwierdzają dnę moczanową?', 'answer' => 'Lekarz ocenia objawy i zwykle bada stężenie kwasu moczowego we krwi, choć w czasie samego ataku może ono być prawidłowe. Najpewniejszym dowodem jest wykrycie kryształów moczanu sodu w płynie pobranym ze stawu. Pomocne bywa też USG stawu, które uwidacznia złogi.'],
+                ['question' => 'Kiedy pilnie zgłosić się do lekarza?', 'answer' => 'Pilnej oceny wymaga silnie obrzęknięty, gorący i bardzo bolesny staw, zwłaszcza z gorączką, bo objawy dny bywają nie do odróżnienia od zakażenia stawu, które jest stanem nagłym. Z lekarzem warto skonsultować się również wtedy, gdy ataki się powtarzają, by włączyć leczenie obniżające kwas moczowy.'],
+            ],
+            'sources' => [
+                ['authors' => 'Richette P., Doherty M., Pascual E. i wsp.', 'title' => '2016 updated EULAR evidence-based recommendations for the management of gout', 'publisher' => 'Annals of the Rheumatic Diseases', 'note' => '2017; 76(1): 29-42'],
+                ['authors' => 'Dalbeth N., Merriman T.R., Stamp L.K.', 'title' => 'Gout', 'publisher' => 'The Lancet', 'note' => '2016; 388(10055): 2039-2052'],
+            ],
+        ],
+        'reumatoidalne-zapalenie-stawow' => [
+            'faq' => [
+                ['question' => 'Czym jest reumatoidalne zapalenie stawów (RZS)?', 'answer' => 'To przewlekła choroba autoimmunologiczna, w której układ odpornościowy atakuje błonę maziową stawów, wywołując ich zapalenie. Nieleczone RZS prowadzi do uszkodzenia chrząstki i kości oraz trwałych zniekształceń. Choroba dotyczy częściej kobiet i może zacząć się w każdym wieku.'],
+                ['question' => 'Jakie są pierwsze objawy RZS?', 'answer' => 'Charakterystyczna jest poranna sztywność stawów trwająca dłużej niż godzinę oraz symetryczny ból i obrzęk drobnych stawów rąk i stóp. Codzienne czynności, jak zapinanie guzików czy przekręcanie klucza, stają się trudniejsze. Mogą dołączyć zmęczenie, stany podgorączkowe i ogólne osłabienie.'],
+                ['question' => 'Czy RZS można wyleczyć?', 'answer' => 'Całkowite wyleczenie nie jest dziś możliwe, ale nowoczesne leczenie pozwala u większości chorych uzyskać remisję, czyli wyciszenie choroby. Kluczowe jest wczesne rozpoczęcie terapii, najlepiej w pierwszych miesiącach, bo wtedy można zatrzymać niszczenie stawów. Im później, tym większe ryzyko trwałych zmian.'],
+                ['question' => 'Jak rozpoznaje się RZS?', 'answer' => 'Rozpoznanie opiera się na obrazie klinicznym, badaniu stawów oraz badaniach krwi: czynnik reumatoidalny, przeciwciała anty-CCP, OB i CRP. Pomocne są też badania obrazowe (USG, RTG, czasem rezonans), które pokazują zapalenie i wczesne uszkodzenia. Diagnozę i leczenie prowadzi reumatolog.'],
+                ['question' => 'Jak wygląda leczenie reumatoidalnego zapalenia stawów?', 'answer' => 'Podstawą są leki modyfikujące przebieg choroby (na przykład metotreksat), a w razie potrzeby leki biologiczne i celowane. Uzupełniają je leki przeciwzapalne na objawy, fizjoterapia oraz aktywność dopasowana do możliwości. Leczenie prowadzi się w strategii dążenia do celu, czyli do remisji lub niskiej aktywności choroby.'],
+                ['question' => 'Czy RZS dotyczy tylko stawów?', 'answer' => 'Nie. RZS to choroba całego organizmu i poza stawami może zajmować inne narządy, dając między innymi guzki reumatoidalne, suchość oczu i ust, zmiany w płucach czy zwiększone ryzyko chorób serca. Dlatego ważna jest regularna opieka reumatologiczna i kontrola czynników ryzyka.'],
+            ],
+            'sources' => [
+                ['authors' => 'Smolen J.S., Aletaha D., McInnes I.B.', 'title' => 'Rheumatoid arthritis', 'publisher' => 'The Lancet', 'note' => '2016; 388(10055): 2023-2038'],
+                ['authors' => 'American College of Rheumatology', 'title' => 'Rheumatoid Arthritis (RA)', 'publisher' => 'ACR', 'note' => 'Materiał edukacyjny dla pacjentów'],
+            ],
+        ],
+        'lordoza-szyjna-fizjologia-zaburzenia-sposoby-postepowania' => [
+            'faq' => [
+                ['question' => 'Czy lordoza szyjna to choroba?', 'answer' => 'Nie, fizjologiczna lordoza szyjna to naturalne, łukowate wygięcie odcinka szyjnego do przodu, które amortyzuje obciążenia i pomaga utrzymać głowę. Problemem jest dopiero jej zaburzenie: pogłębienie (hiperlordoza) albo spłycenie lub zniesienie, czyli wyprostowanie szyi. To te odchylenia, a nie sama lordoza, dają objawy.'],
+                ['question' => 'Jakie są objawy zniesionej lordozy szyjnej?', 'answer' => 'Najczęściej pojawiają się ból i sztywność karku, napięcie mięśni, ograniczenie ruchomości szyi oraz bóle głowy. Mogą dołączyć mrowienie lub drętwienie rąk, zawroty głowy i szumy uszne, gdy dojdzie do podrażnienia nerwów. Objawy często nasilają się po długim siedzeniu przy biurku lub patrzeniu w telefon.'],
+                ['question' => 'Co powoduje spłycenie lordozy szyjnej?', 'answer' => 'Najczęstszą przyczyną jest długotrwała wadliwa postawa, zwłaszcza wysunięcie głowy do przodu przy pracy z komputerem i telefonem. Sprzyjają temu też przeciążenia, urazy (na przykład typu smagnięcia biczem), napięcie mięśni i zmiany zwyrodnieniowe. Z czasem mięśnie i krzywizna szyi adaptują się do złej pozycji.'],
+                ['question' => 'Czy lordoza szyjna może powodować ból głowy?', 'answer' => 'Tak, to częsty objaw. Napięte mięśnie karku i szyi oraz podrażnienie struktur górnego odcinka szyjnego mogą wywoływać bóle głowy, najczęściej odczuwane z tyłu głowy i promieniujące do skroni lub potylicy. Taki ból często łączy się ze sztywnością karku i nasila po długim trzymaniu głowy w jednej pozycji.'],
+                ['question' => 'Jak leczy się zaburzenia lordozy szyjnej?', 'answer' => 'Podstawą jest fizjoterapia: ćwiczenia wzmacniające i rozciągające mięśnie szyi i obręczy barkowej, terapia manualna oraz korekcja postawy i ergonomii stanowiska pracy. Pomocne bywają leki przeciwbólowe na okresy zaostrzeń. Plan ćwiczeń powinien dobrać fizjoterapeuta, bo zależy od przyczyny i stopnia zaburzenia.'],
+                ['question' => 'Czym grozi nieleczone zniesienie lordozy szyjnej?', 'answer' => 'Utrzymujące się złe ustawienie szyi może nasilać przeciążenia, przyspieszać zmiany zwyrodnieniowe krążków i stawów oraz utrwalać przewlekły ból i bóle głowy. Może też zwiększać ryzyko ucisku na nerwy z drętwieniem rąk. Wczesna korekcja postawy i ćwiczenia zmniejszają ryzyko tych następstw.'],
+            ],
+            'sources' => [
+                ['authors' => 'Scheer J.K., Tang J.A., Smith J.S. i wsp.', 'title' => 'Cervical spine alignment, sagittal deformity, and clinical implications: a review', 'publisher' => 'Journal of Neurosurgery: Spine', 'note' => '2013; 19(2): 141-159'],
+                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Neck Pain (Cervical)', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
+            ],
+        ],
+        'krecz-szyi-przyczyny-objawy-i-leczenie' => [
+            'faq' => [
+                ['question' => 'Co to jest kręcz szyi?', 'answer' => 'To utrwalone, wymuszone przekrzywienie głowy w jedną stronę z jej obrotem w przeciwną, wynikające z nieprawidłowego napięcia lub skrócenia mięśni szyi. Może być wrodzony u niemowląt albo nabyty u dzieci i dorosłych. Najczęstsza wrodzona postać wiąże się ze skróceniem mięśnia mostkowo-obojczykowo-sutkowego.'],
+                ['question' => 'Jak rozpoznać kręcz szyi u niemowlęcia?', 'answer' => 'Dziecko stale trzyma główkę przechyloną w jedną stronę i obróconą w drugą, niechętnie odwraca ją na przeciwną stronę i może mieć spłaszczenie potylicy. Czasem pod skórą szyi wyczuwa się zgrubienie mięśnia. Takie objawy warto jak najwcześniej pokazać fizjoterapeucie lub pediatrze.'],
+                ['question' => 'Czy kręcz szyi u dziecka można wyleczyć?', 'answer' => 'Tak, zwłaszcza wcześnie wykryty kręcz wrodzony bardzo dobrze reaguje na fizjoterapię. Podstawą są ćwiczenia rozciągające i pozycjonowanie, które przywracają symetrię ruchu. Im wcześniej rozpocznie się terapię, tym lepszy efekt, dlatego nie warto czekać, aż dziecko z tego wyrośnie.'],
+                ['question' => 'Skąd bierze się kręcz szyi u dorosłych?', 'answer' => 'U dorosłych kręcz najczęściej nie jest wrodzony. Bywa skutkiem przeciążenia, urazu, spania w złej pozycji czy infekcji, a osobną postacią jest kurczowy kręcz karku (dystonia szyjna), w którym mięśnie mimowolnie się napinają. Przyczyna decyduje o sposobie leczenia, dlatego ważna jest diagnostyka.'],
+                ['question' => 'Jak leczy się kręcz szyi?', 'answer' => 'U dzieci podstawą jest fizjoterapia z ćwiczeniami rozciągającymi i pozycjonowaniem. U dorosłych stosuje się terapię manualną, ćwiczenia, kinesiotaping, leki rozluźniające mięśnie i przeciwbólowe, a w dystonii szyjnej skuteczne bywają iniekcje toksyny botulinowej. Leczenie operacyjne rozważa się rzadko, gdy inne metody zawodzą.'],
+                ['question' => 'Czym grozi nieleczony kręcz szyi?', 'answer' => 'Nieleczony, długotrwały kręcz może utrwalić asymetrię, ograniczyć ruchomość szyi, a u niemowląt sprzyjać asymetrii twarzy i spłaszczeniu główki. U dorosłych przewlekłe napięcie nasila ból i pogarsza komfort życia. Wczesne leczenie zmniejsza ryzyko trwałych następstw.'],
+            ],
+            'sources' => [
+                ['authors' => 'Kaplan S.L., Coulter C., Sargent B.', 'title' => 'Physical Therapy Management of Congenital Muscular Torticollis: A 2018 Evidence-Based Clinical Practice Guideline', 'publisher' => 'Pediatric Physical Therapy', 'note' => '2018; 30(4): 240-290'],
+                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Congenital Muscular Torticollis', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
+            ],
+        ],
+        'bole-bioder-przyczyny-objawy-i-profilaktyka' => [
+            'faq' => [
+                ['question' => 'Co najczęściej powoduje ból biodra?', 'answer' => 'Przyczyn jest wiele. U starszych osób częsta jest choroba zwyrodnieniowa stawu biodrowego (koksartroza), u aktywnych przeciążenia, zapalenie kaletki czy ścięgien. Ból w okolicy biodra bywa też przeniesiony z kręgosłupa lędźwiowego, na przykład w rwie kulszowej. Lokalizacja i charakter bólu pomagają ustalić źródło.'],
+                ['question' => 'Dlaczego biodro boli najbardziej w nocy?', 'answer' => 'Leżenie na chorym boku zwiększa nacisk na staw i otaczające tkanki, a bezruch sprzyja sztywności, dlatego ból bywa silniejszy w nocy i potrafi wybudzać ze snu. Ulgę często daje zmiana pozycji i poduszka między kolanami. Nasilający się ból nocny warto skonsultować z lekarzem.'],
+                ['question' => 'Kiedy ból biodra wymaga pilnej konsultacji?', 'answer' => 'Pilnej oceny wymaga ból po upadku lub urazie, niemożność obciążenia nogi, deformacja, a także ból z gorączką, zaczerwienieniem stawu lub nagłym osłabieniem nogi. Niepokojący jest też ból szybko narastający i niereagujący na odpoczynek. W takich sytuacjach nie należy zwlekać z wizytą.'],
+                ['question' => 'Jak ustala się przyczynę bólu biodra?', 'answer' => 'Lekarz przeprowadza wywiad i badanie, oceniając zakres ruchu i miejsca tkliwości, a w razie potrzeby zleca badania obrazowe: RTG, USG lub rezonans. Czasem pomocne są badania krwi, gdy podejrzewa się stan zapalny. Dokładne rozpoznanie pozwala dobrać właściwe leczenie.'],
+                ['question' => 'Jak leczy się ból biodra?', 'answer' => 'W większości przypadków wystarcza leczenie zachowawcze: modyfikacja aktywności, redukcja masy ciała, fizjoterapia oraz leki przeciwbólowe i przeciwzapalne. W chorobie zwyrodnieniowej kluczowe są regularne ćwiczenia i wzmacnianie mięśni. Leczenie operacyjne, na przykład wszczepienie endoprotezy, rozważa się przy zaawansowanych zmianach i utrzymującym się bólu.'],
+                ['question' => 'Czy ćwiczenia pomagają na ból biodra?', 'answer' => 'Tak, odpowiednio dobrane ćwiczenia to jeden z najskuteczniejszych sposobów. Wzmacnianie mięśni pośladków i ud oraz ćwiczenia poprawiające zakres ruchu odciążają staw i zmniejszają ból. Ważne, by były dopasowane do przyczyny i wykonywane regularnie, bez forsowania przez ostry ból. Plan najlepiej ustalić z fizjoterapeutą.'],
+            ],
+            'sources' => [
+                ['authors' => 'Kolasinski S.L., Neogi T., Hochberg M.C. i wsp.', 'title' => '2019 American College of Rheumatology/Arthritis Foundation Guideline for the Management of Osteoarthritis of the Hand, Hip, and Knee', 'publisher' => 'Arthritis & Rheumatology', 'note' => '2020; 72(2): 220-233'],
+                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Osteoarthritis of the Hip', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
+            ],
+        ],
+        'zlamanie-kosci-srodstopia-definicja-objawy-leczenie' => [
+            'faq' => [
+                ['question' => 'Po czym poznać złamanie kości śródstopia?', 'answer' => 'Typowy jest ostry, kłujący ból w środkowej lub bocznej części stopy, który nasila się przy każdym kroku i ustępuje po odciążeniu. Szybko dołącza obrzęk i zasinienie, a czasem widoczne zniekształcenie. Ból utrudniający chodzenie po urazie wymaga zdjęcia RTG, które potwierdza złamanie.'],
+                ['question' => 'Czy przy złamaniu śródstopia można chodzić?', 'answer' => 'Czasem da się stąpać mimo bólu, ale nie znaczy to, że stopa jest zdrowa. W okresie leczenia zwykle odciąża się stopę, korzystając z kul, ortezy lub buta ortopedycznego. Pełne obciążanie wprowadza się dopiero, gdy kontrolne RTG pokaże zrost. Chodzenie na siłę grozi przemieszczeniem odłamów.'],
+                ['question' => 'Ile goi się złamanie kości śródstopia?', 'answer' => 'Niepowikłane złamanie zrasta się zwykle w ciągu 6-8 tygodni, a powrót do pełnej aktywności zajmuje około 2-3 miesięcy. Złamania z przemieszczeniem lub wieloodłamowe goją się dłużej. Czas zależy też od tego, której kości dotyczy uraz, bo niektóre okolice mają gorsze ukrwienie i zrastają się wolniej.'],
+                ['question' => 'Gips, orteza czy but ortopedyczny?', 'answer' => 'To zależy od rodzaju i lokalizacji złamania. Złamania bez przemieszczenia często leczy się ortezą lub specjalnym butem ortopedycznym, które unieruchamiają stopę i pozwalają na kontrolowane chodzenie. Gips bywa potrzebny w innych przypadkach. O wyborze decyduje lekarz na podstawie zdjęcia RTG.'],
+                ['question' => 'Kiedy złamanie śródstopia wymaga operacji?', 'answer' => 'Operację rozważa się przy złamaniach z wyraźnym przemieszczeniem, wieloodłamowych oraz w okolicach o słabym ukrwieniu, gdzie ryzyko braku zrostu jest większe (dotyczy to części złamań piątej kości śródstopia). Zabieg polega zwykle na stabilizacji odłamów, na przykład śrubą. W większości przypadków wystarcza jednak leczenie zachowawcze.'],
+                ['question' => 'Jak wygląda powrót do sprawności po złamaniu śródstopia?', 'answer' => 'Po uzyskaniu zrostu wprowadza się rehabilitację: naukę prawidłowego obciążania, ćwiczenia poprawiające zakres ruchu, a potem wzmacniające mięśnie stopy i podudzia. Powrót do biegania i sportu jest stopniowy, gdy ustąpi ból i wróci pełna ruchomość. Zbyt szybki powrót do obciążeń zwiększa ryzyko ponownego urazu.'],
+            ],
+            'sources' => [
+                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Metatarsal Fractures', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
+                ['authors' => '', 'title' => 'Fifth metatarsal fractures: an update on management, complications, and outcomes', 'publisher' => 'EFORT Open Reviews', 'note' => '2022; 7(1)'],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v16', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {
