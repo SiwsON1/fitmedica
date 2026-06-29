@@ -57,11 +57,12 @@ Rejestr artykulow blogowych obrobionych pluginem `fitmedica-weryfikacja-medyczna
 | jakie-badania-na-prostate-wykonac | tak (6) | tak (2) | brak | PROD (2026-06-08) |
 | otylosc-u-dzieci | tak (6) | tak (2) | brak | PROD (2026-06-08) |
 | nietolerancja-pokarmowa-przyczyny-objawy-i-leczenie | tak (6) | tak (1) | brak | PROD (2026-06-08) |
+| kolano-biegacza | tak (6) | tak (4) | brak | PROD (2026-06-29, v12 - migracja z Elementora) |
 
 ### Maja FAQ wklejony w tresc (Elementor HTML widget) - NIE nasz plugin
 Te artykuly mialy juz FAQ w naszym wygladzie wklejony staticznie w body + wlasna schema FAQPage. NIE dodawac pluginem (byl duplikat 2026-06-05, usuniety przez delete_post_meta). Do ewentualnej migracji do pluginu trzeba najpierw usunac widget z tresci.
-- kolano-biegacza (ID 3349) - FAQ w body, 1 schema
-- zespol-ciesni-nadgarstka (ID 4902) - FAQ w body, 1 schema
+- ~~kolano-biegacza (ID 3349)~~ -> ZMIGROWANE do pluginu 2026-06-29 (blok v12). FAQ siedzial jako 2 widgety HTML w _elementor_data (sekcja id d044621: nag d9ad28d + faq-container 6c23b82, microdata FAQPage). Usunieto cala sekcje skryptem, backup w post_meta `_elementor_data_bak_faqmig12`. Plugin przejal FAQ (6) + dolozyl zrodla (4). UWAGA: FAQ+zrodla renderuja sie teraz pod blokiem "Dowiedz sie wiecej" (the_content docina na koncu).
+- zespol-ciesni-nadgarstka (ID 4902) - FAQ w body, 1 schema (Elementor HTML widget - jeszcze nie migrowane; analogicznie do kolana)
 
 ## MAJA FAQ W STARYM WYGLADZIE - DO PRZEROBIENIA (jeszcze nie zrobione)
 - lokiec-tenisisty-przyczyny-objawy-profilaktyka-i-mozliwosci-leczenia (FAQ 6 + schema + zrodla w body)
@@ -83,3 +84,6 @@ Kazde zrodlo naukowe zweryfikowane (PubMed/PMID/DOI) przed wpisaniem. Zero zmysl
 
 ## Lekcja 2026-06-05
 Rekonesans przed dodaniem MUSI grepowac sam `faq-container` w body, nie tylko naglowek FAQ i schema. kolano i ciesn mialy FAQ wklejony jako Elementor HTML widget (bez naglowka), recon to przeoczyl, plugin dolozyl duplikat na prodzie. Naprawione delete_post_meta + usuniecie z bloku v3.
+
+## Lekcja 2026-06-29 (migracja kolana)
+Wpisy blogowe fitmedica sa budowane ELEMENTOREM (`_elementor_edit_mode=builder`). Recon czytajacy `post_content` MYLI - to nieaktualny cache, front renderuje z `_elementor_data`. Realny FAQ/schema siedzi w widgetach HTML w `_elementor_data` (JSON). Migracja = znalezc widgety FAQ po id, usunac cala sekcje przez array_splice (z backupem _elementor_data do meta + walidacja ze ruszamy tylko widgety FAQ), wyczyscic Elementor CSS cache, potem plugin (blok vN) przejmuje FAQ+zrodla. Wzorzec skryptu migracji dziala - reuzyc dla ciesni-nadgarstka (4902) i listy DO PRZEROBIENIA.
