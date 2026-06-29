@@ -78,6 +78,7 @@ Audyt bazy (body vs plugin vs editor) pokazal realny stan. NOWA ZASADA (Marcin 2
 
 ### ZROBIONE 2026-06-29 (research-driven, nowy FAQ)
 - zespol-zamrozonego-barku (4896) -> v14. UWAGA: na zywej stronie byl BLEDNY FAQ (o ZLAMANIACH!), usuniety widget 4e015e11, backup `_elementor_data_bak_faqmig14`. Napisany nowy FAQ barkowy (6) + 3 zrodla (Neviaser/Hannafin 2010, Le 2017, AAOS).
+- jak-wyglada-czerniak (13730) -> v15. Nie mial FAQ, napisany od zera (6) + 3 zrodla (Schadendorf Lancet 2018, wytyczne PTOK Rutkowski, AAD). Builder bez widgetu, samo wpiecie pluginem.
 
 ### DO ZROBIENIA - research-driven FAQ + zrodla, potem plugin + usun widget
 Wszystkie Elementor (builder), FAQ w widgecie, NIE w pluginie. Trzeba napisac idealny FAQ z researchu (stary bywa slaby), zweryfikowac zrodla, wpiac plugin, usunac widget:

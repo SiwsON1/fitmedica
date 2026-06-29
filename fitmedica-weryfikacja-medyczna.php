@@ -2462,6 +2462,84 @@ add_action('init', function () {
 });
 
 /**
+ * v15 - jak-wyglada-czerniak (13730): wpis NIE mial markup FAQ (status mowil "FAQ jako proza").
+ * Napisany FAQ od zera na bazie researchu SERP/PAA + zweryfikowane zrodla onkologiczne.
+ * Builder bez widgetu FAQ -> tylko wpiecie pluginem, nic nie usuwamy z Elementora.
+ */
+add_action('init', function () {
+    if (get_option('fitmedica_faq_setup_v15')) return;
+
+    $articles = [
+        'jak-wyglada-czerniak-i-jak-rozpoznac-niepokojace-zmiany-skorne-profilaktyka-i-diagnostyka' => [
+            'faq' => [
+                [
+                    'question' => 'Jak wygląda czerniak i czym różni się od zwykłego pieprzyka?',
+                    'answer'   => 'Czerniak bywa ciemnym guzkiem albo płaską, wielobarwną plamą, która wygląda inaczej niż pozostałe znamiona na ciele. W odróżnieniu od zwykłego pieprzyka jest zwykle niesymetryczny, ma nieregularne brzegi, niejednolity kolor i z czasem się zmienia. Do oceny służy reguła ABCDE: A - asymetria, B - brzegi nieregularne, C - kolor niejednolity, D - średnica powyżej 6 mm, E - ewolucja, czyli zmiana wyglądu w czasie.',
+                ],
+                [
+                    'question' => 'Czy czerniak swędzi, boli lub krwawi?',
+                    'answer'   => 'We wczesnym stadium zwykle nie daje żadnych dolegliwości i to jest jego największa pułapka. Świąd zdarza się u części chorych, ale ból, pieczenie czy krwawienie pojawiają się najczęściej dopiero w zmianach bardziej zaawansowanych. Dlatego nie czekaj na ból. Liczy się przede wszystkim zmiana wyglądu znamienia, a nie to, czy ono boli.',
+                ],
+                [
+                    'question' => 'Jak szybko rośnie czerniak?',
+                    'answer'   => 'To zależy od typu. Czerniak szerzący się powierzchownie może przez długi czas pozostawać płaski, natomiast czerniak guzkowy rośnie szybko i wcześnie wnika w głąb skóry, co czyni go groźniejszym. Dlatego każda zmiana, która rośnie lub przekształca się w ciągu tygodni czy miesięcy, wymaga pilnej oceny, niezależnie od rozmiaru.',
+                ],
+                [
+                    'question' => 'Czy czerniak jest wyleczalny?',
+                    'answer'   => 'Wykryty wcześnie jest w dużej części przypadków wyleczalny, a podstawą leczenia jest chirurgiczne wycięcie zmiany. Rokowanie pogarsza się, gdy czerniak wniknie głębiej i da przerzuty, bo jest nowotworem o dużej skłonności do rozsiewu. O wyniku leczenia decyduje więc przede wszystkim moment rozpoznania.',
+                ],
+                [
+                    'question' => 'Na czym polega dermatoskopia i jak często badać znamiona?',
+                    'answer'   => 'Dermatoskopia to bezbolesne badanie znamion w kilkukrotnym powiększeniu i specjalnym oświetleniu, które pozwala zobaczyć struktury niewidoczne gołym okiem i wcześnie wychwycić niepokojące zmiany. Profilaktycznie warto kontrolować znamiona u dermatologa, a osoby z licznymi pieprzykami, jasną karnacją lub czerniakiem w rodzinie powinny robić to częściej. Pomiędzy wizytami pomaga samoobserwacja skóry.',
+                ],
+                [
+                    'question' => 'Kiedy pilnie zgłosić znamię do lekarza?',
+                    'answer'   => 'Do dermatologa zgłoś się bez zwłoki, gdy znamię szybko rośnie, zmienia kształt, kolor lub brzegi, swędzi, piecze, krwawi albo wygląda inaczej niż wszystkie pozostałe. Niepokojące jest też nowe znamię pojawiające się u osoby dorosłej. Lepiej skonsultować zmianę niegroźną niż przeoczyć czerniaka, bo wczesne wycięcie daje najlepsze rokowanie.',
+                ],
+            ],
+            'sources' => [
+                [
+                    'authors'   => 'Schadendorf D., van Akkooi A.C.J., Berking C. i wsp.',
+                    'title'     => 'Melanoma',
+                    'publisher' => 'The Lancet',
+                    'note'      => '2018; 392(10151): 971-984',
+                ],
+                [
+                    'authors'   => 'Rutkowski P., Wysocki P.J. i wsp.',
+                    'title'     => 'Czerniaki skóry - wytyczne postępowania diagnostyczno-terapeutycznego',
+                    'publisher' => 'Polskie Towarzystwo Onkologii Klinicznej (PTOK)',
+                    'note'      => 'onkologia.zalecenia.med.pl',
+                ],
+                [
+                    'authors'   => 'American Academy of Dermatology',
+                    'title'     => 'Melanoma: Overview',
+                    'publisher' => 'AAD',
+                    'note'      => 'Materiał edukacyjny dla pacjentów',
+                ],
+            ],
+        ],
+    ];
+
+    foreach ($articles as $post_slug => $data) {
+        $q = new WP_Query([
+            'name'           => $post_slug,
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts)) {
+            $pid = $q->posts[0];
+            update_post_meta($pid, '_fitmedica_faq', $data['faq']);
+            update_post_meta($pid, '_fitmedica_sources', $data['sources']);
+        }
+        wp_reset_postdata();
+    }
+
+    update_option('fitmedica_faq_setup_v15', true);
+});
+
+/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {
