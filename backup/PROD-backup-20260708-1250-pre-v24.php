@@ -3242,92 +3242,6 @@ add_action('init', function () {
 });
 
 /**
- * v24 - 2 nowe wpisy z FAQ osadzonym INLINE w post_content (Gutenberg, blok
- * <!-- wp:heading --><h2>FAQ</h2> + serie h3/p na koncu tresci). Reviewer byl juz
- * ustawiony recznie (jan-sala / marcin-szumanski), ale FAQ nie szedl przez plugin
- * (brak schema FAQPage) i brakowalo zrodel. Ten blok:
- *   1) ustawia _fitmedica_faq (research-driven, nasza redakcja) + _fitmedica_sources,
- *   2) WYCINA inline FAQ z post_content (backup do opcji), zeby nie dublowac z accordionem.
- * Bio dla marcin-szumanski dodane w fitmedica_get_doctors(). Zrodla zweryfikowane.
- */
-add_action('init', function () {
-    if (get_option('fitmedica_faq_setup_v24')) return;
-
-    $articles = [
-        'zlamanie-zmeczeniowe-jak-rozpoznac-leczyc-i-wrocic-do-sportu' => [
-            'faq' => [
-                ['question' => 'Jak objawia się złamanie zmęczeniowe?', 'answer' => 'Na początku to lekki ból pojawiający się pod koniec wysiłku i ustępujący w spoczynku. Z czasem ból zaczyna się coraz wcześniej podczas aktywności i utrzymuje się dłużej po niej, dochodzi punktowa tkliwość i obrzęk w jednym miejscu. W zaawansowanej fazie ból bywa obecny także w spoczynku i w nocy. Objawy narastające mimo odpoczynku warto skonsultować z ortopedą.'],
-                ['question' => 'Czy przy złamaniu zmęczeniowym można chodzić?', 'answer' => 'Zwykle tak, ale chodzenie jest bolesne i samo w sobie podtrzymuje uraz. Dalsze obciążanie kończyny grozi pogłębieniem pęknięcia, a przy lokalizacjach wysokiego ryzyka nawet pełnym złamaniem. Do czasu diagnozy i zrostu należy odciążyć nogę, a w razie potrzeby korzystać z kul. O zakresie obciążania decyduje lekarz na podstawie badania obrazowego.'],
-                ['question' => 'Ile goi się złamanie zmęczeniowe?', 'answer' => 'Najczęściej od kilku do kilkunastu tygodni, zależnie od lokalizacji i zaawansowania. Złamania niskiego ryzyka, jak piszczel czy kości śródstopia, zrastają się szybciej, a wysokiego ryzyka (na przykład szyjka kości udowej, kość łódkowata) potrzebują więcej czasu i ściślejszego nadzoru. Pełny powrót do sportu zajmuje zwykle kilka miesięcy. Kluczowa jest cierpliwość, bo zbyt wczesne obciążenie wydłuża gojenie.'],
-                ['question' => 'Jak leczy się złamanie zmęczeniowe?', 'answer' => 'Podstawą jest odciążenie i odpoczynek od aktywności, która wywołała uraz, czasem z unieruchomieniem lub chodzeniem o kulach. Większość złamań niskiego ryzyka goi się zachowawczo, a złamania wysokiego ryzyka mogą wymagać leczenia operacyjnego. Po uzyskaniu zrostu wprowadza się rehabilitację i stopniowy powrót do obciążeń. Plan leczenia ortopeda ustala indywidualnie.'],
-                ['question' => 'Jak odróżnić złamanie zmęczeniowe od zapalenia okostnej (shin splints)?', 'answer' => 'Zapalenie okostnej daje rozlany ból na dłuższym odcinku kości, który często łagodnieje po rozgrzaniu. Złamanie zmęczeniowe boli punktowo, w jednym miejscu, a ból nie ustępuje po rozgrzewce i bywa obecny w nocy. Rozróżnienie na podstawie samych objawów bywa trudne, dlatego rozstrzyga badanie obrazowe, najczęściej rezonans magnetyczny.'],
-                ['question' => 'Kiedy można wrócić do biegania po złamaniu zmęczeniowym?', 'answer' => 'Dopiero po zroście i ustąpieniu bólu przy chodzeniu, a najlepiej po zakończeniu rehabilitacji i konsultacji z lekarzem. Trening wznawia się stopniowo, od krótkich i lekkich jednostek, powoli zwiększając obciążenie. Zbyt szybki powrót to najczęstsza przyczyna nawrotu. Bezpieczne tempo progresji pomaga ustalić fizjoterapeuta.'],
-            ],
-            'sources' => [
-                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Stress Fractures', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
-                ['authors' => 'Patel D.S., Roth M., Kapil N.', 'title' => 'Stress fractures: diagnosis, treatment, and prevention', 'publisher' => 'American Family Physician', 'note' => '2011; 83(1): 39-46'],
-                ['authors' => 'Warden S.J., Davis I.S., Fredericson M.', 'title' => 'Management and prevention of bone stress injuries in long-distance runners', 'publisher' => 'Journal of Orthopaedic & Sports Physical Therapy', 'note' => '2014; 44(10): 749-765'],
-            ],
-        ],
-        'entezopatia-zapalenie-rozciegna-podeszwowego-jak-rozpoznac-i-skutecznie-leczyc-bol-piety' => [
-            'faq' => [
-                ['question' => 'Jak wyleczyć zapalenie rozcięgna podeszwowego?', 'answer' => 'Leczenie jest przede wszystkim zachowawcze: rozciąganie rozcięgna i łydki, wkładki ortopedyczne, zmiana obuwia, chłodzenie i doraźnie leki przeciwzapalne. W bardziej opornych przypadkach stosuje się falę uderzeniową lub terapię manualną. Największe znaczenie ma systematyczność, bo tkanka regeneruje się powoli. Zabieg operacyjny rozważa się dopiero po wielu miesiącach nieskutecznego leczenia.'],
-                ['question' => 'Ile trwa leczenie zapalenia rozcięgna podeszwowego?', 'answer' => 'Zwykle od kilku tygodni do kilku miesięcy, a przy przewlekłych dolegliwościach dłużej. Pierwsza poprawa, głównie zmniejszenie porannego bólu, pojawia się najczęściej po kilku tygodniach regularnych ćwiczeń. Większość pacjentów wraca do sprawności w ciągu roku od rozpoczęcia leczenia. Cierpliwość i konsekwencja są tu ważniejsze niż sam odpoczynek.'],
-                ['question' => 'Czym grozi nieleczone zapalenie rozcięgna podeszwowego?', 'answer' => 'Utrzymujący się stan zapalny przechodzi w przewlekły ból pięty i zmianę sposobu chodzenia, co dodatkowo obciąża drugą stopę, kolana i kręgosłup. Im dłużej trwają dolegliwości, tym trudniej je leczyć. Może to ograniczyć aktywność fizyczną i codzienne funkcjonowanie. Dlatego lepiej reagować wcześnie, zanim ból się utrwali.'],
-                ['question' => 'Czy szyny nocne pomagają w leczeniu zapalenia rozcięgna?', 'answer' => 'Tak, szyny nocne utrzymują stopę w lekkim zgięciu grzbietowym i zapobiegają skracaniu rozcięgna w nocy. Dzięki temu zmniejszają charakterystyczny ból pierwszych kroków rano. Sprawdzają się jako metoda wspomagająca, zwłaszcza gdy objawy poranne są nasilone. Stosuje się je razem z ćwiczeniami rozciągającymi, a nie zamiast nich.'],
-                ['question' => 'Czy fala uderzeniowa jest skuteczna i czy może chwilowo nasilić ból?', 'answer' => 'Falę uderzeniową stosuje się w opornych przypadkach, gdy leczenie podstawowe nie przynosi efektu, i u części pacjentów daje wyraźną poprawę. Krótkotrwały dyskomfort lub nasilenie bólu po zabiegu jest normalną reakcją tkanek i zwykle ustępuje po jednym, dwóch dniach. Efekt terapeutyczny pojawia się stopniowo, po kilku tygodniach od serii zabiegów. O doborze metody decyduje specjalista.'],
-                ['question' => 'Czy zapalenie rozcięgna może wystąpić w obu stopach jednocześnie?', 'answer' => 'Tak, dolegliwość bywa obustronna, szczególnie u osób z nadwagą, płaskostopiem lub długo pracujących na stojąco. Obustronne objawy mogą też wskazywać na szersze przeciążenie lub inne przyczyny, które warto ocenić. Najczęściej jednak ból dotyczy jednej stopy. Nieleczone przeciążenie łatwiej przenosi się na drugą kończynę.'],
-            ],
-            'sources' => [
-                ['authors' => 'American Academy of Orthopaedic Surgeons', 'title' => 'Plantar Fasciitis and Bone Spurs', 'publisher' => 'OrthoInfo (AAOS)', 'note' => 'Materiał edukacyjny dla pacjentów'],
-                ['authors' => 'Trojian T., Tucker A.K.', 'title' => 'Plantar Fasciitis', 'publisher' => 'American Family Physician', 'note' => '2019; 99(12): 744-750'],
-                ['authors' => 'Buchbinder R.', 'title' => 'Plantar Fasciitis', 'publisher' => 'New England Journal of Medicine', 'note' => '2004; 350(21): 2159-2166'],
-            ],
-        ],
-    ];
-
-    foreach ($articles as $post_slug => $data) {
-        $q = new WP_Query([
-            'name'           => $post_slug,
-            'post_type'      => 'post',
-            'posts_per_page' => 1,
-            'fields'         => 'ids',
-            'no_found_rows'  => true,
-        ]);
-        if (empty($q->posts)) { wp_reset_postdata(); continue; }
-        $pid = $q->posts[0];
-
-        update_post_meta($pid, '_fitmedica_faq', $data['faq']);
-        update_post_meta($pid, '_fitmedica_sources', $data['sources']);
-
-        // Wytnij inline FAQ z post_content (od bloku <h2>FAQ</h2> do konca tresci).
-        // Bezpiecznik: robimy to TYLKO gdy w tresci jest DOKLADNIE jeden naglowek
-        // <h2>FAQ</h2> (potwierdzone w bazie: to koncowa sekcja wpisu), wiec regex
-        // nie moze przypadkiem zzrec wczesniejszej tresci. Inaczej pomijamy i robimy recznie.
-        $post    = get_post($pid);
-        $content = $post->post_content;
-        $faq_h2  = preg_match_all('/<h2[^>]*>\s*FAQ\s*<\/h2>/i', $content);
-
-        if ($faq_h2 === 1) {
-            $new = preg_replace('/(<!--\s*wp:heading[^>]*-->\s*)?<h2[^>]*>\s*FAQ\s*<\/h2>.*$/is', '', $content);
-            if ($new !== null && $new !== $content && (strlen($content) - strlen($new)) > 200) {
-                if (!get_option('fitmedica_faq_strip_backup_' . $pid)) {
-                    update_option('fitmedica_faq_strip_backup_' . $pid, $content, false);
-                }
-                wp_update_post([
-                    'ID'           => $pid,
-                    'post_content' => rtrim($new),
-                ]);
-            }
-        }
-
-        wp_reset_postdata();
-    }
-
-    update_option('fitmedica_faq_setup_v24', true);
-});
-
-/**
  * Dane lekarzy - pelna lista zespolu fitmedica.pl/zespol/
  */
 function fitmedica_get_doctors() {
@@ -3458,7 +3372,6 @@ function fitmedica_get_doctors() {
             'specialty' => 'Fizjoterapia',
             'photo'     => '/wp-content/uploads/2020/03/mgr-marcin-szumanski-230-230.jpg',
             'profile'   => '/zespol/marcin-szumanski/',
-            'bio'       => 'Fizjoterapeuta, absolwent studiów magisterskich na Warszawskim Uniwersytecie Medycznym. Specjalizuje się w pracy z pacjentami ortopedycznymi kierowanymi do leczenia zabiegowego oraz w rehabilitacji pooperacyjnej. Łączy kinezyterapię z terapią manualną w koncepcji Kaltenborn-Evjenth i technikami mięśniowo-powięziowymi, ze szczególnym uwzględnieniem profilaktyki narządu ruchu i przygotowania do aktywności sportowej.',
         ],
         'hanna-domanska' => [
             'name'      => 'mgr Hanna Domanska',
